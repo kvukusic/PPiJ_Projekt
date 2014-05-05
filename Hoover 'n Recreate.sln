@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover 'n Recreate", "Hoover 'n Recreate\Hoover 'n Recreate.csproj", "{9389F71E-4ACD-48F9-B51B-B3D8FCE0DA7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{C9DC708C-DD37-4B6A-8A21-9EB546CD386B}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\GART.dll = Lib\GART.dll
+		Lib\Matrix3DEx.dll = Lib\Matrix3DEx.dll
+		Lib\Microsoft.Phone.Controls.Maps.dll = Lib\Microsoft.Phone.Controls.Maps.dll
+		Lib\SLARToolKit.dll = Lib\SLARToolKit.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -21,9 +21,9 @@ using Matrix = Microsoft.Xna.Framework.Matrix;
 
 #endregion
 
-namespace Hoover__n_Recreate
+namespace Hoover__n_Recreate.Views
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class TestPageView : PhoneApplicationPage
     {
         private Motion _motion;
         private PhotoCamera _cam;
@@ -38,7 +38,7 @@ namespace Hoover__n_Recreate
         private Matrix _attitude;
 
         // Constructor
-        public MainPage()
+        public TestPageView()
         {
             InitializeComponent();
 
