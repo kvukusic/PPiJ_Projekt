@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{e34fab79-ee1b-4829-b255-f77b8c3a2206}" Title="Hoover'n Recreate" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="IceTea" Description="The best app created on the project of the courQse Programske Paradigme i Jezici" Publisher="IceTea" PublisherID="{224c5385-be60-4491-8624-f6847203da2f}">
+  <App xmlns="" ProductID="{eab5fc60-9fcd-4221-8ff8-4c01c1d910c6}" Title="Hoover" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hoover author" Description="Sample description" Publisher="Hoover" PublisherID="{208e8025-7dd5-42ef-a5c6-6ee0acc76a94}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
+      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
+      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_IDENTITY_DEVICE" />
@@ -13,18 +15,17 @@
       <Capability Name="ID_CAP_LOCATION" />
       <Capability Name="ID_CAP_MAP" />
       <Capability Name="ID_CAP_PROXIMITY" />
-      <Capability Name="ID_CAP_GAMERSERVICES" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="Views/MainPage.xaml" />
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="Hoover_n_Recreate_WP8Token" TaskName="_default">
+      <PrimaryToken TokenID="HooverToken" TaskName="_default">
         <TemplateFlip>
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>Hoover'n Recreate</Title>
+          <Title>Hoover</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
