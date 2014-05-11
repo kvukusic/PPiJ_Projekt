@@ -97,7 +97,6 @@
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Model\HistoryItem.cs" />
-    <Compile Include="Model\SampleClass1.cs" />
     <Compile Include="Model\Statistics.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +106,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\SpeechRecognitionService.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -184,6 +184,9 @@
       <Project>{1c58327a-9ac9-4b8f-9acf-0b7f5973398f}</Project>
       <Name>GART.WP8</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

@@ -97,6 +97,8 @@ namespace Hoover
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            e.Handled = true;
+
             if (Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
@@ -167,23 +169,6 @@ namespace Hoover
 
         #endregion
 
-        // Initialize the app's font and flow direction as defined in its localized resource strings.
-        //
-        // To ensure that the font of your application is aligned with its supported languages and that the
-        // FlowDirection for each of those languages follows its traditional direction, ResourceLanguage
-        // and ResourceFlowDirection should be initialized in each resx file to match these values with that
-        // file's culture. For example:
-        //
-        // AppResources.es-ES.resx
-        //    ResourceLanguage's value should be "es-ES"
-        //    ResourceFlowDirection's value should be "LeftToRight"
-        //
-        // AppResources.ar-SA.resx
-        //     ResourceLanguage's value should be "ar-SA"
-        //     ResourceFlowDirection's value should be "RightToLeft"
-        //
-        // For more info on localizing Windows Phone apps see http://go.microsoft.com/fwlink/?LinkId=262072.
-        //
         private void InitializeLanguage()
         {
             try

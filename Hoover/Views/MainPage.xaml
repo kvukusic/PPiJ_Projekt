@@ -17,7 +17,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<Button x:Name="startGART" Content="Test GART" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="105" Width="278" Click="startGART_Click"/>
-		<Button x:Name="testSpeech" Content="Test Speech" HorizontalAlignment="Right" Margin="0,10,0,0" VerticalAlignment="Top" Height="105" Width="278" Click="TestSpeech_OnClick"/>
+		<!--<Button x:Name="testSpeech" Content="Test Speech" HorizontalAlignment="Right" Margin="0,10,0,0" VerticalAlignment="Top" Height="105" Width="278" Click="TestSpeech_OnClick"/>-->
 	</Grid>
 
 </phone:PhoneApplicationPage>
