@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover 'n Recreate", "Hoover 'n Recreate\Hoover 'n Recreate.csproj", "{9389F71E-4ACD-48F9-B51B-B3D8FCE0DA7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{C9DC708C-DD37-4B6A-8A21-9EB546CD386B}"
-	ProjectSection(SolutionItems) = preProject
-		Lib\GART.WP8.dll = Lib\GART.WP8.dll
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover'n Recreate WP8", "Hoover'n Recreate WP8\Hoover'n Recreate WP8.csproj", "{E34FAB79-EE1B-4829-B255-F77B8C3A2206}"
 EndProject
