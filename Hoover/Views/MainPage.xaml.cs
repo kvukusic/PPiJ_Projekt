@@ -117,7 +117,7 @@ namespace Hoover.Views
 			//ARDisplay.StopServices();
             base.OnNavigatedFrom(e);
 
-            ArDisplay.StopServices();
+            ARDisplay.StopServices();
         }
 
         private void OverheadMap_OnTap(object sender, GestureEventArgs e)
