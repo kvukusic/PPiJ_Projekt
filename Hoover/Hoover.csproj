@@ -172,7 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GART.WP8\GART.WP8.csproj">
-      <Project>{1C58327A-9AC9-4B8F-9ACF-0B7F5973398F}</Project>
+      <Project>{1c58327a-9ac9-4b8f-9acf-0b7f5973398f}</Project>
       <Name>GART.WP8</Name>
     </ProjectReference>
   </ItemGroup>
