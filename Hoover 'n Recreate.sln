@@ -1,11 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{C9DC708C-DD37-4B6A-8A21-9EB546CD386B}"
-	ProjectSection(SolutionItems) = preProject
-		Lib\GART.WP8.dll = Lib\GART.WP8.dll
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover", "Hoover\Hoover.csproj", "{EAB5FC60-9FCD-4221-8FF8-4C01C1D910C6}"
 EndProject
 Global

@@ -165,7 +165,7 @@
   <ItemGroup>
     <Reference Include="GART.WP8, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\GART.WP8.dll</HintPath>
+      <HintPath>..\Library\GART.WP8.dll</HintPath>
     </Reference>
     <Reference Include="Wintellect.Sterling.WindowsPhone">
       <HintPath>..\packages\SterlingPhone.1.6.2\lib\sl3-wp\Wintellect.Sterling.WindowsPhone.dll</HintPath>
