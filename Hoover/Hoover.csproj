@@ -106,7 +106,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\SpeechRecognitionService.cs" />
+    <Compile Include="Services\SpeechRecognitionsService.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
