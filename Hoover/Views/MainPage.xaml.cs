@@ -29,15 +29,13 @@ namespace Hoover.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        SpeechSynthesizer _synthesizer;                             // The speech synthesizer (text-to-speech, TTS) object
-        SpeechRecognizer _recognizer;                               // The speech recognition object
-        SpeechRecognizerUI speechRecognizerUI = new SpeechRecognizerUI();
         private GeoCoordinate _myLocation;
         private GeoCoordinate _destination;
         private MapRoute _mapRoute;
 
         private GeoCoordinateCollection _currentWaypoints;
 
+        SpeechRecognizerUI speechRecognizerUI = new SpeechRecognizerUI();
         public MainPage()
         {
             InitializeComponent();
@@ -54,13 +52,13 @@ namespace Hoover.Views
                 SpeechRecognitionUIResult recognitionResult = await speechRecognizerUI.RecognizeWithUIAsync();
                 MessageBox.Show(recognitionResult.RecognitionResult.Text, "Result", MessageBoxButton.OK);
             }
-           // Dispatcher.BeginInvoke{          }
+            // Dispatcher.BeginInvoke{          }
             catch (Exception ex) // Catch exception and call function to handle it.
             {
-               HandleSpeechSynthesisError(ex);
+                HandleSpeechSynthesisError(ex);
             }
         }
-       
+
         private static void HandleSpeechSynthesisError(Exception ex)
         {
             // convert the HResult code to an int for comparison to returned
@@ -129,7 +127,7 @@ namespace Hoover.Views
 
         private async void InitMainPage()
         {
-           
+
         }
 
         /// <summary>
@@ -139,15 +137,6 @@ namespace Hoover.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            ARDisplay.StartServices();
-
-            this._currentWaypoints = new GeoCoordinateCollection();
-
-            this._myLocation = ARDisplay.Location;
-            this._currentWaypoints.Add(_myLocation);
-            this.InitMainPage();
-
         }
 
         /// <summary>
@@ -156,86 +145,92 @@ namespace Hoover.Views
         /// <param name="e">An object that contains the event data.</param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-			//ARDisplay.StopServices();
             base.OnNavigatedFrom(e);
-
-            ARDisplay.StopServices();
         }
 
-        private void OverheadMap_OnTap(object sender, GestureEventArgs e)
+        /// <summary>
+        /// Called just before a page is no longer the active page in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the event data.</param>
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            Map mapControl = this.OverheadMap.Map;
-            if (mapControl != null)
-            {
-                _destination = mapControl.ConvertViewportPointToGeoCoordinate(e.GetPosition(mapControl));
-                // Add the current destination to the waypoints list
-
-                //mapControl.MapElements.Add(new MapPolyline()
-                //{
-                //    StrokeThickness = 3,
-                //    StrokeColor = Colors.Gray,
-                //    Path = _currentWaypoints
-                //});
-
-                mapControl.Layers.Add(new MapLayer()
-                {
-                    new MapOverlay()
-                    {
-                        GeoCoordinate = _destination,
-                        PositionOrigin = new Point(0.5, 0.5),
-                        Content = CreateIndicator(),
-                    }
-                });
-                _currentWaypoints.Add(_destination);
-
-                RouteQuery query = new RouteQuery()
-                {
-                    TravelMode = TravelMode.Walking,
-                    Waypoints = _currentWaypoints.ToList()
-                };
-
-                query.QueryCompleted += routeQuery_QueryCompleted;
-                query.QueryAsync();
-            }
+            base.OnNavigatingFrom(e);
         }
+
+        //private void OverheadMap_OnTap(object sender, GestureEventArgs e)
+        //{
+        //	Map mapControl = this.OverheadMap.Map;
+        //	if (mapControl != null)
+        //	{
+        //		_destination = mapControl.ConvertViewportPointToGeoCoordinate(e.GetPosition(mapControl));
+        //		// Add the current destination to the waypoints list
+
+        //		//mapControl.MapElements.Add(new MapPolyline()
+        //		//{
+        //		//    StrokeThickness = 3,
+        //		//    StrokeColor = Colors.Gray,
+        //		//    Path = _currentWaypoints
+        //		//});
+
+        //		mapControl.Layers.Add(new MapLayer()
+        //		{
+        //			new MapOverlay()
+        //			{
+        //				GeoCoordinate = _destination,
+        //				PositionOrigin = new Point(0.5, 0.5),
+        //				Content = CreateIndicator(),
+        //			}
+        //		});
+        //		_currentWaypoints.Add(_destination);
+
+        //		RouteQuery query = new RouteQuery()
+        //		{
+        //			TravelMode = TravelMode.Walking,
+        //			Waypoints = _currentWaypoints.ToList()
+        //		};
+
+        //		query.QueryCompleted += routeQuery_QueryCompleted;
+        //		query.QueryAsync();
+        //	}
+        //}
 
         /// <summary>
         /// Creates the indicator on a map.
         /// </summary>
         /// <returns></returns>
-        private UIElement CreateIndicator()
-        {
-            return new Ellipse()
-            {
-                Fill = new SolidColorBrush(Colors.Red),
-                Width = 15,
-                Height = 15
-            };
-        }
+        //private UIElement CreateIndicator()
+        //{
+        //	return new Ellipse()
+        //	{
+        //		Fill = new SolidColorBrush(Colors.Red),
+        //		Width = 15,
+        //		Height = 15
+        //	};
+        //}
 
-        private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
-        {
-            try
-            {
-                Map mapControl = this.OverheadMap.Map;
-                if (mapControl != null)
-                {
-                    if (_mapRoute != null) mapControl.RemoveRoute(_mapRoute);
-                    _mapRoute = new MapRoute(e.Result);
-                    mapControl.AddRoute(_mapRoute);
-                    //routeInfo.Text = "Distance: " + e.Result.LengthInMeters + "\nTime: " + e.Result.EstimatedDuration;
-                    //routeInfo.Visibility = System.Windows.Visibility.Visible;
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
+        //private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
+        //{
+        //	try
+        //	{
+        //		Map mapControl = this.OverheadMap.Map;
+        //		if (mapControl != null)
+        //		{
+        //			if (_mapRoute != null) mapControl.RemoveRoute(_mapRoute);
+        //			_mapRoute = new MapRoute(e.Result);
+        //			mapControl.AddRoute(_mapRoute);
+        //			//routeInfo.Text = "Distance: " + e.Result.LengthInMeters + "\nTime: " + e.Result.EstimatedDuration;
+        //			//routeInfo.Visibility = System.Windows.Visibility.Visible;
+        //		}
+        //	}
+        //	catch (Exception)
+        //	{
+        //	}
+        //}
 
-		private void startGART_Click(object sender, RoutedEventArgs e)
-		{
-			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
-		}
+        private void startGART_Click(object sender, RoutedEventArgs e)
+        {
+            Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
+        }
 
         private async void TestSpeech_OnClick(object sender, RoutedEventArgs e)
         {
@@ -265,7 +260,7 @@ namespace Hoover.Views
             }
             else
                 MessageBox.Show("Please connect to internet to use speech recognition", "No network", MessageBoxButton.OKCancel);
-            
+
         }
     }
 }

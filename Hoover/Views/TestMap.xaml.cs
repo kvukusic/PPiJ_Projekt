@@ -67,19 +67,13 @@ namespace Hoover.Views
 					break;
 				case PageOrientation.Portrait:
 				case PageOrientation.PortraitUp:
+                    this.
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Default;
 					break;
 				case PageOrientation.PortraitDown:
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise180Degrees;
 					break;
 			}
-		}
-
-		private void VideoPreview_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-		{
-			var test = this.OverheadMap.Width;
-			this.VideoPreview.Width = double.NaN;
-			this.VideoPreview.Height = double.NaN;
 		}
 
 	    private bool _isMapActive = false;
@@ -91,13 +85,13 @@ namespace Hoover.Views
 	            this.OverheadMap.VerticalAlignment = VerticalAlignment.Top;
 	            this.OverheadMap.HorizontalAlignment = HorizontalAlignment.Right;
 	            this.OverheadMap.Width = _previewBoxWidth;
-	            this.OverheadMap.Height = _previewBoxHeight;
+                this.OverheadMap.Height = _previewBoxHeight;
                 Canvas.SetZIndex(this.OverheadMap, 1);
 
 	            this.VideoPreview.VerticalAlignment = VerticalAlignment.Stretch;
 	            this.VideoPreview.HorizontalAlignment = HorizontalAlignment.Stretch;
 	            this.VideoPreview.Width = Double.NaN;
-	            this.VideoPreview.Height = Double.NaN;
+                this.VideoPreview.Height = Double.NaN;
                 Canvas.SetZIndex(this.VideoPreview, 0);
 
                 this._isMapActive = false;
