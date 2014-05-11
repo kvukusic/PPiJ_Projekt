@@ -21,7 +21,7 @@ namespace Hoover.Database
         {
             return new List<ITableDefinition>
                        {
-                           CreateTableDefinition<HistoryItem, int>(item => item.Id),
+                           CreateTableDefinition<HistoryItem, int>(item => item.ID),
                        };
         }
     }

@@ -14,8 +14,10 @@
     
     
     <!-- COLORS & BRUSHES -->
+    <SolidColorBrush x:Key="PageBackgroundBrush" Color="#7E99B2"/>
+    <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#25323E"/>
     
-    
+    <SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
     
 
 </ResourceDictionary>
