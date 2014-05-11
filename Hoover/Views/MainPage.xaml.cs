@@ -195,8 +195,32 @@ namespace Hoover.Views
 			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
 		}
 
-        private void TestSpeech_OnClick(object sender, RoutedEventArgs e)
+        private async void TestSpeech_OnClick(object sender, RoutedEventArgs e)
         {
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable() == true)
+            {
+                _synthesizer = new SpeechSynthesizer();
+                _recognizer = new SpeechRecognizer();
+                await _synthesizer.SpeakTextAsync("Command now!");
+                var recoResult = await _recognizer.RecognizeAsync();
+                if (recoResult.TextConfidence < SpeechRecognitionConfidence.Medium)
+                {
+                    // If the confidence level of the speech recognition attempt is low, 
+                    // ask the user to try again.
+                    MessageBox.Show("Nije prepoznato", "Error", MessageBoxButton.OK);
+                    await _synthesizer.SpeakTextAsync("Not sure what you said, please try again");
+                    InitMainPage();
+                }
+                else
+        {
+                    // Output that the color of the rectangle is changing by updating
+                    // the TextBox control and by using text-to-speech (TTS). 
+                    MessageBox.Show(recoResult.Text, "Uspjeh", MessageBoxButton.OK);
+                    await _synthesizer.SpeakTextAsync(recoResult.Text);
+                }
+            }
+            else
+                MessageBox.Show("Please connect to internet", "No network", MessageBoxButton.OKCancel);
             
         }
     }
