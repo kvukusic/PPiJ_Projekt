@@ -27,7 +27,7 @@ namespace Hoover.Views
         private GeoCoordinate _destination;
         private MapRoute _mapRoute;
 
-        private List<GeoCoordinate> _currentWaypoints;
+        private GeoCoordinateCollection _currentWaypoints;
 
         public MainPage()
         {
@@ -38,7 +38,9 @@ namespace Hoover.Views
 
         private void InitMainPage()
         {
-            
+
+            //OverheadMap.Map.PedestrianFeaturesEnabled = true;
+            //OverheadMap.Map.LandmarksEnabled = true;
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace Hoover.Views
 
             ArDisplay.StartServices();
 
-            this._currentWaypoints = new List<GeoCoordinate>();
+            this._currentWaypoints = new GeoCoordinateCollection();
 
             this._myLocation = ArDisplay.Location;
             this._currentWaypoints.Add(_myLocation);
@@ -76,19 +78,28 @@ namespace Hoover.Views
                 _destination = mapControl.ConvertViewportPointToGeoCoordinate(e.GetPosition(mapControl));
                 // Add the current destination to the waypoints list
 
-                mapControl.Layers.Add(new MapLayer() {
-				    new MapOverlay()
-				    {
-				        GeoCoordinate = _destination,
-					    PositionOrigin = new Point(0.5, 0.5),
-					    Content = CreateIndicator()
-				    }});
+                //mapControl.MapElements.Add(new MapPolyline()
+                //{
+                //    StrokeThickness = 3,
+                //    StrokeColor = Colors.Gray,
+                //    Path = _currentWaypoints
+                //});
+
+                mapControl.Layers.Add(new MapLayer()
+                {
+                    new MapOverlay()
+                    {
+                        GeoCoordinate = _destination,
+                        PositionOrigin = new Point(0.5, 0.5),
+                        Content = CreateIndicator(),
+                    }
+                });
                 _currentWaypoints.Add(_destination);
 
                 RouteQuery query = new RouteQuery()
                 {
                     TravelMode = TravelMode.Walking,
-                    Waypoints = _currentWaypoints
+                    Waypoints = _currentWaypoints.ToList()
                 };
 
                 query.QueryCompleted += routeQuery_QueryCompleted;
