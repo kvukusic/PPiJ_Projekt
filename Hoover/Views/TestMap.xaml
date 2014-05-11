@@ -16,8 +16,8 @@
     shell:SystemTray.IsVisible="False">
     
     <phone:PhoneApplicationPage.Resources>
-        <system:Double x:Key="PreviewBoxWidth">250.0</system:Double>
-        <system:Double x:Key="PreviewBoxHeight">188.0</system:Double>
+        <system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
+        <system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -35,7 +35,7 @@
 				<gart:OverheadMap x:Name="OverheadMap"/>
                 <gart:VideoPreview x:Name="VideoPreview"/>
             </gart:ARDisplay>
-            <Grid x:Name="PreviewBox" Width="{StaticResource PreviewBoxWidth}" Height="{StaticResource PreviewBoxHeight}" VerticalAlignment="Top" HorizontalAlignment="Right" Tap="PreviewBox_OnTap"/>
+            <Grid x:Name="PreviewBox" Canvas.ZIndex="999" Width="{StaticResource PreviewBoxWidth}" Height="{StaticResource PreviewBoxHeight}" Opacity="0.01" Background="White" VerticalAlignment="Top" HorizontalAlignment="Right" Tap="PreviewBox_OnTap"/>
 		</Grid>
     </Grid>
 

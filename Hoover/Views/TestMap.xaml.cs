@@ -92,15 +92,30 @@ namespace Hoover.Views
 	            this.OverheadMap.HorizontalAlignment = HorizontalAlignment.Right;
 	            this.OverheadMap.Width = _previewBoxWidth;
 	            this.OverheadMap.Height = _previewBoxHeight;
+                Canvas.SetZIndex(this.OverheadMap, 1);
 
 	            this.VideoPreview.VerticalAlignment = VerticalAlignment.Stretch;
 	            this.VideoPreview.HorizontalAlignment = HorizontalAlignment.Stretch;
-                //this.VideoPreview.Width = 
+	            this.VideoPreview.Width = Double.NaN;
+	            this.VideoPreview.Height = Double.NaN;
+                Canvas.SetZIndex(this.VideoPreview, 0);
 
-                //this._isMapActive = false;
+                this._isMapActive = false;
 	        }
 	        else
 	        {
+                this.VideoPreview.VerticalAlignment = VerticalAlignment.Top;
+                this.VideoPreview.HorizontalAlignment = HorizontalAlignment.Right;
+                this.VideoPreview.Width = _previewBoxWidth;
+                this.VideoPreview.Height = _previewBoxHeight;
+                Canvas.SetZIndex(this.VideoPreview, 1);
+
+                this.OverheadMap.VerticalAlignment = VerticalAlignment.Stretch;
+                this.OverheadMap.HorizontalAlignment = HorizontalAlignment.Stretch;
+                this.OverheadMap.Width = Double.NaN;
+                this.OverheadMap.Height = Double.NaN;
+                Canvas.SetZIndex(this.OverheadMap, 0);
+
 	            this._isMapActive = true;
 	        }
 	    }
