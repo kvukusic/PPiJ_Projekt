@@ -143,5 +143,10 @@ namespace Hoover.Views
 		{
 			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
 		}
+
+        private void TestSpeech_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

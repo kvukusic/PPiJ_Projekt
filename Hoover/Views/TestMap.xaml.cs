@@ -1,4 +1,10 @@
-﻿using Microsoft.Phone.Controls;
+﻿#region
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Hoover.Annotations;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps;
 using Microsoft.Phone.Shell;
 using System;
@@ -14,19 +20,31 @@ using GART.Controls;
 using System.Windows.Media;
 using Microsoft.Devices;
 
+#endregion
+
 namespace Hoover.Views
 {
-	public partial class TestMap : PhoneApplicationPage
+	public partial class TestMap : PhoneApplicationPage, INotifyPropertyChanged
 	{
+	    private double _previewBoxWidth;
+	    private double _previewBoxHeight;
+
 		public TestMap()
 		{
 			InitializeComponent();
+
+		    this._previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
+		    this._previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
+		    this.DataContext = this;
+
 			InitARDisplay();
 		}
 
 		private void InitARDisplay()
 		{
 			ARDisplay.StartServices();
+
+            this.ToggleView();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,8 +80,47 @@ namespace Hoover.Views
 			var test = this.OverheadMap.Width;
 			this.VideoPreview.Width = double.NaN;
 			this.VideoPreview.Height = double.NaN;
-
 		}
+
+	    private bool _isMapActive = false;
+
+	    private void ToggleView()
+	    {
+	        if (_isMapActive)
+	        {
+	            this.OverheadMap.VerticalAlignment = VerticalAlignment.Top;
+	            this.OverheadMap.HorizontalAlignment = HorizontalAlignment.Right;
+	            this.OverheadMap.Width = _previewBoxWidth;
+	            this.OverheadMap.Height = _previewBoxHeight;
+
+	            this.VideoPreview.VerticalAlignment = VerticalAlignment.Stretch;
+	            this.VideoPreview.HorizontalAlignment = HorizontalAlignment.Stretch;
+                //this.VideoPreview.Width = 
+
+                //this._isMapActive = false;
+	        }
+	        else
+	        {
+	            this._isMapActive = true;
+	        }
+	    }
+        
+        private void PreviewBox_OnTap(object sender, GestureEventArgs e)
+        {
+            this.ToggleView();
+        }
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        } 
+        #endregion
 
 	}
 }
