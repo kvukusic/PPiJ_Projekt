@@ -16,6 +16,12 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
+using Windows.Phone.Speech.Synthesis;
+using Windows.Phone.Speech.Recognition;
+using Microsoft.Phone.Net.NetworkInformation;
+using System.Net.NetworkInformation;
+using Windows.Phone.Speech.VoiceCommands;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -23,6 +29,9 @@ namespace Hoover.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        SpeechSynthesizer _synthesizer;                             // The speech synthesizer (text-to-speech, TTS) object
+        SpeechRecognizer _recognizer;                               // The speech recognition object
+        SpeechRecognizerUI speechRecognizerUI = new SpeechRecognizerUI();
         private GeoCoordinate _myLocation;
         private GeoCoordinate _destination;
         private MapRoute _mapRoute;
@@ -32,12 +41,50 @@ namespace Hoover.Views
         public MainPage()
         {
             InitializeComponent();
-
-            InitMainPage();
+            RegisterVoiceCommands();
         }
 
-        private void InitMainPage()
+        private async Task RecognizeSpeech()
         {
+            speechRecognizerUI.Settings.ListenText="Say your command...";
+            speechRecognizerUI.Settings.ExampleText="Start Stop";
+            speechRecognizerUI.Settings.ReadoutEnabled=true;
+            speechRecognizerUI.Settings.ShowConfirmation = false;
+            SpeechRecognitionUIResult recognitionResult = await speechRecognizerUI.RecognizeWithUIAsync();
+           // Dispatcher.BeginInvoke{          }
+        }
+        private async void RegisterVoiceCommands()
+        {
+         await VoiceCommandService.InstallCommandSetsFromFileAsync(new Uri("ms-appx:///VoiceCommandDefinition.xml", UriKind.RelativeOrAbsolute));
+        }
+
+
+        private async void InitMainPage()
+        {
+            _synthesizer = new SpeechSynthesizer();
+            _recognizer = new SpeechRecognizer();
+            await _synthesizer.SpeakTextAsync("Command now!");
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()==true)
+            {
+                var recoResult = await _recognizer.RecognizeAsync();
+                if (recoResult.TextConfidence < SpeechRecognitionConfidence.Medium)
+                {
+                    // If the confidence level of the speech recognition attempt is low, 
+                    // ask the user to try again.
+                    MessageBox.Show("Nije prepoznato", "Error", MessageBoxButton.OK);
+                    await _synthesizer.SpeakTextAsync("Not sure what you said, please try again");
+            InitMainPage();
+        }
+                else
+        {
+                        // Output that the color of the rectangle is changing by updating
+                        // the TextBox control and by using text-to-speech (TTS). 
+                        MessageBox.Show(recoResult.Text, "Uspjeh", MessageBoxButton.OK);
+                        await _synthesizer.SpeakTextAsync(recoResult.Text);
+                }
+            }
+            else
+            MessageBox.Show("Please connect to internet", "No network", MessageBoxButton.OKCancel);
 
             //OverheadMap.Map.PedestrianFeaturesEnabled = true;
             //OverheadMap.Map.LandmarksEnabled = true;
@@ -57,6 +104,8 @@ namespace Hoover.Views
 
             this._myLocation = ARDisplay.Location;
             this._currentWaypoints.Add(_myLocation);
+            this.InitMainPage();
+
         }
 
         /// <summary>
@@ -67,6 +116,8 @@ namespace Hoover.Views
         {
 			//ARDisplay.StopServices();
             base.OnNavigatedFrom(e);
+
+            ArDisplay.StopServices();
         }
 
         private void OverheadMap_OnTap(object sender, GestureEventArgs e)
