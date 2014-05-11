@@ -5,15 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover 'n Recreate", "Hoove
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{C9DC708C-DD37-4B6A-8A21-9EB546CD386B}"
 	ProjectSection(SolutionItems) = preProject
-		Lib\GART.dll = Lib\GART.dll
 		Lib\GART.WP8.dll = Lib\GART.WP8.dll
-		Lib\Matrix3DEx.dll = Lib\Matrix3DEx.dll
-		Lib\Microsoft.Phone.Controls.Maps.dll = Lib\Microsoft.Phone.Controls.Maps.dll
-		Lib\Microsoft.Phone.Controls.Toolkit.dll = Lib\Microsoft.Phone.Controls.Toolkit.dll
-		Lib\SLARToolKit.dll = Lib\SLARToolKit.dll
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoover'n Recreate", "WP8\Hoover'n Recreate\Hoover'n Recreate.csproj", "{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,24 +28,6 @@ Global
 		{9389F71E-4ACD-48F9-B51B-B3D8FCE0DA7B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{9389F71E-4ACD-48F9-B51B-B3D8FCE0DA7B}.Release|ARM.ActiveCfg = Release|Any CPU
 		{9389F71E-4ACD-48F9-B51B-B3D8FCE0DA7B}.Release|x86.ActiveCfg = Release|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|ARM.ActiveCfg = Debug|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|ARM.Build.0 = Debug|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|ARM.Deploy.0 = Debug|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|x86.ActiveCfg = Debug|x86
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|x86.Build.0 = Debug|x86
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Debug|x86.Deploy.0 = Debug|x86
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|ARM.ActiveCfg = Release|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|ARM.Build.0 = Release|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|ARM.Deploy.0 = Release|ARM
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|x86.ActiveCfg = Release|x86
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|x86.Build.0 = Release|x86
-		{3F356555-C6C4-4EE0-93B6-86DCCCCF71BB}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
