@@ -28,7 +28,7 @@
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="settings"/>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about"/>
 			</shell:ApplicationBar.MenuItems>
-			<shell:ApplicationBarIconButton IconUri="/Assets/AppBarIcons/appbar.microphone.png" IsEnabled="True" Text="speech"/>
+			<shell:ApplicationBarIconButton x:Name="SpeechButton" IconUri="/Assets/AppBarIcons/appbar.microphone.png" IsEnabled="True" Text="speech" Click="SpeechButton_Click"/>
 
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
