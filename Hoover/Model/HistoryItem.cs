@@ -38,5 +38,10 @@ namespace Hoover.Model
 		/// </summary>
 		public double RouteLength;
 
+		/// <summary>
+		/// Average speed on route.
+		/// </summary>
+		public double AverageSpeed;
+
     }
 }
