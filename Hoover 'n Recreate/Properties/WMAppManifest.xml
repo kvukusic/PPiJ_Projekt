@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{9389f71e-4acd-48f9-b51b-b3d8fce0da7b}" Title="Hoover'n Recreate" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="IceTeam" Description="The best app created on the project of the course Programske Paradigme i Jezici" Publisher="IceTea">
+  <App xmlns="" ProductID="{9389f71e-4acd-48f9-b51b-b3d8fce0da7b}" Title="Hoover'n Recreate" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="IceTeam" Description="The best app created on the project of the courQse Programske Paradigme i Jezici" Publisher="IceTea">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
