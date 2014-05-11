@@ -35,24 +35,34 @@ namespace Hoover.Services
 		    }
 		}
 
-		private async Task<string> RecognizeSpeech()
+		public async Task<string> RecognizeSpeech()
 		{
 		    if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
 		    {
-                try
+                return await Task.Run(async () =>
                 {
-                    _speechRecognizerUI.Settings.ListenText = "Say your command...";
-                    _speechRecognizerUI.Settings.ExampleText = "Start Stop";
-                    _speechRecognizerUI.Settings.ReadoutEnabled = true;
-                    _speechRecognizerUI.Settings.ShowConfirmation = false;
-                    SpeechRecognitionUIResult recognitionResult = await _speechRecognizerUI.RecognizeWithUIAsync();
+                    try
+                    {
+                        _speechRecognizerUI.Settings.ListenText = "Say your command...";
+                        _speechRecognizerUI.Settings.ExampleText = "Example: Start/Stop";
+                        _speechRecognizerUI.Settings.ReadoutEnabled = false;
+                        _speechRecognizerUI.Settings.ShowConfirmation = false;
+                        SpeechRecognitionUIResult recognitionResult;
+                        do
+                        {
+                            recognitionResult = await _speechRecognizerUI.RecognizeWithUIAsync();
+                        }
+                        while (recognitionResult.RecognitionResult.TextConfidence < SpeechRecognitionConfidence.Medium);
 
-                    return recognitionResult.RecognitionResult.Text;
-                }
-                catch (Exception ex)
-                {
-                    HandleSpeechSynthesisError(ex);
-                }
+                        return recognitionResult.RecognitionResult.Text;
+                    }
+                    catch (Exception ex)
+                    {
+                        HandleSpeechSynthesisError(ex);
+                        return null;
+                    }
+
+                });
 		    }
 
 		    return null;

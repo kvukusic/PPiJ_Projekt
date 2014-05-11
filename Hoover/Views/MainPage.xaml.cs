@@ -142,5 +142,11 @@ namespace Hoover.Views
 			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
 		}
 
+        private async void SpeechButton_Click(object sender, EventArgs e)
+        {
+           string s=await App.SpeechRecognitionService.RecognizeSpeech();
+           
+        }
+
 	}
 }
