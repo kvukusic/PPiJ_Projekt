@@ -42,7 +42,31 @@ namespace Hoover.Views
         {
             InitializeComponent();
             RegisterVoiceCommands();
+
+            BuildApplicationBar();
         }
+
+        #region Application Bar Code
+
+        private void BuildApplicationBar()
+        {
+            var settingsMenuItem = new ApplicationBarMenuItem("settings");
+            settingsMenuItem.Click += (sender, args) =>
+            {
+
+            };
+            var aboutMenuItem = new ApplicationBarMenuItem("about");
+            aboutMenuItem.Click += (sender, args) =>
+            {
+
+            };
+
+            var appBar = new ApplicationBar();
+
+            this.ApplicationBar = appBar;
+        }
+
+        #endregion
 
         private async Task RecognizeSpeech()
         {
