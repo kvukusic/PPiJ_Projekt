@@ -35,35 +35,10 @@ namespace Hoover.Views
 
 		private GeoCoordinateCollection _currentWaypoints;
 
-		SpeechRecognizerUI speechRecognizerUI = new SpeechRecognizerUI();
 		public MainPage()
 		{
 			InitializeComponent();
-
-			BuildApplicationBar();
 		}
-
-		#region Application Bar Code
-
-		private async void BuildApplicationBar()
-		{
-			var settingsMenuItem = new ApplicationBarMenuItem("settings");
-			settingsMenuItem.Click += (sender, args) =>
-			{
-
-			};
-			var aboutMenuItem = new ApplicationBarMenuItem("about");
-			aboutMenuItem.Click += (sender, args) =>
-			{
-
-			};
-
-			var appBar = new ApplicationBar();
-
-			this.ApplicationBar = appBar;
-		}
-
-		#endregion
 
 		/// <summary>
 		/// Called when a page becomes the active page in a frame.

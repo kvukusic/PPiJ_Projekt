@@ -6,7 +6,9 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using Windows.Phone.Speech.Recognition;
 using Hoover.Database;
+using Hoover.Services;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Hoover.Resources;
@@ -24,9 +26,14 @@ namespace Hoover
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         /// <summary>
-        /// 
+        /// Instance of <see cref="DataAccess"/> class.
         /// </summary>
         public static DataAccess DataAccess = new DataAccess();
+
+        /// <summary>
+        /// Instance of the <see cref="SpeechRecognitionService"/> class.
+        /// </summary>
+        public static SpeechRecognitionService SpeechRecognitionService = new SpeechRecognitionService();
 
         /// <summary>
         /// Constructor for the Application object.
