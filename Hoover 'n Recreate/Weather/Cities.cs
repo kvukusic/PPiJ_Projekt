@@ -20,6 +20,7 @@ namespace Hoover__n_Recreate.Weather
         /// </summary>
         public void LoadDefaultData()
         {
+
             //App.cityList.Add(new City("Zagreb", "45.8", "15.98"));
         }
 
