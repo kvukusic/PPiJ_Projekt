@@ -67,6 +67,7 @@ namespace Hoover.Views
 					break;
 				case PageOrientation.Portrait:
 				case PageOrientation.PortraitUp:
+                    this.
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Default;
 					break;
 				case PageOrientation.PortraitDown:

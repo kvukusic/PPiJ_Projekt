@@ -115,7 +115,18 @@ namespace Hoover.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
 			//ARDisplay.StopServices();
-            base.OnNavigatedFrom(e);
+            //base.OnNavigatedFrom(e);
+
+            //ARDisplay.StopServices();
+        }
+
+        /// <summary>
+        /// Called just before a page is no longer the active page in a frame.
+        /// </summary>
+        /// <param name="e">An object that contains the event data.</param>
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
 
             ARDisplay.StopServices();
         }
