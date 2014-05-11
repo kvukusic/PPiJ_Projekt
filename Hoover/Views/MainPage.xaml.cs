@@ -51,11 +51,11 @@ namespace Hoover.Views
         {
             base.OnNavigatedTo(e);
 
-            ArDisplay.StartServices();
+            ARDisplay.StartServices();
 
             this._currentWaypoints = new GeoCoordinateCollection();
 
-            this._myLocation = ArDisplay.Location;
+            this._myLocation = ARDisplay.Location;
             this._currentWaypoints.Add(_myLocation);
         }
 
@@ -65,9 +65,8 @@ namespace Hoover.Views
         /// <param name="e">An object that contains the event data.</param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+			//ARDisplay.StopServices();
             base.OnNavigatedFrom(e);
-
-            ArDisplay.StopServices();
         }
 
         private void OverheadMap_OnTap(object sender, GestureEventArgs e)
@@ -139,5 +138,10 @@ namespace Hoover.Views
             {
             }
         }
+
+		private void startGART_Click(object sender, RoutedEventArgs e)
+		{
+			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
+		}
     }
 }

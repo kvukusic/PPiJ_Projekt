@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hoover__n_Recreate.Model;
+using Hoover.Model;
 using Wintellect.Sterling.Database;
 
 #endregion
 
-namespace Hoover__n_Recreate.Database
+namespace Hoover.Database
 {
     /// <summary>
     /// This is the My Games database instance for Sterling DB.

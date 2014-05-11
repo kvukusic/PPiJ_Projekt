@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace Hoover__n_Recreate.Weather
+namespace Hoover.Weather
 {
     /// <summary>
     /// Class for holding the forecast for a particular time period

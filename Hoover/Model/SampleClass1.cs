@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace Hoover__n_Recreate.Model
+namespace Hoover.Model
 {
     public class SampleClass1
     {
