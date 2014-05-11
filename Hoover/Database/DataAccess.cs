@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hoover__n_Recreate.Model;
+using Hoover.Model;
 using Wintellect.Sterling;
 using Wintellect.Sterling.IsolatedStorage;
 
 #endregion
 
-namespace Hoover__n_Recreate.Database
+namespace Hoover.Database
 {
     public class DataAccess
     {

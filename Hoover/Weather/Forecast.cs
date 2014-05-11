@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace Hoover__n_Recreate.Weather
+namespace Hoover.Weather
 {
     public class Forecast : INotifyPropertyChanged
     {

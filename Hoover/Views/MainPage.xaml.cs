@@ -23,7 +23,6 @@ using System.Net.NetworkInformation;
 using Windows.Phone.Speech.VoiceCommands;
 using System.Threading.Tasks;
 
-
 #endregion
 
 namespace Hoover.Views
@@ -37,7 +36,7 @@ namespace Hoover.Views
         private GeoCoordinate _destination;
         private MapRoute _mapRoute;
 
-        private List<GeoCoordinate> _currentWaypoints;
+        private GeoCoordinateCollection _currentWaypoints;
 
         public MainPage()
         {
@@ -74,10 +73,10 @@ namespace Hoover.Views
                     // ask the user to try again.
                     MessageBox.Show("Nije prepoznato", "Error", MessageBoxButton.OK);
                     await _synthesizer.SpeakTextAsync("Not sure what you said, please try again");
-                    InitMainPage();
-                }
+            InitMainPage();
+        }
                 else
-                {
+        {
                         // Output that the color of the rectangle is changing by updating
                         // the TextBox control and by using text-to-speech (TTS). 
                         MessageBox.Show(recoResult.Text, "Uspjeh", MessageBoxButton.OK);
@@ -86,6 +85,9 @@ namespace Hoover.Views
             }
             else
             MessageBox.Show("Please connect to internet", "No network", MessageBoxButton.OKCancel);
+
+            //OverheadMap.Map.PedestrianFeaturesEnabled = true;
+            //OverheadMap.Map.LandmarksEnabled = true;
         }
 
         /// <summary>
@@ -95,12 +97,12 @@ namespace Hoover.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            
-            ArDisplay.StartServices();
 
-            this._currentWaypoints = new List<GeoCoordinate>();
+            ARDisplay.StartServices();
 
-            this._myLocation = ArDisplay.Location;
+            this._currentWaypoints = new GeoCoordinateCollection();
+
+            this._myLocation = ARDisplay.Location;
             this._currentWaypoints.Add(_myLocation);
             this.InitMainPage();
 
@@ -112,9 +114,10 @@ namespace Hoover.Views
         /// <param name="e">An object that contains the event data.</param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+			//ARDisplay.StopServices();
             base.OnNavigatedFrom(e);
 
-            //ArDisplay.StopServices();
+            ArDisplay.StopServices();
         }
 
         private void OverheadMap_OnTap(object sender, GestureEventArgs e)
@@ -125,19 +128,28 @@ namespace Hoover.Views
                 _destination = mapControl.ConvertViewportPointToGeoCoordinate(e.GetPosition(mapControl));
                 // Add the current destination to the waypoints list
 
-                mapControl.Layers.Add(new MapLayer() {
+                //mapControl.MapElements.Add(new MapPolyline()
+                //{
+                //    StrokeThickness = 3,
+                //    StrokeColor = Colors.Gray,
+                //    Path = _currentWaypoints
+                //});
+
+                mapControl.Layers.Add(new MapLayer()
+                {
 				    new MapOverlay()
 				    {
 				        GeoCoordinate = _destination,
 					    PositionOrigin = new Point(0.5, 0.5),
-					    Content = CreateIndicator()
-				    }});
+                        Content = CreateIndicator(),
+                    }
+                });
                 _currentWaypoints.Add(_destination);
 
                 RouteQuery query = new RouteQuery()
                 {
                     TravelMode = TravelMode.Walking,
-                    Waypoints = _currentWaypoints
+                    Waypoints = _currentWaypoints.ToList()
                 };
 
                 query.QueryCompleted += routeQuery_QueryCompleted;
@@ -176,6 +188,11 @@ namespace Hoover.Views
             catch (Exception)
             {
             }
+        }
+
+		private void startGART_Click(object sender, RoutedEventArgs e)
+		{
+			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
         }
     }
 }

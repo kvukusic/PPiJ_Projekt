@@ -11,7 +11,7 @@ using System.Windows.Navigation;
 
 #endregion
 
-namespace Hoover__n_Recreate.Services
+namespace Hoover.Services
 {
     /// <summary>
     /// Windows Phone implementation of the <see cref="NavigationService"/>.
@@ -181,7 +181,7 @@ namespace Hoover__n_Recreate.Services
         #region Page Names Used In Navigation
 
         public static string MainPageViewName { get { return "/Views/MainPageView.xaml"; } }
-        public static string TestPageViewName { get { return "/Views/TestPageView.xaml"; } }
+        public static string TestPageViewName { get { return "/Views/TestMap.xaml"; } }
 
         #endregion
     }
