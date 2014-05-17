@@ -107,6 +107,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\SpeechRecognitionsService.cs" />
     <Compile Include="Services\WeatherService.cs" />
+    <Compile Include="Settings\ApplicationSettings.cs" />
     <Compile Include="Views\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
