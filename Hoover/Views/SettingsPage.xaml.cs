@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using Hoover.Settings;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 #endregion
 
@@ -26,18 +27,12 @@ namespace Hoover.Views
 
         private void FacebookToogleSwitch_Checked(object sender, RoutedEventArgs e)
         {
-            FacebookLogin.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            //FacebookLogin.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void FacebookToogleSwitch_Unchecked(object sender, RoutedEventArgs e)
         {
-            FacebookLogin.Visibility = System.Windows.Visibility.Collapsed;
+            //FacebookLogin.Visibility = System.Windows.Visibility.Collapsed;
         }
-
     }
 }
