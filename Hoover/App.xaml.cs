@@ -19,6 +19,8 @@ namespace Hoover
 {
     public partial class App : Application
     {
+		public bool UseMetricSystem { get; private set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>

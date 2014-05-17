@@ -23,30 +23,44 @@
 	</phone:PhoneApplicationPage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<!--TitlePanel contains the name of the application and page title-->
 
-		<!--ContentPanel - place additional content here-->		
+		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 			<gart:ARDisplay x:Name="ARDisplay">
-                <gart:VideoPreview x:Name="VideoPreview"/>
+				<gart:VideoPreview x:Name="VideoPreview"/>
 				<gart:OverheadMap x:Name="OverheadMap"/>
 			</gart:ARDisplay>
-			<Grid x:Name="PreviewBox" Canvas.ZIndex="2" 
+			<Grid x:Name="PreviewBox" Canvas.ZIndex="3" 
 				  Width="{StaticResource PreviewBoxWidth}" 
 				  Height="{StaticResource PreviewBoxHeight}"
+				  Opacity="0.01" Background="White"
 				  Visibility="Collapsed"
-				  Opacity="0.01" Background="White" 
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
 				  Tap="PreviewBox_OnTap"/>
-			<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Button x:Name="StartButton" Content="Start" Click="StartButton_Click"/>
 				<Button x:Name="ClearPointsButton" Content="Clear" Click="ClearPointsButton_Click"/>
 			</StackPanel>
+			<Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="4*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="total route length" Padding="5"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance"/>
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime"/>
+			</Grid>
 		</Grid>
 	</Grid>
 

@@ -9,6 +9,7 @@
     
     <SolidColorBrush x:Key="PageBackgroundBrush" Color="#7E99B2"/>
     <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#25323E"/>
-    <SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
+	<SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
+	<SolidColorBrush x:Key="InformationBoxBackgroundBrush" Color="DarkGray" Opacity="0.9"/>
 
 </ResourceDictionary>
