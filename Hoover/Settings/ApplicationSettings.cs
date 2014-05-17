@@ -77,7 +77,7 @@ namespace Hoover.Settings
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool StoreSettingLocal(string key, object value)
+        private bool StoreSettingLocal(string key, object value)
         {
             bool valueChanged = false;
 
@@ -109,7 +109,7 @@ namespace Hoover.Settings
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public T LoadSettingLocal<T>(string key, T defaultValue)
+        private T LoadSettingLocal<T>(string key, T defaultValue)
         {
             T value;
 
@@ -125,7 +125,7 @@ namespace Hoover.Settings
         /// Removes the Application Setting with the given key.
         /// </summary>
         /// <param name="key"></param>
-        public void RemoveSettingLocal(string key)
+        private void RemoveSettingLocal(string key)
         {
             // If the key exists
             if (_settings.Contains(key))
