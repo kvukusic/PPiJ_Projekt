@@ -24,7 +24,7 @@ namespace Hoover.Views
 
         private void FacebookToogleSwitch_Checked(object sender, RoutedEventArgs e)
         {
-            //FacebookLogin.Visibility = System.Windows.Visibility.Visible;
+            FacebookLogin.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
