@@ -20,8 +20,14 @@ namespace Hoover
     public partial class App : Application
     {
         #region Constants
+
+        /// <summary>
+        /// The facebook application ID.
+        /// </summary>
         public const string FacebookAppID = "1424827771121022";
+
         #endregion
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Hoover.Common;
 
 #endregion
 
@@ -15,7 +16,7 @@ namespace Hoover.Settings
     /// <summary>
     /// This class contains all the phone applciation settings.
     /// </summary>
-    public class ApplicationSettings
+    public class ApplicationSettings : BindableBase
     {
         #region Singleton
 
@@ -48,7 +49,29 @@ namespace Hoover.Settings
         public bool ShowPreviewBox
         {
             get { return LoadSettingLocal(ShowPreviewBoxKeyName, ShowPreviewBoxDefault); }
-            set { if (StoreSettingLocal(ShowPreviewBoxKeyName, value)) StoreSettings(); }
+            set
+            {
+                if (StoreSettingLocal(ShowPreviewBoxKeyName, value))
+                {
+                    StoreSettings();
+                    OnPropertyChanged("ShowPreviewBox");
+                }
+            }
+        }
+
+        private const string IsLoggedInKeyName = "IsLoggedIn";
+        private const bool IsLoggedInDefault = false;
+        public bool IsLoggedIn
+        {
+            get { return LoadSettingLocal(IsLoggedInKeyName, IsLoggedInDefault); }
+            set
+            {
+                if (StoreSettingLocal(IsLoggedInKeyName, value))
+                {
+                    StoreSettings();
+                    OnPropertyChanged("IsLoggedIn");
+                }
+            }
         }
 
         /// <summary>
