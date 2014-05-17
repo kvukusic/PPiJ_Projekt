@@ -150,7 +150,7 @@ namespace Hoover.Views
 
         private void SettingsMenuItem_Click(object sender, EventArgs e)
         {
-            Services.NavigationService.Instance.Navigate(Services.PageNames.SettingsPageViewName);
+            Services.NavigationService.Instance.Navigate(Services.PageNames.SettingsPageName);
         }
 
         private void HomeView_Loaded(object sender, RoutedEventArgs e)

@@ -23,5 +23,21 @@ namespace Hoover.Views
 
             this.DataContext = ApplicationSettings.Instance;
         }
+
+        private void FacebookToogleSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            FacebookLogin.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FacebookToogleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FacebookLogin.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
     }
 }

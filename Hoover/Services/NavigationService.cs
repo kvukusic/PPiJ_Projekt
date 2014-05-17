@@ -182,7 +182,7 @@ namespace Hoover.Services
 
         public static string MainPageViewName { get { return "/Views/MainPageView.xaml"; } }
         public static string TestPageViewName { get { return "/Views/TestMap.xaml"; } }
-        public static string SettingsPageViewName { get { return "/Views/SettingsView.xaml"; } }
+        public static string SettingsPageName { get { return "/Views/SettingsPage.xaml"; } }
 
         #endregion
     }
