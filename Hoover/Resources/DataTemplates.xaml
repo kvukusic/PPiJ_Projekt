@@ -4,20 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
-    <!-- DATA TEMPLATES -->
-    
-    
-    
-    <!-- STYLES -->
-    
-    
-    
-    <!-- COLORS & BRUSHES -->
-    <SolidColorBrush x:Key="PageBackgroundBrush" Color="#7E99B2"/>
-    <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#25323E"/>
-    
-    <SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
-    
 
+    <!-- HYSTORY PAGE -->
+    
 </ResourceDictionary>
