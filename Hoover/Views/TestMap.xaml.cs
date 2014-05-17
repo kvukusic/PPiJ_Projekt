@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Hoover.Annotations;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps;
+using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Shell;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ using GART;
 using GART.Controls;
 using System.Windows.Media;
 using Microsoft.Devices;
+using System.Device.Location;
+using System.Collections.ObjectModel;
+using System.Windows.Shapes;
+using Microsoft.Phone.Maps.Toolkit;
+using Microsoft.Phone.Maps.Services;
 
 #endregion
 
@@ -28,6 +34,9 @@ namespace Hoover.Views
 	{
 	    private double _previewBoxWidth;
 	    private double _previewBoxHeight;
+		private bool _isMapActive;
+		private ObservableCollection<GeoCoordinate> _waypoints;
+		private MapRoute _mapRoute;
 
 		public TestMap()
 		{
@@ -36,6 +45,8 @@ namespace Hoover.Views
 		    this._previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
 		    this._previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
 		    this.DataContext = this;
+			this._isMapActive = false;
+			this._waypoints = new ObservableCollection<GeoCoordinate>();
 
 			InitARDisplay();
 		}
@@ -43,14 +54,75 @@ namespace Hoover.Views
 		private void InitARDisplay()
 		{
 			ARDisplay.StartServices();
+			this.OverheadMap.Tap += OverheadMapRoute_OnTap;
+			this.OverheadMap.Loaded += Map_Loaded;
+			this._waypoints.Add(ARDisplay.Location);
+            //this.ToggleView();
+		}
 
-            this.ToggleView();
+		void Map_Loaded(object sender, RoutedEventArgs e)
+		{
+			this.OverheadMap.map.Pitch = 70;
+			//this.OverheadMap.map.CartographicMode = MapCartographicMode.Aerial;
+		}
+
+		private void OverheadMapRoute_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			GeoCoordinate location = this.OverheadMap.Map.ConvertViewportPointToGeoCoordinate(e.GetPosition(this.OverheadMap.Map));
+			this._waypoints.Add(location);
+
+			RouteQuery query = new RouteQuery()
+			{
+				TravelMode = TravelMode.Walking,
+				Waypoints = _waypoints
+			};
+			query.QueryCompleted += routeQuery_QueryCompleted;
+			query.QueryAsync();
+		}
+
+		private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
+		{
+			if (this._mapRoute != null)
+			{
+				this.OverheadMap.Map.RemoveRoute(this._mapRoute);
+			}
+			this._mapRoute = new MapRoute(e.Result);
+			this._mapRoute.Color = Colors.Gray;
+			this._mapRoute.RouteViewKind = RouteViewKind.UserDefined;
+			this.OverheadMap.Map.AddRoute(this._mapRoute);
+			this._waypoints[this._waypoints.Count - 1] = this._mapRoute.Route.Geometry[_mapRoute.Route.Geometry.Count - 1];
+
+			Pushpin destination = new Pushpin()
+			{
+				Content = this._waypoints.Count.ToString()
+			};
+
+			this.OverheadMap.Map.Layers.Add(new MapLayer() {
+				new MapOverlay() {
+					Content = destination,
+					GeoCoordinate = this._waypoints[this._waypoints.Count-1],
+					PositionOrigin = new Point(0,1)
+				}
+			});
+
+			//this.OverheadMap.Map.SetView(LocationRectangle.CreateBoundingRectangle(_waypoints));
+			MessageBox.Show("Distance: " + e.Result.LengthInMeters + "\nTime: " + e.Result.EstimatedDuration);
+		}
+
+		private void ClearPointsButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.OverheadMap.Map.Layers.Clear();
+			this._waypoints.Clear();
+			this._waypoints.Add(ARDisplay.Location);
+			if (this._mapRoute != null)
+			{
+				this.OverheadMap.Map.RemoveRoute(this._mapRoute);
+			}
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			base.OnNavigatedTo(e);
-			ScaleTransform scale = new ScaleTransform();
 		}
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -75,8 +147,6 @@ namespace Hoover.Views
 					break;
 			}
 		}
-
-	    private bool _isMapActive = false;
 
 	    private void ToggleView()
 	    {
@@ -114,7 +184,7 @@ namespace Hoover.Views
 	        }
 	    }
         
-        private void PreviewBox_OnTap(object sender, GestureEventArgs e)
+        private void PreviewBox_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             this.ToggleView();
         }
@@ -130,6 +200,11 @@ namespace Hoover.Views
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         } 
         #endregion
+
+		private void StartButton_Click(object sender, RoutedEventArgs e)
+		{
+			this.ToggleView();
+		}
 
 	}
 }

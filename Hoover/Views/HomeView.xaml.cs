@@ -16,5 +16,10 @@ namespace Hoover.Views
         {
             InitializeComponent();
         }
+
+		private void startButton_Click(object sender, RoutedEventArgs e)
+		{
+			Services.NavigationService.Instance.Navigate(Services.PageNames.TestPageViewName);
+		}
     }
 }

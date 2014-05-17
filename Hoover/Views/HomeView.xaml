@@ -8,8 +8,9 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
-    
-    <Grid x:Name="LayoutRoot">
 
-    </Grid>
+	<Grid x:Name="LayoutRoot">
+		<Button x:Name="startButton" Content="Start Run!" HorizontalAlignment="Center" 
+				Margin="0,80,0,0" VerticalAlignment="Top" Width="270" Click="startButton_Click" Height="100"/>
+	</Grid>
 </UserControl>

@@ -7,6 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:gart="clr-namespace:GART.Controls;assembly=GART.WP8"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
+	xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
 	xmlns:system="clr-namespace:System;assembly=mscorlib"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -14,13 +16,13 @@
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="False">
-    
-    <phone:PhoneApplicationPage.Resources>
-        <system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
-        <system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
-    </phone:PhoneApplicationPage.Resources>
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
+	<phone:PhoneApplicationPage.Resources>
+		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
+		<system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
+	</phone:PhoneApplicationPage.Resources>
+
+	<!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -28,14 +30,24 @@
 		</Grid.RowDefinitions>
 		<!--TitlePanel contains the name of the application and page title-->
 
-		<!--ContentPanel - place additional content here-->
+		<!--ContentPanel - place additional content here-->		
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 			<gart:ARDisplay x:Name="ARDisplay">
-				<gart:OverheadMap x:Name="OverheadMap"/>
                 <gart:VideoPreview x:Name="VideoPreview"/>
-            </gart:ARDisplay>
-            <Grid x:Name="PreviewBox" Canvas.ZIndex="999" Width="{StaticResource PreviewBoxWidth}" Height="{StaticResource PreviewBoxHeight}" Opacity="0.01" Background="White" VerticalAlignment="Top" HorizontalAlignment="Right" Tap="PreviewBox_OnTap"/>
+				<gart:OverheadMap x:Name="OverheadMap"/>
+			</gart:ARDisplay>
+			<Grid x:Name="PreviewBox" Canvas.ZIndex="2" 
+				  Width="{StaticResource PreviewBoxWidth}" 
+				  Height="{StaticResource PreviewBoxHeight}"
+				  Visibility="Collapsed"
+				  Opacity="0.01" Background="White" 
+				  VerticalAlignment="Top" HorizontalAlignment="Right" 
+				  Tap="PreviewBox_OnTap"/>
+			<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+				<Button x:Name="StartButton" Content="Start" Click="StartButton_Click"/>
+				<Button x:Name="ClearPointsButton" Content="Clear" Click="ClearPointsButton_Click"/>
+			</StackPanel>
 		</Grid>
-    </Grid>
+	</Grid>
 
 </phone:PhoneApplicationPage>

@@ -91,7 +91,7 @@ namespace GART.Controls
         #region Instance Version
         #region Member Variables
         private ObservableCollection<ARItem> arItems;
-        private Map map;
+        public Map map;
 
         #if WP7
         private Credentials credentials;
