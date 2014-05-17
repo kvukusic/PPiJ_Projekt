@@ -25,7 +25,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar>
 			<shell:ApplicationBar.MenuItems>
-				<shell:ApplicationBarMenuItem IsEnabled="True" Text="settings"/>
+				<shell:ApplicationBarMenuItem IsEnabled="True" Text="settings" Click="SettingsMenuItem_Click"/>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about"/>
 			</shell:ApplicationBar.MenuItems>
 			<shell:ApplicationBarIconButton x:Name="SpeechButton" IconUri="/Assets/AppBarIcons/appbar.microphone.png" IsEnabled="True" Text="speech" Click="SpeechButton_Click"/>
@@ -47,7 +47,7 @@
         
         <phone:Panorama x:Name="MainPagePanorama" Grid.Row="1" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
             <phone:PanoramaItem x:Name="HomeViewPanoramaItem" Header="HOME" Margin="0,10,0,0">
-                <views:HomeView/>
+                <views:HomeView Loaded="HomeView_Loaded"/>
             </phone:PanoramaItem>
 
             <phone:PanoramaItem x:Name="HistoryViewPanoramaItem" Header="HISTORY" Margin="0,10,0,0">
