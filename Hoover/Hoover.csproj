@@ -97,6 +97,10 @@
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Model\HistoryItem.cs" />
+    <Compile Include="Model\Weather\City.cs" />
+    <Compile Include="Model\Weather\Coordinate.cs" />
+    <Compile Include="Model\Weather\Forecast.cs" />
+    <Compile Include="Model\Weather\ForecastItem.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
@@ -129,10 +133,6 @@
     <Compile Include="Views\WeatherView.xaml.cs">
       <DependentUpon>WeatherView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Weather\Cities.cs" />
-    <Compile Include="Weather\City.cs" />
-    <Compile Include="Weather\Forecast.cs" />
-    <Compile Include="Weather\ForecastPeriod.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
