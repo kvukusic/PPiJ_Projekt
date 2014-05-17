@@ -44,7 +44,7 @@
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
 				  Tap="PreviewBox_OnTap"/>
 			<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-				<Button x:Name="StartButton" Content="Start" Click="StartButton_Click"/>
+				<Button x:Name="StartButton" Content="Start" Click="StartButton_Click" Style="{StaticResource StartSessionButtonStyle}"/>
 				<Button x:Name="ClearPointsButton" Content="Clear" Click="ClearPointsButton_Click"/>
 			</StackPanel>
 		</Grid>
