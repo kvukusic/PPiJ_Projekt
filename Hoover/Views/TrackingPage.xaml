@@ -10,12 +10,14 @@
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
 	xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
 	xmlns:system="clr-namespace:System;assembly=mscorlib"
+	xmlns:views="clr-namespace:Hoover.Views"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False"
+	d:DataContext="{d:DesignInstance views:TrackingPage}">
 
 	<phone:PhoneApplicationPage.Resources>
 		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
@@ -63,8 +65,10 @@
 				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
 				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
 			</Grid>
-			<Grid x:Name="RouteStatsInformation" HorizontalAlignment="Right" VerticalAlignment="Top">
-				<TextBlock x:Name="TotalRunningTime"/>
+			<Grid x:Name="RouteStatsInformation" Background="{StaticResource InformationBoxBackgroundBrush}"
+				  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15">
+				<TextBlock x:Name="TotalRunningTime" FontSize="40" Padding="5"/>
+				<TextBlock x:Name="CurrentRunningSpeed" FontSize="40" Padding="5"/>
 			</Grid>
 		</Grid>
 	</Grid>

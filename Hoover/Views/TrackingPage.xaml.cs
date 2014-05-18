@@ -47,12 +47,20 @@ namespace Hoover.Views
 		private MapLayer _currentLocation;
 		private DispatcherTimer _timer;
 		private long _startTime;
+		private GeoCoordinateWatcher _watcher;
+		private MapPolyline _line;
+		private double _kilometres;
+		private long _previousPositionChangeTick;
+
+		public Settings.ApplicationSettings ApplicationSettings { get; set; }
 
 		private ObservableCollection<GART.Data.ARItem> _checkpoints;
 
 		public TrackingPage()
 		{
 			InitializeComponent();
+
+			this.ApplicationSettings = Settings.ApplicationSettings.Instance;
 
 			_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
 			_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
@@ -61,6 +69,13 @@ namespace Hoover.Views
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
 			_timer = new DispatcherTimer();
+			_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+
+			_line = new MapPolyline();
+			_line.StrokeColor = Colors.Red;
+			_line.StrokeThickness = 20;
+
+			_watcher.PositionChanged += Watcher_PositionChanged;
 
 			this.DataContext = this;
 		}
@@ -74,7 +89,42 @@ namespace Hoover.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
 			ClearARItems();
+			ApplicationSettings = null;
         }
+
+		private void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+		{
+			var coord = new GeoCoordinate(e.Position.Location.Latitude, e.Position.Location.Longitude);
+
+			if (_line.Path.Count > 0)
+			{
+				var previousPoint = _line.Path.Last();
+				var distance = coord.GetDistanceTo(previousPoint);
+				var millisPerKilometer = (1000.0 / distance) * (System.Environment.TickCount - _previousPositionChangeTick);
+				_kilometres += distance / 1000.0;
+
+				//paceLabel.Text = TimeSpan.FromMilliseconds(millisPerKilometer).ToString(@"mm\:ss");
+				//distanceLabel.Text = string.Format("{0:f2} km", _kilometres);
+				//caloriesLabel.Text = string.Format("{0:f0}", _kilometres * 65);
+
+				//PositionHandler handler = new PositionHandler();
+				//var heading = handler.CalculateBearing(new Position(previousPoint), new Position(coord));
+				//Map.SetView(coord, OverheadMap.Map.ZoomLevel, heading, MapAnimationKind.Parabolic);
+
+				//ShellTile.ActiveTiles.First().Update(new IconicTileData()
+				//{
+				//	Title = "WP8Runner",
+				//	WideContent1 = string.Format("{0:f2} km", _kilometres),
+				//	WideContent2 = string.Format("{0:f0} calories", _kilometres * 65),
+				//});
+			}
+			else
+			{
+				OverheadMap.Map.Center = coord;
+			}
+			_line.Path.Add(coord);
+			_previousPositionChangeTick = System.Environment.TickCount;
+		}
 
 		private void InitARDisplay()
 		{
@@ -95,6 +145,7 @@ namespace Hoover.Views
 			};
 
 			OverheadMap.Map.Layers.Add(_currentLocation);
+			OverheadMap.Map.MapElements.Add(_line);
 		}
 
 		private void OverheadMapRoute_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -163,6 +214,7 @@ namespace Hoover.Views
 			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
 
 			StartRoute();
+			_watcher.Start();
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -272,13 +324,13 @@ namespace Hoover.Views
 		{
 			_timer.Interval = TimeSpan.FromSeconds(1);
 			_timer.Tick += Timer_Tick;
+			_timer.Start();
+			_startTime = System.Environment.TickCount;
 		}
 		private void Timer_Tick(object sender, EventArgs e)
 		{
 			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
 			TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
-			_timer.Start();
-			_startTime = System.Environment.TickCount;
 		}
 
 
