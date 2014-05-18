@@ -2,12 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Device.Location;
+using System.Globalization;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Hoover.Helpers;
 using Hoover.Model.Weather;
+using Hoover.Settings;
 using Newtonsoft.Json.Linq;
 
 #endregion
@@ -20,6 +21,11 @@ namespace Hoover.Services
     public class WeatherService
     {
         /// <summary>
+        /// This is the base url of the weather service.
+        /// </summary>
+        private const string BaseUrl = "http://api.openweathermap.org/data/2.5/";
+
+        /// <summary>
         /// This method asynchronously downloads the forecast of the current location from the 
         /// <code>OpenWeather</code> service.
         /// <example>
@@ -30,9 +36,23 @@ namespace Hoover.Services
         public async Task<Forecast> GetForecastWeatherAsync()
         {
             HttpClient client = new HttpClient();
-            return null;
+            var unit = ApplicationSettings.Instance.UseMetricSystem ? "metric" : "imperial";
+            GeoCoordinateWatcher geoCoordinate = new GeoCoordinateWatcher();
+            var position = geoCoordinate.Position;
+            var lat = position.Location.Latitude.ToString(CultureInfo.InvariantCulture);
+            var lon = position.Location.Longitude.ToString(CultureInfo.InvariantCulture);
+            // Create url
+            var url = new Uri(BaseUrl + "forecast?units=" + unit + "&lat=" + lat + "&lon=" + lon);
+
+            string json = await client.GetStringAsync(url);
+            return ParseForecastJson(json);
         }
 
+        /// <summary>
+        /// Parses the json string retreived from the weather service and returns the <see cref="Forecast"/> object.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         private Forecast ParseForecastJson(string json)
         {
             try
