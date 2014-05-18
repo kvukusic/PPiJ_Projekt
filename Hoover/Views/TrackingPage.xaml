@@ -63,7 +63,7 @@
 				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
 				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
 			</Grid>
-			<Grid x:Name="RouteStatsInformation">
+			<Grid x:Name="RouteStatsInformation" HorizontalAlignment="Right" VerticalAlignment="Top">
 				<TextBlock x:Name="TotalRunningTime"/>
 			</Grid>
 		</Grid>

@@ -98,7 +98,8 @@
     <Compile Include="Controls\UserPushpin.xaml.cs">
       <DependentUpon>UserPushpin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BooleanNegationConverter.cs" />
+    <Compile Include="Converters\BoolNegationConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\RotationConverter.cs" />
     <Compile Include="Database\DataAccess.cs" />
     <Compile Include="Database\HistoryDatabaseInstance.cs" />

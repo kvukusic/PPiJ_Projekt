@@ -6,6 +6,7 @@
     xmlns:converters="clr-namespace:Hoover.Converters"
     mc:Ignorable="d">
     
-    <converters:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+    <converters:BoolNegationConverter x:Key="BooleanNegationConverter"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
 </ResourceDictionary>

@@ -11,7 +11,7 @@ namespace Hoover.Converters
     /// <summary>
     /// Used for negating a boolean value.
     /// </summary>
-    public sealed class BooleanNegationConverter : IValueConverter
+    public sealed class BoolNegationConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
