@@ -30,6 +30,7 @@ namespace Hoover.Services
         public async Task<Forecast> GetForecastWeatherAsync()
         {
             HttpClient client = new HttpClient();
+            return null;
         }
 
         private Forecast ParseForecastJson(string json)

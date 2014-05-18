@@ -30,23 +30,39 @@
 		</Grid.RowDefinitions>
 		<!--TitlePanel contains the name of the application and page title-->
 
-		<!--ContentPanel - place additional content here-->		
+		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<gart:ARDisplay x:Name="ARDisplay">
+			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10">
                 <gart:VideoPreview x:Name="VideoPreview"/>
 				<gart:OverheadMap x:Name="OverheadMap"/>
+				<gart:HeadingIndicator x:Name="HeadingIndicator"/>
 			</gart:ARDisplay>
-			<Grid x:Name="PreviewBox" Canvas.ZIndex="2" 
+			<Grid x:Name="PreviewBox" Canvas.ZIndex="3" 
 				  Width="{StaticResource PreviewBoxWidth}" 
 				  Height="{StaticResource PreviewBoxHeight}"
-				  Visibility="Collapsed"
 				  Opacity="0.01" Background="White" 
+				  Visibility="Collapsed"
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
 				  Tap="PreviewBox_OnTap"/>
-			<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-				<Button x:Name="StartButton" Content="Start" Click="StartButton_Click" Style="{StaticResource StartSessionButtonStyle}"/>
-				<Button x:Name="ClearPointsButton" Content="Clear" Click="ClearPointsButton_Click"/>
+			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
+				<Button x:Name="StartButton" Content="Start" Tap="StartButton_Tap"/>
+				<Button x:Name="ClearPointsButton" Content="Clear" Tap="ClearPointsButton_Tap"/>
 			</StackPanel>
+			<Grid x:Name="RouteInformationBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
+				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="10,10,10,20">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="4*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="total route length" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right"/>
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
+			</Grid>
 		</Grid>
 	</Grid>
 
