@@ -60,7 +60,7 @@ namespace Hoover.Settings
         }
 
         private const string UseMetricSystemKeyName = "UseMetricSystem";
-        private const bool UseMetricSystemDefault = false;
+        private const bool UseMetricSystemDefault = true;
         public bool UseMetricSystem
         {
             get { return LoadSettingLocal(UseMetricSystemKeyName, UseMetricSystemDefault); }

@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="Hoover.Views.TestMap"
+    x:Class="Hoover.Views.TrackingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -48,7 +48,7 @@
 				<Button x:Name="ClearPointsButton" Content="Clear" Tap="ClearPointsButton_Tap"/>
 			</StackPanel>
 			<Grid x:Name="RouteInformationBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
-				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="10,10,10,20">
+				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="15,10,15,20">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="6*"/>
 					<ColumnDefinition Width="4*"/>
