@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="Common\CheckpointItem.cs" />
     <Compile Include="Controls\UserPushpin.xaml.cs">
       <DependentUpon>UserPushpin.xaml</DependentUpon>
     </Compile>

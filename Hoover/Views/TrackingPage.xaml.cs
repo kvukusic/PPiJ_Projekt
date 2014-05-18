@@ -28,6 +28,7 @@ using Microsoft.Phone.Maps.Services;
 using System.Windows.Media.Imaging;
 using Hoover.Helpers;
 using Hoover.Controls;
+using Hoover.Common;
 
 #endregion
 
@@ -130,7 +131,12 @@ namespace Hoover.Views
 			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(new MapLayer() { _currentLocation });
-			
+
+			foreach (var item in _waypoints)
+			{
+				AddItemToARItems("Test", item);
+			}
+
 			// Add heading indicator to map
 			UserPushpin pushpin = new Controls.UserPushpin();
 			pushpin.DataContext = ARDisplay;
@@ -246,10 +252,11 @@ namespace Hoover.Views
 
 		private void AddItemToARItems(string content, GeoCoordinate location)
 		{
-			ARDisplay.ARItems.Add(new GART.Data.ARItem()
+			ARDisplay.ARItems.Add(new CheckpointItem()
 			{
 				Content = content,
-				GeoLocation = location
+				GeoLocation = location,
+				Description = "test location"
 			});
 		}
 
