@@ -94,6 +94,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="Controls\UserPushpin.xaml.cs">
+      <DependentUpon>UserPushpin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\RotationConverter.cs" />
     <Compile Include="Database\DataAccess.cs" />
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="Helpers\Extensions.cs" />
@@ -141,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\UserPushpin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Constants.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -195,7 +203,7 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\ButtonImages\Map.png" />
+    <Content Include="Assets\SightPin.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -59,17 +59,17 @@ namespace Hoover.Settings
             }
         }
 
-        private const string IsLoggedInKeyName = "IsLoggedIn";
-        private const bool IsLoggedInDefault = false;
-        public bool IsLoggedIn
+        private const string UseMetricSystemKeyName = "UseMetricSystem";
+        private const bool UseMetricSystemDefault = false;
+        public bool UseMetricSystem
         {
-            get { return LoadSettingLocal(IsLoggedInKeyName, IsLoggedInDefault); }
+            get { return LoadSettingLocal(UseMetricSystemKeyName, UseMetricSystemDefault); }
             set
             {
-                if (StoreSettingLocal(IsLoggedInKeyName, value))
+                if (StoreSettingLocal(UseMetricSystemKeyName, value))
                 {
                     StoreSettings();
-                    OnPropertyChanged("IsLoggedIn");
+                    OnPropertyChanged("UseMetricSystem");
                 }
             }
         }

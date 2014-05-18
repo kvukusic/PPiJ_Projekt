@@ -26,6 +26,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Maps.Services;
 using System.Windows.Media.Imaging;
+using Hoover.Helpers;
 
 #endregion
 
@@ -57,23 +58,29 @@ namespace Hoover.Views
 		private void InitARDisplay()
 		{
 			ARDisplay.StartServices();
-			this.OverheadMap.Tap += OverheadMapRoute_OnTap;
+			OverheadMap.Loaded += OverheadMap_Loaded;
 			_waypoints.Add(ARDisplay.Location);
-			this.OverheadMap.Loaded += OverheadMap_Loaded;
+			this.HeadingIndicator.
 		}
 
 		void OverheadMap_Loaded(object sender, RoutedEventArgs e)
 		{
+			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
 			OverheadMap.Map.Layers.Add(new MapLayer() {
 				new MapOverlay() {
-					Content = new UserLocationMarker(),
+					Content = new Controls.UserPushpin(),
 					GeoCoordinate = ARDisplay.Location
-				}
-			});
+				}});
+			//OverheadMap.Map.Layers.Add(new MapLayer() {
+			//	new MapOverlay() {
+			//		Content = new UserLocationMarker(),
+			//		GeoCoordinate = ARDisplay.Location
+			//	}
+			//});
 		}
 
-		private void OverheadMapRoute_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
+		private void OverheadMapRoute_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			GeoCoordinate location = this.OverheadMap.Map.ConvertViewportPointToGeoCoordinate(e.GetPosition(this.OverheadMap.Map));
 			_waypoints.Add(location);
@@ -104,28 +111,29 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry[_mapRoute.Route.Geometry.Count - 1];
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
+				this.totalDistance.Text = _mapRoute.Route.LengthInMeters.ToString();
 
-				this.informationBoard.Text = "Total route length: " + _mapRoute.Route.LengthInMeters + "m\nTotal time: " + _mapRoute.Route.EstimatedDuration; 
+				this.totalDistance.Text = _mapRoute.Route.Length();
+				this.durationTime.Text = _mapRoute.Route.RuningTime();
 			}
 			else
 			{
 				_waypoints.RemoveAt(_waypoints.Count - 1);
 			}
-
-			//MessageBox.Show("Distance: " + e.Result.LengthInMeters + "\nTime: " + e.Result.EstimatedDuration);
 		}
 
-		private void StartButton_Click(object sender, RoutedEventArgs e)
+		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
-			OverheadMap.Tap -= OverheadMapRoute_OnTap;
+			OverheadMap.Tap -= OverheadMapRoute_Tap;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
+			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 		}
 
-		private void ClearPointsButton_Click(object sender, RoutedEventArgs e)
+		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			this.OverheadMap.Map.Layers.Clear();
 			_waypoints.Clear();
@@ -134,6 +142,11 @@ namespace Hoover.Views
 			{
 				this.OverheadMap.Map.RemoveRoute(_mapRoute);
 			}
+		}
+
+		private void PreviewBox_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			this.ToggleView();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -162,11 +175,6 @@ namespace Hoover.Views
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise180Degrees;
 					break;
 			}
-		}
-
-		private void PreviewBox_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
-		{
-			this.ToggleView();
 		}
 
 		private void ToggleView()
@@ -207,14 +215,11 @@ namespace Hoover.Views
 
 		private void AddPushpinToMap(GeoCoordinate location, string content)
 		{
-			Pushpin pushpin = new Pushpin()
-			{
-				Content = content
-			};
-
 			this.OverheadMap.Map.Layers.Add(new MapLayer() {
 				new MapOverlay() {
-						Content = pushpin,
+						Content = new Pushpin() {
+							Content = content
+						},
 						GeoCoordinate = location,
 						PositionOrigin = new Point(0,1)
 					}
