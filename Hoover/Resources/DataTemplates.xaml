@@ -6,7 +6,25 @@
     mc:Ignorable="d">
 
     <!-- HYSTORY PAGE -->
-	<DataTemplate x:Key="CheckpointItem">
+    
+    <!-- WEATHER PAGE -->
+    <DataTemplate x:Key="WeatherItemTemplate">
+        <Grid Width="470" Height="60" Margin="0,5,0,0" Background="{StaticResource ForecastItemBackgroundBruhs}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{Binding TimeString}" Foreground="{StaticResource ForecastItemForegroundBruhs}" HorizontalAlignment="Center" TextAlignment="Left" VerticalAlignment="Center"/>
+            <Image Grid.Column="1" Source="{Binding IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
+            <TextBlock Grid.Column="2" Text="{Binding TemperatureString}" Foreground="{StaticResource ForecastItemForegroundBruhs}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="3" Text="{Binding Message}" Foreground="{StaticResource ForecastItemForegroundBruhs}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+
+    <!-- TRACKING PAGE -->
+    <DataTemplate x:Key="LocationItem">
 		<Border BorderBrush="Black" Width="320" Background="Black" Canvas.ZIndex="2">
 			<Grid>
 				<Image Source="/Assets/mapMarkerGreen.png" Width="100" Height="100" HorizontalAlignment="Left"/>
