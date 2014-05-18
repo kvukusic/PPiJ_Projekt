@@ -82,11 +82,11 @@ namespace Hoover.Services
                     foreach (JObject forecastItemJObject in forecastJArray)
                     {
                         var dt = forecastItemJObject.GetValueOrDefault<long>("dt");
-                        Double temp = null;
+                        double temp = 0.0;
                         JObject mainJObject = forecastItemJObject.GetValueOrDefault<JObject>("main");
                         if (mainJObject != null)
                         {
-                            temp = mainJObject.GetValueOrDefault<Double>("temp");
+                            temp = mainJObject.GetValueOrDefault<double>("temp");
                         }
                         string message = null;
                         string icon = null;
