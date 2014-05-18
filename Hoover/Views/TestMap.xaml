@@ -32,10 +32,9 @@
 
 		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10">
+			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
                 <gart:VideoPreview x:Name="VideoPreview"/>
 				<gart:OverheadMap x:Name="OverheadMap"/>
-				<gart:HeadingIndicator x:Name="HeadingIndicator"/>
 			</gart:ARDisplay>
 			<Grid x:Name="PreviewBox" Canvas.ZIndex="3" 
 				  Width="{StaticResource PreviewBoxWidth}" 
