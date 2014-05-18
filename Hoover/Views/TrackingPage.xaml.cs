@@ -60,7 +60,7 @@ namespace Hoover.Views
 			_isMapActive = false;
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
-			_timer = new DispatcherTimer();
+            _timer = new DispatcherTimer();
 
 			this.DataContext = this;
 		}
@@ -300,8 +300,8 @@ namespace Hoover.Views
 
 		private void Timer_Tick(object sender, EventArgs e)
 		{
-			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
-			this.TotalRunningTime.Text = runTime.ToString();
+            //TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
+            //this.TotalRunningTime.Text = runTime.ToString();
 			//timeLabel.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
