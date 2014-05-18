@@ -40,9 +40,10 @@ namespace Hoover.Views
 		private double _previewBoxHeight;
 		private bool _isMapActive;
 		private ObservableCollection<GeoCoordinate> _waypoints;
+		private ObservableCollection<CheckpointItem> _checkpoints;
 		private MapRoute _mapRoute;
 		private MapOverlay _userPushpin;
-		private MapOverlay _currentLocation;
+		private MapLayer _currentLocation;
 
 		public TrackingPage()
 		{
@@ -68,15 +69,17 @@ namespace Hoover.Views
 
 		void OverheadMap_Loaded(object sender, RoutedEventArgs e)
 		{
+			this.OverheadMap.Map.CartographicMode = MapCartographicMode.Terrain;
 			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
-			_currentLocation = new MapOverlay()
-			{
+			_currentLocation = new MapLayer() {
+				new MapOverlay() {
 				Content = new UserLocationMarker(),
 				GeoCoordinate = ARDisplay.Location
+				}
 			};
 
-			OverheadMap.Map.Layers.Add(new MapLayer() { _currentLocation });
+			OverheadMap.Map.Layers.Add(_currentLocation);
 		}
 
 		private void OverheadMapRoute_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -110,6 +113,7 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry[_mapRoute.Route.Geometry.Count - 1];
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance");
 				this.totalDistance.Text = _mapRoute.Route.LengthInMeters.ToString();
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
@@ -130,12 +134,7 @@ namespace Hoover.Views
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
-			OverheadMap.Map.Layers.Remove(new MapLayer() { _currentLocation });
-
-			foreach (var item in _waypoints)
-			{
-				AddItemToARItems("Test", item);
-			}
+			OverheadMap.Map.Layers.Remove(_currentLocation);
 
 			// Add heading indicator to map
 			UserPushpin pushpin = new Controls.UserPushpin();
@@ -152,6 +151,8 @@ namespace Hoover.Views
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			this.OverheadMap.Map.Layers.Clear();
+			ARDisplay.ARItems.Clear();
+			WorldView.ARItems.Clear();
 			_waypoints.Clear();
 			_waypoints.Add(ARDisplay.Location);
 			if (_mapRoute != null)
@@ -176,6 +177,15 @@ namespace Hoover.Views
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			base.OnNavigatedTo(e);
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			ARDisplay.ARItems.Clear();
+			_waypoints.Clear();
+			OverheadMap.ARItems.Clear();
+			WorldView.ARItems.Clear();
 		}
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -217,6 +227,8 @@ namespace Hoover.Views
 				this.VideoPreview.Height = Double.NaN;
 				Canvas.SetZIndex(this.VideoPreview, 0);
 
+				this.WorldView.Visibility = System.Windows.Visibility.Visible;
+
 				this._isMapActive = false;
 			}
 			else
@@ -232,6 +244,8 @@ namespace Hoover.Views
 				this.OverheadMap.Width = Double.NaN;
 				this.OverheadMap.Height = Double.NaN;
 				Canvas.SetZIndex(this.OverheadMap, 0);
+
+				this.WorldView.Visibility = System.Windows.Visibility.Collapsed;
 
 				_isMapActive = true;
 			}
@@ -250,13 +264,13 @@ namespace Hoover.Views
 				});
 		}
 
-		private void AddItemToARItems(string content, GeoCoordinate location)
+		private void AddItemToARItems(string content, GeoCoordinate location, string description)
 		{
-			ARDisplay.ARItems.Add(new CheckpointItem()
+			WorldView.ARItems.Add(new CheckpointItem()
 			{
 				Content = content,
 				GeoLocation = location,
-				Description = "test location"
+				Description = description
 			});
 		}
 
