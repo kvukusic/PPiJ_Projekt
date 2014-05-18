@@ -98,6 +98,7 @@
     <Compile Include="Controls\UserPushpin.xaml.cs">
       <DependentUpon>UserPushpin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BooleanNegationConverter.cs" />
     <Compile Include="Converters\RotationConverter.cs" />
     <Compile Include="Database\DataAccess.cs" />
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
@@ -151,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Constants.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

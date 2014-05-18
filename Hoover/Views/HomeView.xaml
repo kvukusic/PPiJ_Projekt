@@ -3,21 +3,40 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:Hoover.Views"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    d:DataContext="{d:DesignInstance views:HomeView}">
 
 	<Grid x:Name="LayoutRoot">
-		<Button x:Name="StartButton"
-                Content="Start Run!"
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                
+                <Grid Margin="12,0" Height="60" Background="{StaticResource ForecastItemBackgroundBrush}" Width="450">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
+                    <TextBlock Grid.Column="1" Text="{Binding CurrentWeather.Temperature}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                
+                <Button x:Name="StartButton"
+                Content="START"
                 HorizontalAlignment="Center"
 				Margin="0,80,0,0"
                 VerticalAlignment="Top"
                 Width="150"
                 Height="150"
-                Click="StartButton_Click"
+                Tap="StartButton_Tap"
                 Style="{StaticResource StartSessionButtonStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
 	</Grid>
 </UserControl>

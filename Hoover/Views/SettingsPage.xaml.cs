@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,6 +13,8 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
+#endregion
+
 namespace Hoover.Views
 {
     public partial class SettingsPage : PhoneApplicationPage
@@ -22,11 +26,6 @@ namespace Hoover.Views
             this.DataContext = ApplicationSettings.Instance;
         }
 
-        private void FacebookToogleSwitch_Checked(object sender, RoutedEventArgs e)
-        {
-            FacebookLogin.Visibility = System.Windows.Visibility.Visible;
-        }
-
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             ShareLinkTask shareLinkTask = new ShareLinkTask();
@@ -36,10 +35,6 @@ namespace Hoover.Views
 
             shareLinkTask.Show();
         }
-
-        private void FacebookToogleSwitch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //FacebookLogin.Visibility = System.Windows.Visibility.Collapsed;
-        }
+       
     }
 }

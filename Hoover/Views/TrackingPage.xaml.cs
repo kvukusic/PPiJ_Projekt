@@ -52,15 +52,14 @@ namespace Hoover.Views
 
 			_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
 			_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
-
+			this.DataContext = this;
 			_isMapActive = false;
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 
-            //InitARDisplay();
 			this.DataContext = this;
 		}
 
-	    protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             InitARDisplay();

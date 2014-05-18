@@ -35,6 +35,29 @@ namespace Hoover.Services
         /// <returns></returns>
         public async Task<Forecast> GetForecastWeatherAsync()
         {
+            return ParseForecastJson(await DownloadWeatherJson("forecast"));
+        }
+
+        /// <summary>
+        /// This method asynchronously downloads the current weather of the current location from the 
+        /// <code>OpenWeather</code> service.
+        /// <example>
+        /// http://api.openweathermap.org/data/2.5/forecast?units=metric&lat=35&lon=139
+        /// </example>
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ForecastItem> GetCurrentWeatherAsync()
+        {
+            return ParseForecastItem(await DownloadWeatherJson("weather"));
+        }
+
+        /// <summary>
+        /// Downloads the weather JSON string from openweathermap API.
+        /// </summary>
+        /// <param name="weatherType">forecast or weather</param>
+        /// <returns></returns>
+        private async Task<string> DownloadWeatherJson(string weatherType)
+        {
             HttpClient client = new HttpClient();
             var unit = ApplicationSettings.Instance.UseMetricSystem ? "metric" : "imperial";
             GeoCoordinateWatcher geoCoordinate = new GeoCoordinateWatcher();
@@ -42,10 +65,9 @@ namespace Hoover.Services
             var lat = position.Location.Latitude.ToString(CultureInfo.InvariantCulture);
             var lon = position.Location.Longitude.ToString(CultureInfo.InvariantCulture);
             // Create url
-            var url = new Uri(BaseUrl + "forecast?units=" + unit + "&lat=" + lat + "&lon=" + lon);
+            var url = new Uri(BaseUrl + weatherType + "?units=" + unit + "&lat=" + lat + "&lon=" + lon);
 
-            string json = await client.GetStringAsync(url);
-            return ParseForecastJson(json);
+            return await client.GetStringAsync(url);
         }
         
         /// <summary>
