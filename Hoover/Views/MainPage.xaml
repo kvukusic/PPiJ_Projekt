@@ -45,7 +45,7 @@
             </StackPanel>
         </Grid>
         
-        <phone:Panorama x:Name="MainPagePanorama" Grid.Row="1" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}">
+        <phone:Panorama x:Name="MainPagePanorama" Grid.Row="1" HeaderTemplate="{StaticResource PanoramaItemHeaderTemplate}" Template="{StaticResource PanoramaControlTemplate}">
             <phone:PanoramaItem x:Name="HomeViewPanoramaItem" Header="HOME">
                 <views:HomeView/>
             </phone:PanoramaItem>
