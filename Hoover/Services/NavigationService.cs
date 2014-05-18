@@ -181,7 +181,7 @@ namespace Hoover.Services
         #region Page Names Used In Navigation
 
         public static string MainPageViewName { get { return "/Views/MainPageView.xaml"; } }
-        public static string TestPageViewName { get { return "/Views/TestMap.xaml"; } }
+		public static string TestPageViewName { get { return "/Views/TrackingPage.xaml"; } }
         public static string SettingsPageName { get { return "/Views/SettingsPage.xaml"; } }
 
         #endregion

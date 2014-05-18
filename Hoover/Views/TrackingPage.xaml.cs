@@ -33,7 +33,7 @@ using Hoover.Controls;
 
 namespace Hoover.Views
 {
-	public partial class TestMap : PhoneApplicationPage, INotifyPropertyChanged
+	public partial class TrackingPage : PhoneApplicationPage, INotifyPropertyChanged
 	{
 		private double _previewBoxWidth;
 		private double _previewBoxHeight;
@@ -41,8 +41,9 @@ namespace Hoover.Views
 		private ObservableCollection<GeoCoordinate> _waypoints;
 		private MapRoute _mapRoute;
 		private MapOverlay _userPushpin;
+		private MapOverlay _currentLocation;
 
-		public TestMap()
+		public TrackingPage()
 		{
 			InitializeComponent();
 
@@ -68,16 +69,13 @@ namespace Hoover.Views
 		{
 			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
-
-			UserPushpin pushpin = new Controls.UserPushpin();
-			pushpin.DataContext = ARDisplay;
-			_userPushpin = new MapOverlay()
+			_currentLocation = new MapOverlay()
 			{
-				Content = pushpin,
+				Content = new UserLocationMarker(),
 				GeoCoordinate = ARDisplay.Location
 			};
 
-			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
+			OverheadMap.Map.Layers.Add(new MapLayer() { _currentLocation });
 		}
 
 		private void OverheadMapRoute_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -131,6 +129,18 @@ namespace Hoover.Views
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
+			OverheadMap.Map.Layers.Remove(new MapLayer() { _currentLocation });
+			
+			// Add heading indicator to map
+			UserPushpin pushpin = new Controls.UserPushpin();
+			pushpin.DataContext = ARDisplay;
+			_userPushpin = new MapOverlay()
+			{
+				Content = pushpin,
+				GeoCoordinate = ARDisplay.Location
+			};
+
+			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -232,6 +242,15 @@ namespace Hoover.Views
 						PositionOrigin = new Point(0,1)
 					}
 				});
+		}
+
+		private void AddItemToARItems(string content, GeoCoordinate location)
+		{
+			ARDisplay.ARItems.Add(new GART.Data.ARItem()
+			{
+				Content = content,
+				GeoLocation = location
+			});
 		}
 
 		#region INotifyPropertyChanged
