@@ -6,12 +6,14 @@
     mc:Ignorable="d">
 
     <!-- BRUSHES -->
-    
-    <SolidColorBrush x:Key="PageBackgroundBrush" Color="#7E99B2"/>
-    <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#25323E"/>
+
+    <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FFFEFE"/>
+    <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#4C92C9"/>
 	<SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
+    <SolidColorBrush x:Key="PagePanoramaHeaderForegroundBrush" Color="#4C92C9"/>
 	<SolidColorBrush x:Key="InformationBoxBackgroundBrush" Color="DarkGray" Opacity="0.9"/>
 
     <SolidColorBrush x:Key="ForecastItemBackgroundBruhs" Color="#C3DAEE" Opacity="0.5"/>
+    <SolidColorBrush x:Key="ForecastItemForegroundBruhs" Color="#8B8B8B"/>
 
 </ResourceDictionary>

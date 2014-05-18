@@ -153,10 +153,5 @@ namespace Hoover.Views
             Services.NavigationService.Instance.Navigate(Services.PageNames.SettingsPageName);
         }
 
-        private void HomeView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
 	}
 }
