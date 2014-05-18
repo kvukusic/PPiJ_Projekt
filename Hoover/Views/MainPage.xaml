@@ -20,28 +20,6 @@
 				<TextBlock Text="{Binding}" FontSize="40" Margin="0" Padding="0" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PagePanoramaHeaderForegroundBrush}"/>
 			</ContentPresenter>
 		</DataTemplate>
-		<Style x:Key="PanoramaItemStyle" TargetType="phone:PanoramaItem">
-			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="phone:PanoramaItem">
-						<Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="auto"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<ContentControl x:Name="header" CharacterSpacing="-35" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="66" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="12,-2,0,10">
-								<ContentControl.RenderTransform>
-									<TranslateTransform x:Name="headerTransform"/>
-								</ContentControl.RenderTransform>
-							</ContentControl>
-							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
 	</phone:PhoneApplicationPage.Resources>
 
 	<phone:PhoneApplicationPage.ApplicationBar>
@@ -72,15 +50,15 @@
 				<views:HomeView/>
 			</phone:PanoramaItem>
 
-			<phone:PanoramaItem x:Name="HistoryViewPanoramaItem" Header="HISTORY">
+            <phone:PanoramaItem x:Name="HistoryViewPanoramaItem" Header="HISTORY" Style="{StaticResource PanoramaItemStyle}">
 				<views:HistoryView/>
 			</phone:PanoramaItem>
 
-			<phone:PanoramaItem x:Name="StatisticsViewPanoramaItem" Header="STATISTICS">
+            <phone:PanoramaItem x:Name="StatisticsViewPanoramaItem" Header="STATISTICS" Style="{StaticResource PanoramaItemStyle}">
 				<views:StatisticsView/>
 			</phone:PanoramaItem>
 
-			<phone:PanoramaItem x:Name="WeatherViewPanoramaItem" Header="WEATHER FORECAST">
+            <phone:PanoramaItem x:Name="WeatherViewPanoramaItem" Header="WEATHER FORECAST" Style="{StaticResource PanoramaItemStyle}">
 				<views:WeatherView/>
 			</phone:PanoramaItem>
 		</phone:Panorama>

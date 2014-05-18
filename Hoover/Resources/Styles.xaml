@@ -4,6 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" xmlns:Primitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:dataBoundListBox="clr-namespace:Telerik.Windows.Controls.DataBoundListBox;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
     mc:Ignorable="d">
 
 	<!-- BUTTON STYLES -->
@@ -46,10 +49,12 @@
 		</Setter>
 	</Style>
 
+    <!-- Panorama Control Style -->
+    
 	<ControlTemplate x:Key="PanoramaControlTemplate" TargetType="phone:Panorama">
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="auto"/>
+				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
@@ -57,9 +62,9 @@
 				<Border x:Name="background" Background="{TemplateBinding Background}" />
 			</Primitives:PanningBackgroundLayer>
 
-			<Primitives:PanningTitleLayer x:Name="TitleLayer" Grid.Row="0" HorizontalAlignment="Left"  Margin="10,-34,0,0"
+			<Primitives:PanningTitleLayer x:Name="TitleLayer" Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0"
 				Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"
-				FontSize="170" FontFamily="{StaticResource PhoneFontFamilyLight}" CharacterSpacing="-35" />
+				FontSize="170" FontFamily="{StaticResource PhoneFontFamilyLight}" CharacterSpacing="0"/>
 
 			<Primitives:PanningLayer x:Name="ItemsLayer" Grid.Row="1" HorizontalAlignment="Left">
 				<ItemsPresenter x:Name="items"/>
@@ -67,5 +72,28 @@
 
 		</Grid>
 	</ControlTemplate>
+
+    <Style x:Key="PanoramaItemStyle" TargetType="phone:PanoramaItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="phone:PanoramaItem">
+                    <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ContentControl x:Name="header" CharacterSpacing="-35" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="66" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="12,15">
+                            <ContentControl.RenderTransform>
+                                <TranslateTransform x:Name="headerTransform"/>
+                            </ContentControl.RenderTransform>
+                        </ContentControl>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

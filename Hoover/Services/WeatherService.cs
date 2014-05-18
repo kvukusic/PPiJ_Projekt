@@ -47,6 +47,61 @@ namespace Hoover.Services
             string json = await client.GetStringAsync(url);
             return ParseForecastJson(json);
         }
+        
+        /// <summary>
+        /// Parses the given json string into a <see cref="ForecastItem"/>. Returns <code>null</code> if
+        /// not possible.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        private ForecastItem ParseForecastItem(string json)
+        {
+            try
+            {
+                JToken root = JToken.Parse(json);
+
+                // Validate the rootObject
+                if (!ValidatePayload(root)) return null;
+
+                JObject rootJObject = (JObject) root;
+
+                var dt = rootJObject.GetValueOrDefault<long>("dt");
+                double temp = 0.0;
+                JObject mainJObject = rootJObject.GetValueOrDefault<JObject>("main");
+                if (mainJObject != null)
+                {
+                    temp = mainJObject.GetValueOrDefault<double>("temp");
+                }
+                string message = null;
+                string icon = null;
+                JArray weatherJArray = rootJObject.GetValueOrDefault<JArray>("weather");
+                if (weatherJArray != null)
+                {
+                    if (weatherJArray.Count > 0)
+                    {
+                        foreach (JObject weatherJObject in weatherJArray)
+                        {
+                            message = weatherJObject.GetValueOrDefault<string>("main");
+                            icon = weatherJObject.GetValueOrDefault<string>("icon");
+                            break;
+                        }
+                    }
+                }
+                var name = rootJObject.GetValueOrDefault<string>("name");
+                return new ForecastItem()
+                {
+                    Dt = dt,
+                    Temp = temp,
+                    Message = message,
+                    Icon = icon,
+                    Name = name
+                };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Parses the json string retreived from the weather service and returns the <see cref="Forecast"/> object.
@@ -81,35 +136,7 @@ namespace Hoover.Services
                     JArray forecastJArray = rootJObject.GetValueOrDefault<JArray>("list");
                     foreach (JObject forecastItemJObject in forecastJArray)
                     {
-                        var dt = forecastItemJObject.GetValueOrDefault<long>("dt");
-                        double temp = 0.0;
-                        JObject mainJObject = forecastItemJObject.GetValueOrDefault<JObject>("main");
-                        if (mainJObject != null)
-                        {
-                            temp = mainJObject.GetValueOrDefault<double>("temp");
-                        }
-                        string message = null;
-                        string icon = null;
-                        JArray weatherJArray = forecastItemJObject.GetValueOrDefault<JArray>("weather");
-                        if (weatherJArray != null)
-                        {
-                            if (weatherJArray.Count > 0)
-                            {
-                                foreach (JObject weatherJObject in weatherJArray)
-                                {
-                                    message = weatherJObject.GetValueOrDefault<string>("main");
-                                    icon = weatherJObject.GetValueOrDefault<string>("icon");
-                                    break;
-                                }
-                            }
-                        }
-                        items.Add(new ForecastItem()
-                        {
-                            Dt = dt,
-                            Temp = temp,
-                            Message = message,
-                            Icon = icon
-                        });
+                        items.Add(ParseForecastItem(forecastItemJObject.ToString()));
                     }
                     return new Forecast()
                     {

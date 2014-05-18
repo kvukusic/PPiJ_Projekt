@@ -41,7 +41,7 @@ namespace Hoover.Views
             {
                 if (forecast.ForecastItems != null)
                 {
-                    var filteredToday = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.Date.AddDays(1));
+                    var filteredToday = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.Date);
                     Forecast = new ObservableCollection<object>(filteredToday.Select(item => new
                     {
                         TemperatureString = item.Temp + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F"),
