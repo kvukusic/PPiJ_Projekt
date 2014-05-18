@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Hoover.Annotations;
@@ -51,14 +52,28 @@ namespace Hoover.Views
 
 			_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
 			_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
-			this.DataContext = this;
+
 			_isMapActive = false;
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 
-			InitARDisplay();
-
+            //InitARDisplay();
 			this.DataContext = this;
 		}
+
+	    protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            InitARDisplay();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            ARDisplay.ARItems.Clear();
+            _waypoints.Clear();
+            OverheadMap.ARItems.Clear();
+            WorldView.ARItems.Clear();
+        }
 
 		private void InitARDisplay()
 		{
@@ -172,20 +187,6 @@ namespace Hoover.Views
 			{
 				_userPushpin.GeoCoordinate = ARDisplay.Location;
 			}
-		}
-
-		protected override void OnNavigatedTo(NavigationEventArgs e)
-		{
-			base.OnNavigatedTo(e);
-		}
-
-		protected override void OnNavigatedFrom(NavigationEventArgs e)
-		{
-			base.OnNavigatedFrom(e);
-			ARDisplay.ARItems.Clear();
-			_waypoints.Clear();
-			OverheadMap.ARItems.Clear();
-			WorldView.ARItems.Clear();
 		}
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
