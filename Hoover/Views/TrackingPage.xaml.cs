@@ -162,7 +162,7 @@ namespace Hoover.Views
 
 			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
 
-			//StartRoute();
+			StartRoute();
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -268,6 +268,20 @@ namespace Hoover.Views
 				});
 		}
 
+		private void StartRoute()
+		{
+			_timer.Interval = TimeSpan.FromSeconds(1);
+			_timer.Tick += Timer_Tick;
+		}
+		private void Timer_Tick(object sender, EventArgs e)
+		{
+			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
+			TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
+			_timer.Start();
+			_startTime = System.Environment.TickCount;
+		}
+
+
 		private void AddItemToARItems(string content, GeoCoordinate location, string description)
 		{
 			_checkpoints.Add(new CheckpointItem()
@@ -289,20 +303,6 @@ namespace Hoover.Views
 			{
 				this.OverheadMap.Map.RemoveRoute(_mapRoute);
 			}
-		}
-
-		private void StartRoute()
-		{
-			_timer.Interval = TimeSpan.FromSeconds(1);
-			_timer.Tick += Timer_Tick;
-			_timer.Start();
-		}
-
-		private void Timer_Tick(object sender, EventArgs e)
-		{
-			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
-			this.TotalRunningTime.Text = runTime.ToString();
-			//timeLabel.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#region INotifyPropertyChanged
