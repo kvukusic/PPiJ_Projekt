@@ -27,6 +27,7 @@ using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Maps.Services;
 using System.Windows.Media.Imaging;
 using Hoover.Helpers;
+using Hoover.Controls;
 
 #endregion
 
@@ -39,6 +40,7 @@ namespace Hoover.Views
 		private bool _isMapActive;
 		private ObservableCollection<GeoCoordinate> _waypoints;
 		private MapRoute _mapRoute;
+		private MapOverlay _userPushpin;
 
 		public TestMap()
 		{
@@ -60,24 +62,22 @@ namespace Hoover.Views
 			ARDisplay.StartServices();
 			OverheadMap.Loaded += OverheadMap_Loaded;
 			_waypoints.Add(ARDisplay.Location);
-			this.HeadingIndicator.
 		}
 
 		void OverheadMap_Loaded(object sender, RoutedEventArgs e)
 		{
 			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
-			OverheadMap.Map.Layers.Add(new MapLayer() {
-				new MapOverlay() {
-					Content = new Controls.UserPushpin(),
-					GeoCoordinate = ARDisplay.Location
-				}});
-			//OverheadMap.Map.Layers.Add(new MapLayer() {
-			//	new MapOverlay() {
-			//		Content = new UserLocationMarker(),
-			//		GeoCoordinate = ARDisplay.Location
-			//	}
-			//});
+
+			UserPushpin pushpin = new Controls.UserPushpin();
+			pushpin.DataContext = ARDisplay;
+			_userPushpin = new MapOverlay()
+			{
+				Content = pushpin,
+				GeoCoordinate = ARDisplay.Location
+			};
+
+			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
 		}
 
 		private void OverheadMapRoute_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -147,6 +147,14 @@ namespace Hoover.Views
 		private void PreviewBox_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			this.ToggleView();
+		}
+
+		private void ARDisplay_LocationChanged(object sender, EventArgs e)
+		{
+			if (_userPushpin != null)
+			{
+				_userPushpin.GeoCoordinate = ARDisplay.Location;
+			}
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
