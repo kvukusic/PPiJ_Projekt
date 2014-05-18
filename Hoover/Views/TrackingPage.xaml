@@ -19,7 +19,7 @@
 
 	<phone:PhoneApplicationPage.Resources>
 		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
-		<system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
+		<system:Double x:Key="PreviewBoxHeight">120.0</system:Double>
 	</phone:PhoneApplicationPage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
@@ -62,6 +62,9 @@
 				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right"/>
 				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
 				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
+			</Grid>
+			<Grid x:Name="RouteStatsInformation">
+				<TextBlock x:Name="TotalRunningTime"/>
 			</Grid>
 		</Grid>
 	</Grid>

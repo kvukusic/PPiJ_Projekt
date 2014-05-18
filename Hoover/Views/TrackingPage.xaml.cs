@@ -30,6 +30,7 @@ using System.Windows.Media.Imaging;
 using Hoover.Helpers;
 using Hoover.Controls;
 using Hoover.Common;
+using System.Windows.Threading;
 
 #endregion
 
@@ -44,6 +45,10 @@ namespace Hoover.Views
 		private MapRoute _mapRoute;
 		private MapOverlay _userPushpin;
 		private MapLayer _currentLocation;
+		private DispatcherTimer _timer;
+		private long _startTime;
+
+		private ObservableCollection<GART.Data.ARItem> _checkpoints;
 
 		public TrackingPage()
 		{
@@ -54,6 +59,8 @@ namespace Hoover.Views
 
 			_isMapActive = false;
 			_waypoints = new ObservableCollection<GeoCoordinate>();
+			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
+			_timer = new DispatcherTimer();
 
             //InitARDisplay();
 			this.DataContext = this;
@@ -67,11 +74,7 @@ namespace Hoover.Views
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatedFrom(e);
-            ARDisplay.ARItems.Clear();
-            _waypoints.Clear();
-            OverheadMap.ARItems.Clear();
-            WorldView.ARItems.Clear();
+			ClearARItems();
         }
 
 		private void InitARDisplay()
@@ -139,6 +142,7 @@ namespace Hoover.Views
 
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
+			ARDisplay.ARItems = _checkpoints;
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
@@ -158,19 +162,13 @@ namespace Hoover.Views
 			};
 
 			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
+
+			//StartRoute();
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
-			this.OverheadMap.Map.Layers.Clear();
-			ARDisplay.ARItems.Clear();
-			WorldView.ARItems.Clear();
-			_waypoints.Clear();
-			_waypoints.Add(ARDisplay.Location);
-			if (_mapRoute != null)
-			{
-				this.OverheadMap.Map.RemoveRoute(_mapRoute);
-			}
+			ClearARItems();
 		}
 
 		private void PreviewBox_OnTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -188,23 +186,32 @@ namespace Hoover.Views
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
 		{
+			VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
 			base.OnOrientationChanged(e);
 			switch (e.Orientation)
 			{
 				case PageOrientation.Landscape:
 				case PageOrientation.LandscapeLeft:
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise270Degrees;
+					if (!_isMapActive)
+						VideoPreview.Margin = new Thickness(0, -60, 0, -60);
+					else
+						VideoPreview.Margin = new Thickness(0, 0, 0, 0);
 					break;
 				case PageOrientation.LandscapeRight:
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise90Degrees;
+					if (!_isMapActive)
+						VideoPreview.Margin = new Thickness(0, -60, 0, -60);
+					else
+						VideoPreview.Margin = new Thickness(0, 0, 0, 0);
 					break;
 				case PageOrientation.Portrait:
 				case PageOrientation.PortraitUp:
-					this.
 					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Default;
-					break;
-				case PageOrientation.PortraitDown:
-					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise180Degrees;
+					if (!_isMapActive)
+						VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
+					else
+						VideoPreview.Margin = new Thickness(0, 0, 0, 0);
 					break;
 			}
 		}
@@ -264,12 +271,39 @@ namespace Hoover.Views
 
 		private void AddItemToARItems(string content, GeoCoordinate location, string description)
 		{
-			WorldView.ARItems.Add(new CheckpointItem()
+			_checkpoints.Add(new CheckpointItem()
 			{
 				Content = content,
 				GeoLocation = location,
 				Description = description
 			});
+		}
+
+		private void ClearARItems()
+		{
+			ARDisplay.ARItems.Clear();
+			WorldView.ARItems.Clear();
+			OverheadMap.ARItems.Clear();
+			_waypoints.Clear();
+			_waypoints.Add(ARDisplay.Location);
+			if (_mapRoute != null)
+			{
+				this.OverheadMap.Map.RemoveRoute(_mapRoute);
+			}
+		}
+
+		private void StartRoute()
+		{
+			_timer.Interval = TimeSpan.FromSeconds(1);
+			_timer.Tick += Timer_Tick;
+			_timer.Start();
+		}
+
+		private void Timer_Tick(object sender, EventArgs e)
+		{
+			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
+			this.TotalRunningTime.Text = runTime.ToString();
+			//timeLabel.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#region INotifyPropertyChanged
