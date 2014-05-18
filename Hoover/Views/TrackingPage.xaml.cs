@@ -40,7 +40,6 @@ namespace Hoover.Views
 		private double _previewBoxHeight;
 		private bool _isMapActive;
 		private ObservableCollection<GeoCoordinate> _waypoints;
-		private ObservableCollection<CheckpointItem> _checkpoints;
 		private MapRoute _mapRoute;
 		private MapOverlay _userPushpin;
 		private MapLayer _currentLocation;
@@ -69,7 +68,6 @@ namespace Hoover.Views
 
 		void OverheadMap_Loaded(object sender, RoutedEventArgs e)
 		{
-			this.OverheadMap.Map.CartographicMode = MapCartographicMode.Terrain;
 			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
 			_currentLocation = new MapLayer() {
@@ -114,7 +112,6 @@ namespace Hoover.Views
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
 				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance");
-				this.totalDistance.Text = _mapRoute.Route.LengthInMeters.ToString();
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
 				this.durationTime.Text = _mapRoute.Route.RuningTime();
