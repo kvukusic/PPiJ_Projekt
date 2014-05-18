@@ -12,4 +12,6 @@
 	<SolidColorBrush x:Key="PageHeaderForegroundBrush" Color="White"/>
 	<SolidColorBrush x:Key="InformationBoxBackgroundBrush" Color="DarkGray" Opacity="0.9"/>
 
+    <SolidColorBrush x:Key="ForecastItemBackgroundBruhs" Color="#C3DAEE" Opacity="0.5"/>
+
 </ResourceDictionary>

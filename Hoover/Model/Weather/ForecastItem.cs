@@ -31,5 +31,6 @@ namespace Hoover.Model.Weather
         /// The icon id.
         /// </summary>
         public string Icon { get; set; }
+
     }
 }
