@@ -13,7 +13,9 @@
     <SolidColorBrush x:Key="PagePanoramaHeaderForegroundBrush" Color="#4C92C9"/>
 	<SolidColorBrush x:Key="InformationBoxBackgroundBrush" Color="DarkGray" Opacity="0.9"/>
 
-    <SolidColorBrush x:Key="ForecastItemBackgroundBruhs" Color="#C3DAEE" Opacity="0.5"/>
-    <SolidColorBrush x:Key="ForecastItemForegroundBruhs" Color="#8B8B8B"/>
+    <SolidColorBrush x:Key="ForecastItemBackgroundBrush" Color="#C3DAEE" Opacity="0.5"/>
+    <SolidColorBrush x:Key="ForecastItemForegroundBrush" Color="#8B8B8B"/>
+
+    <SolidColorBrush x:Key="MainPageItemHeaderForegroundBrush" Color="#8B8B8B"/>
 
 </ResourceDictionary>
