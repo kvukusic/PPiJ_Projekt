@@ -11,14 +11,19 @@
 
 	<!-- BUTTON STYLES -->
 
+    <SolidColorBrush x:Key="StartSessionButtonBackgroundBrush" Color="#EDAB18"/>
+    <SolidColorBrush x:Key="StartSessionButtonPressedBackgroundBrush" Color="#93690B"/>
+    <SolidColorBrush x:Key="StartSessionButtonForegroundBrush" Color="White"/>
+    <SolidColorBrush x:Key="StartSessionButtonPressedForegroundBrush" Color="White"/>
+    
 	<Style x:Key="StartSessionButtonStyle" TargetType="Button">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
-		<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-		<Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}"/>
+        <Setter Property="Background" Value="{StaticResource StartSessionButtonBackgroundBrush}"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="Foreground" Value="{StaticResource StartSessionButtonForegroundBrush}"/>
+		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
 		<Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
-		<Setter Property="Padding" Value="10,5,10,6"/>
+		<Setter Property="Padding" Value="0"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -30,10 +35,10 @@
 								<VisualState x:Name="Pressed">
 									<Storyboard>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneButtonBasePressedForegroundBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource StartSessionButtonPressedForegroundBrush}"/>
 										</ObjectAnimationUsingKeyFrames>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneAccentBrush}"/>
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource StartSessionButtonPressedBackgroundBrush}"/>
 										</ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>

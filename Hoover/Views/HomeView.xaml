@@ -10,7 +10,14 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
 	<Grid x:Name="LayoutRoot">
-		<Button x:Name="startButton" Content="Start Run!" HorizontalAlignment="Center" 
-				Margin="0,80,0,0" VerticalAlignment="Top" Width="270" Click="startButton_Click" Height="100"/>
+		<Button x:Name="StartButton"
+                Content="Start Run!"
+                HorizontalAlignment="Center"
+				Margin="0,80,0,0"
+                VerticalAlignment="Top"
+                Width="150"
+                Height="150"
+                Click="StartButton_Click"
+                Style="{StaticResource StartSessionButtonStyle}"/>
 	</Grid>
 </UserControl>

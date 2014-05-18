@@ -44,7 +44,7 @@ namespace Hoover.Views
                     var filteredToday = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.Date);
                     Forecast = new ObservableCollection<object>(filteredToday.Select(item => new
                     {
-                        TemperatureString = item.Temp + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F"),
+                        TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F"),
                         TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
                         IconUrl = "http://openweathermap.org/img/w/" + item.Icon + ".png",
                         item.Message
