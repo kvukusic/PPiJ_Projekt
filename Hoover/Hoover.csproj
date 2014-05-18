@@ -96,10 +96,10 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Database\DataAccess.cs" />
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
+    <Compile Include="Helpers\Extenstions.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Model\HistoryItem.cs" />
     <Compile Include="Model\Weather\City.cs" />
-    <Compile Include="Model\Weather\Coordinate.cs" />
     <Compile Include="Model\Weather\Forecast.cs" />
     <Compile Include="Model\Weather\ForecastItem.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -242,6 +242,15 @@
     <Reference Include="RestSharp.WindowsPhone">
       <HintPath>..\packages\RestSharp.104.4.0\lib\sl4-wp71\RestSharp.WindowsPhone.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\sl4-windowsphone71\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="Wintellect.Sterling.WindowsPhone">
       <HintPath>..\packages\SterlingPhone.1.6.2\lib\sl3-wp\Wintellect.Sterling.WindowsPhone.dll</HintPath>
     </Reference>
@@ -255,9 +264,7 @@
       <Name>GART.WP8</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
