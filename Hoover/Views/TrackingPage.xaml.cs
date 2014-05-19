@@ -58,8 +58,6 @@ namespace Hoover.Views
 		private GeoCoordinateWatcher _watcher;
 		private double _kilometres;
 		private long _previousPositionChangeTick;
-		private Accelerometer _accelerometer;
-		private Motion _motion;
 
 		#endregion
 
@@ -91,8 +89,7 @@ namespace Hoover.Views
         {
             base.OnNavigatedTo(e);
 
-			// When route is started, show VideoPreview first
-			_isMapActive = true;
+			_isMapActive = !ApplicationSettings.ShowMapSystem;
 
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
@@ -165,14 +162,13 @@ namespace Hoover.Views
 
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
+			OverheadMap.Tap -= OverheadMapRoute_Tap;
 			ARDisplay.ARItems = _checkpoints;
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
 			//OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
-			OverheadMap.Tap -= OverheadMapRoute_Tap;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
-			
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
@@ -190,21 +186,6 @@ namespace Hoover.Views
 			StartRoute();
 			_watcher.Start();
 		}
-
-	    private void ShowPreviewBox()
-	    {
-            this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
-	    }
-
-	    private void ShowVideoPreview()
-	    {
-	        
-	    }
-
-	    private void HideVideoPreview()
-	    {
-	        
-	    }
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
@@ -306,6 +287,7 @@ namespace Hoover.Views
 
 		private void ToggleView()
 		{
+			PreviewBox.Visibility = System.Windows.Visibility.Visible;
 			if (_isMapActive)
 			{
 				this.OverheadMap.VerticalAlignment = VerticalAlignment.Top;

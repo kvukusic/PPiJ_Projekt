@@ -41,6 +41,7 @@
 		</Border>
 	</DataTemplate>
 
+	<!-- ROUTE PUSHPIN --> 
 	<Style TargetType="toolkit:Pushpin">
 		<Setter Property="Template">
 			<Setter.Value>

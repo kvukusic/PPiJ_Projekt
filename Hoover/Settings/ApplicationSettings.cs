@@ -74,6 +74,21 @@ namespace Hoover.Settings
             }
         }
 
+		private const string ShowMapSystemKeyName = "ShowMapSystem";
+		private const bool ShowMapSystemDefault = true;
+		public bool ShowMapSystem
+		{
+			get { return LoadSettingLocal(ShowMapSystemKeyName, ShowMapSystemDefault); }
+			set
+			{
+				if (StoreSettingLocal(ShowMapSystemKeyName, value))
+				{
+					StoreSettings();
+					OnPropertyChanged("ShowMapSystem");
+				}
+			}
+		}
+
         /// <summary>
         /// Stores the settings to the isolated storage.
         /// </summary>
