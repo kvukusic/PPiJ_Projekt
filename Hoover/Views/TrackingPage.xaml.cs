@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Hoover.Annotations;
+using Hoover.Settings;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps;
 using Microsoft.Phone.Maps.Controls;
@@ -48,6 +49,8 @@ namespace Hoover.Views
 		private DispatcherTimer _timer;
 		private long _startTime;
 
+	    public ApplicationSettings Settings = ApplicationSettings.Instance;
+
 		private ObservableCollection<GART.Data.ARItem> _checkpoints;
 
 		public TrackingPage()
@@ -74,6 +77,7 @@ namespace Hoover.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
 			ClearARItems();
+            this.Settings = null;
         }
 
 		private void InitARDisplay()
@@ -147,7 +151,7 @@ namespace Hoover.Views
 			OverheadMap.Map.ZoomLevel = 20;
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
-			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
+			
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
@@ -164,6 +168,21 @@ namespace Hoover.Views
 
 			StartRoute();
 		}
+
+	    private void ShowPreviewBox()
+	    {
+            this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
+	    }
+
+	    private void ShowVideoPreview()
+	    {
+	        
+	    }
+
+	    private void HideVideoPreview()
+	    {
+	        
+	    }
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{

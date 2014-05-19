@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,7 @@ using Hoover.Model.Weather;
 using Hoover.Services;
 using Hoover.Settings;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
 
 #endregion
@@ -23,6 +25,14 @@ namespace Hoover.Views
 {
     public partial class HomeView : UserControl, INotifyPropertyChanged
     {
+        /// <summary>
+        /// Used to disable loading the city name more than once.
+        /// </summary>
+        private bool _isCityNameKnown = false;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public HomeView()
         {
             InitializeComponent();
@@ -37,14 +47,22 @@ namespace Hoover.Views
         /// </summary>
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
+            // Load city name
+            if (!_isCityNameKnown)
+            {
+                CityName = await LocationService.Instance.GetCurrentCityName();
+                _isCityNameKnown = true;
+            }
+
             // Load Current Weather
             var forecastItem = await new WeatherService().GetCurrentWeatherAsync();
             var currentWeather = new CurrentWeather();
             currentWeather.WeatherMessage = forecastItem.Message;
-            currentWeather.Temperature = Convert.ToInt32(Math.Round(forecastItem.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F");
+            currentWeather.Temperature = Convert.ToInt32(Math.Round(forecastItem.Temp)).ToString(CultureInfo.InvariantCulture);
+            currentWeather.TemperatureUnit = "o" + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F");
             currentWeather.IconUrl = "http://openweathermap.org/img/w/" + forecastItem.Icon + ".png";
             CurrentWeather = currentWeather;
-
+            IsWeatherLoaded = true;
         }
 
         /// <summary>
@@ -72,6 +90,37 @@ namespace Hoover.Views
             }
         }
 
+        private bool _IsWeatherLoaded;
+        public bool IsWeatherLoaded
+        {
+            get { return _IsWeatherLoaded; }
+            set
+            {
+                if (value != _IsWeatherLoaded)
+                {
+                    _IsWeatherLoaded = value;
+                    OnPropertyChanged("IsWeatherLoaded");
+                }
+            }
+        }
+
+        private string _CityName;
+        /// <summary>
+        /// The city name used for displaying along the weather.
+        /// </summary>
+        public string CityName
+        {
+            get { return _CityName; }
+            set
+            {
+                if (value != _CityName)
+                {
+                    _CityName = value;
+                    OnPropertyChanged("CityName");
+                }
+            }
+        }
+
         #region INPC
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -95,6 +144,7 @@ namespace Hoover.Views
         public string IconUrl { get; set; }
         public string WeatherMessage { get; set; }
         public string Temperature { get; set; }
+        public string TemperatureUnit { get; set; }
     }
 
 }
