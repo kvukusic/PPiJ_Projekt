@@ -60,8 +60,9 @@ namespace Hoover.Services
         {
             HttpClient client = new HttpClient();
             var unit = ApplicationSettings.Instance.UseMetricSystem ? "metric" : "imperial";
-            GeoCoordinateWatcher geoCoordinate = new GeoCoordinateWatcher();
-            var position = geoCoordinate.Position;
+            GeoCoordinateWatcher geoCoordinateWatcher = new GeoCoordinateWatcher();
+			geoCoordinateWatcher.Start();
+            var position = geoCoordinateWatcher.Position;
             var lat = position.Location.Latitude.ToString(CultureInfo.InvariantCulture);
             var lon = position.Location.Longitude.ToString(CultureInfo.InvariantCulture);
             // Create url

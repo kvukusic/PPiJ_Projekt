@@ -16,8 +16,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="False"
-	d:DataContext="{d:DesignInstance views:TrackingPage}">
+    shell:SystemTray.IsVisible="False">
 
 	<phone:PhoneApplicationPage.Resources>
 		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
