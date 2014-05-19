@@ -31,6 +31,8 @@ using Hoover.Helpers;
 using Hoover.Controls;
 using Hoover.Common;
 using System.Windows.Threading;
+using Microsoft.Devices.Sensors;
+using Hoover.Services;
 
 #endregion
 
@@ -55,6 +57,8 @@ namespace Hoover.Views
 		private GeoCoordinateWatcher _watcher;
 		private double _kilometres;
 		private long _previousPositionChangeTick;
+		private Accelerometer _accelerometer;
+		private Motion _motion;
 
 		#endregion
 
@@ -138,7 +142,7 @@ namespace Hoover.Views
 			if (!ApplicationSettings.ShowPreviewBox)
 				PreviewBox.Tap -= PreviewBox_Tap;
 
-			OverheadMap.Map.Layers.Add(_currentLocation);
+			UpdateCurrentLocationPushpin();
 			OverheadMap.Map.MapElements.Add(_line);
 		}
 
@@ -155,36 +159,6 @@ namespace Hoover.Views
 
 			query.QueryCompleted += routeQuery_QueryCompleted;
 			query.QueryAsync();
-		}
-
-		private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
-		{
-			if (e.Error == null)
-			{
-				// RouteQuery returned valid Route as result
-				if (this._mapRoute != null)
-				{
-					this.OverheadMap.Map.RemoveRoute(_mapRoute);
-				}
-				_mapRoute = new MapRoute(e.Result);
-				_mapRoute.Color = Colors.Gray;
-				_mapRoute.RouteViewKind = RouteViewKind.UserDefined;
-				
-				OverheadMap.Map.AddRoute(_mapRoute);
-
-				// Align tapped position to calculated point (on road/walk line)
-				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
-
-				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
-				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance");
-
-				this.totalDistance.Text = _mapRoute.Route.Length();
-				this.durationTime.Text = _mapRoute.Route.RuningTime();
-			}
-			else
-			{
-				_waypoints.RemoveAt(_waypoints.Count - 1);
-			}
 		}
 
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -223,6 +197,36 @@ namespace Hoover.Views
 		private void PreviewBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			this.ToggleView();
+		}
+
+		private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
+		{
+			if (e.Error == null)
+			{
+				// RouteQuery returned valid Route as result
+				if (this._mapRoute != null)
+				{
+					this.OverheadMap.Map.RemoveRoute(_mapRoute);
+				}
+				_mapRoute = new MapRoute(e.Result);
+				_mapRoute.Color = Colors.Gray;
+				_mapRoute.RouteViewKind = RouteViewKind.UserDefined;
+
+				OverheadMap.Map.AddRoute(_mapRoute);
+
+				// Align tapped position to calculated point (on road/walk line)
+				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
+
+				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance");
+
+				this.totalDistance.Text = _mapRoute.Route.Length();
+				this.durationTime.Text = _mapRoute.Route.RuningTime();
+			}
+			else
+			{
+				_waypoints.RemoveAt(_waypoints.Count - 1);
+			}
 		}
 
 		private void ARDisplay_LocationChanged(object sender, EventArgs e)
@@ -265,6 +269,12 @@ namespace Hoover.Views
 			}
 			_line.Path.Add(coord);
 			_previousPositionChangeTick = System.Environment.TickCount;
+		}
+
+		private void Timer_Tick(object sender, EventArgs e)
+		{
+			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
+			//TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#endregion
@@ -339,7 +349,7 @@ namespace Hoover.Views
 				new MapOverlay() {
 					Content = new Pushpin() { Content = content },
 					GeoCoordinate = location,
-					PositionOrigin = new Point(0,1)
+					PositionOrigin = new Point(0,0)
 				}
 			});
 		}
@@ -353,12 +363,17 @@ namespace Hoover.Views
 			_timer.Start();
 		}
 
-		private void Timer_Tick(object sender, EventArgs e)
+		private void UpdateCurrentLocationPushpin()
 		{
-			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
-			//TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
-		}
+			_currentLocation = new MapLayer() {
+				new MapOverlay() {
+				Content = new UserLocationMarker(),
+				GeoCoordinate = ARDisplay.Location
+				}
+			};
 
+			OverheadMap.Map.Layers.Add(_currentLocation);
+		}
 
 		private void AddItemToARItems(string content, GeoCoordinate location, string description)
 		{
@@ -383,6 +398,8 @@ namespace Hoover.Views
 			{
 				this.OverheadMap.Map.RemoveRoute(_mapRoute);
 			}
+
+			UpdateCurrentLocationPushpin();
 		}
 
 		private void ChangeOrientation(PageOrientation orientation)
@@ -424,11 +441,14 @@ namespace Hoover.Views
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
 		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
+
 		#endregion
 
 	}

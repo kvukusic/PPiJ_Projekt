@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d">
 
     <!-- HYSTORY PAGE -->
@@ -25,7 +26,7 @@
     </DataTemplate>
 
     <!-- TRACKING PAGE -->
-    <DataTemplate x:Key="CheckpointItem">
+	<DataTemplate x:Key="CheckpointItem">
 		<Border BorderBrush="Black" Width="320" Background="Black" Canvas.ZIndex="2">
 			<Grid>
 				<Image Source="/Assets/mapMarkerGreen.png" Width="100" Height="100" HorizontalAlignment="Left"/>
@@ -39,5 +40,15 @@
 			</Grid>
 		</Border>
 	</DataTemplate>
+
+	<Style TargetType="toolkit:Pushpin">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Image Source="/Assets/mapMarkerGreen.png" Margin="-24,-48,0,0"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 </ResourceDictionary>
