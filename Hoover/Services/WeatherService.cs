@@ -60,11 +60,10 @@ namespace Hoover.Services
         {
             HttpClient client = new HttpClient();
             var unit = ApplicationSettings.Instance.UseMetricSystem ? "metric" : "imperial";
-            GeoCoordinateWatcher geoCoordinateWatcher = new GeoCoordinateWatcher();
-			geoCoordinateWatcher.Start();
-            var position = geoCoordinateWatcher.Position;
-            var lat = position.Location.Latitude.ToString(CultureInfo.InvariantCulture);
-            var lon = position.Location.Longitude.ToString(CultureInfo.InvariantCulture);
+
+            var position = LocationService.Instance.GetCurrentPosition();
+            var lat = position.Latitude.ToString(CultureInfo.InvariantCulture);
+            var lon = position.Longitude.ToString(CultureInfo.InvariantCulture);
             // Create url
             var url = new Uri(BaseUrl + weatherType + "?units=" + unit + "&lat=" + lat + "&lon=" + lon);
 

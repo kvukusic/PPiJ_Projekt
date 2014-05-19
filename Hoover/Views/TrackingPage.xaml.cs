@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Hoover.Annotations;
+using Hoover.Settings;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps;
 using Microsoft.Phone.Maps.Controls;
@@ -118,6 +119,7 @@ namespace Hoover.Views
 			//ARDisplay.StopServices();
 			ApplicationSettings = null;
 			ClearARItems();
+            this.ApplicationSettings = null;
         }
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -170,7 +172,7 @@ namespace Hoover.Views
 			//OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
-			this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
+			
 			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
@@ -188,6 +190,21 @@ namespace Hoover.Views
 			StartRoute();
 			_watcher.Start();
 		}
+
+	    private void ShowPreviewBox()
+	    {
+            this.PreviewBox.Visibility = System.Windows.Visibility.Visible;
+	    }
+
+	    private void ShowVideoPreview()
+	    {
+	        
+	    }
+
+	    private void HideVideoPreview()
+	    {
+	        
+	    }
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
@@ -369,7 +386,7 @@ namespace Hoover.Views
 				new MapOverlay() {
 				Content = new UserLocationMarker(),
 				GeoCoordinate = ARDisplay.Location
-				}
+		}
 			};
 
 			OverheadMap.Map.Layers.Add(_currentLocation);
@@ -444,7 +461,7 @@ namespace Hoover.Views
 		protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			if (PropertyChanged != null)
-			{
+		{
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}

@@ -14,18 +14,22 @@
 	<Grid x:Name="LayoutRoot">
         <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                <TextBlock Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 
-                <Grid Margin="12,0" Height="60" Background="{StaticResource ForecastItemBackgroundBrush}" Width="450">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="2*"/>
-					</Grid.ColumnDefinitions>
-					<Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
-                    <TextBlock Grid.Column="1" Text="{Binding CurrentWeather.Temperature}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-					<TextBlock Grid.Column="2" Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-				</Grid>
+                <Grid Margin="12,0" Height="120" Background="{StaticResource ForecastItemBackgroundBrush}" Width="450" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80" Height="80"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="52"/>
+                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="20" Margin="10,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" FontSize="28" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
                 
                 <Button x:Name="StartButton"
                 Content="START"
