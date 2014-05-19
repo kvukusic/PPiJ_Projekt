@@ -20,7 +20,7 @@
 
 	<phone:PhoneApplicationPage.Resources>
 		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
-		<system:Double x:Key="PreviewBoxHeight">120.0</system:Double>
+		<system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
 	</phone:PhoneApplicationPage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
@@ -34,7 +34,7 @@
 		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,0">
 			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
-                <gart:VideoPreview x:Name="VideoPreview"/>
+                <gart:VideoPreview x:Name="VideoPreview" Margin="-60,0,-60,0"/>
 				<gart:WorldView x:Name="WorldView" ItemTemplate="{StaticResource CheckpointItem}" MinItemScale="0.1" MaxItemScale="1.0" FarClippingPlane="300.0" NearClippingPlane="1.0"/>
 				<gart:OverheadMap x:Name="OverheadMap"/>
 			</gart:ARDisplay>
@@ -44,7 +44,7 @@
 				  Opacity="0.01" Background="White" 
 				  Visibility="Collapsed"
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
-				  Tap="PreviewBox_OnTap"/>
+				  Tap="PreviewBox_Tap"/>
 			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Button x:Name="StartButton" Content="Start" Tap="StartButton_Tap"/>
 				<Button x:Name="ClearPointsButton" Content="Clear" Tap="ClearPointsButton_Tap"/>
@@ -63,11 +63,6 @@
 				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right"/>
 				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
 				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
-			</Grid>
-			<Grid x:Name="RouteStatsInformation" Background="{StaticResource InformationBoxBackgroundBrush}"
-				  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15">
-				<TextBlock x:Name="TotalRunningTime" FontSize="40" Padding="5"/>
-				<TextBlock x:Name="CurrentRunningSpeed" FontSize="40" Padding="5"/>
 			</Grid>
 		</Grid>
 	</Grid>

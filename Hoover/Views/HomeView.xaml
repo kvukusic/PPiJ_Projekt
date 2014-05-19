@@ -17,25 +17,25 @@
                 <TextBlock Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
                 
                 <Grid Margin="12,0" Height="60" Background="{StaticResource ForecastItemBackgroundBrush}" Width="450">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="2*"/>
+					</Grid.ColumnDefinitions>
+					<Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
                     <TextBlock Grid.Column="1" Text="{Binding CurrentWeather.Temperature}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
+					<TextBlock Grid.Column="2" Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+				</Grid>
                 
                 <Button x:Name="StartButton"
                 Content="START"
                 HorizontalAlignment="Center"
 				Margin="0,80,0,0"
                 VerticalAlignment="Top"
-                Width="150"
+                Width="260"
                 Height="150"
                 Tap="StartButton_Tap"
-                Style="{StaticResource StartSessionButtonStyle}"/>
+                Style="{StaticResource StartSessionButtonStyle}" FontSize="40"/>
             </StackPanel>
         </ScrollViewer>
 	</Grid>
