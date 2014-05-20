@@ -213,37 +213,46 @@ namespace Hoover.Views
 			if (ApplicationSettings.EnableMotionNavigation && Motion.IsSupported)
 			{
 				_motion = new Motion();
+			    _motion.TimeBetweenUpdates = TimeSpan.FromSeconds(1);
 				_motion.CurrentValueChanged += Motion_CurrentValueChanged;
 				_motion.Start();
 			}
 
 		}
 
+	    private bool _motionFlag = true;
 		void Motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
 		{
-			Dispatcher.BeginInvoke(delegate
-			{
-				double pitchValue = Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch));
-				if (pitchValue > 135)
-				{
-					ShowWeatherTooltip();
-					this.yaw.Text = "WEATHER";
-					// Pokaži tooltip, na 10 s
-				}
-				else if(pitchValue < 5)
-				{
-					this.yaw.Text = "MAP";
-					// Show map
-					// 
-				}
-				else
-				{
-					this.yaw.Text = String.Empty;
-					// Show do nothing
-				}
+            double pitchValue = Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch));
 
-				//this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch).ToString("0");
-			});
+		    if (_motionFlag)
+		    {
+                Dispatcher.BeginInvoke(delegate
+                {
+                    Debug.WriteLine(pitchValue);
+                    if (pitchValue > 125)
+                    {
+                        ShowWeatherTooltip();
+                        MessageBox.Show("ovde bre");
+                    }
+                    else if (pitchValue < 25)
+                    {
+                        this._isMapActive = false;
+                        this.ToggleView();
+                    }
+                    else
+                    {
+                        this._isMapActive = true;
+                        this.ToggleView();
+                    }
+
+                    //this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch).ToString("0");
+                });
+		    }
+            else if (pitchValue > 135 || pitchValue < 5)
+            {
+                _motionFlag = true;
+            }
 		}
 
 		private void StopButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -259,6 +268,7 @@ namespace Hoover.Views
 
 		private void PreviewBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
+		    _motionFlag = false;
 			this.ToggleView();
 		}
 
