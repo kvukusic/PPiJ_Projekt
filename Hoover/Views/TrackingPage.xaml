@@ -51,17 +51,20 @@
 						<Image Source="/Assets/timerStartImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 					</ContentControl>
 				</Button>
-				<Button x:Name="StopButton" Tap="StopButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}" Visibility="Collapsed">
-					<ContentControl>
-						<Image Source="/Assets/timerStopImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-					</ContentControl>
-				</Button>
 				<Button x:Name="ClearPointsButton" Tap="ClearPointsButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
 					<ContentControl>
 						<Image Source="/Assets/removePinsImage.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 					</ContentControl>
 				</Button>
 			</StackPanel>
+			<Button x:Name="StopButton" Tap="StopButton_Tap" Style="{StaticResource RoundButtonStyle}" 
+					Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}" 
+					HorizontalAlignment="Left" VerticalAlignment="Top"
+					Visibility="Collapsed">
+				<ContentControl>
+					<Image Source="/Assets/timerStopImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</ContentControl>
+			</Button>
 			<Grid x:Name="RouteInformationBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
 				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="15,10,15,20">
 				<Grid.ColumnDefinitions>
