@@ -66,11 +66,14 @@
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<TextBlock Grid.Row="0" Grid.Column="0" Text="total route length" Padding="5" FontSize="25"/>
-				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right"/>
-				<TextBlock Grid.Row="1" Grid.Column="0" Text="duration time" Padding="5" FontSize="25"/>
-				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right"/>
+				<TextBlock Grid.Row="0" Grid.Column="0" x:Name="description1"  Text="Total route length" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="1" Grid.Column="0" x:Name="description2" Text="Duration time" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="2" Grid.Column="0" x:Name="description3" Text="Distance run so far" Padding="5" FontSize="25" Visibility="Collapsed"/>
+				<TextBlock Grid.Row="2" Grid.Column="1" x:Name="totalDistanceRun" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold" Visibility="Collapsed"/>
 			</Grid>
 		</Grid>
 	</Grid>

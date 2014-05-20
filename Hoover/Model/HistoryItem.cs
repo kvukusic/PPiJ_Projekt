@@ -19,9 +19,9 @@ namespace Hoover.Model
         public int ID { get; set; }
 
 		/// <summary>
-		/// Collection of all checkpoint on the route.
+		/// Route of session.
 		/// </summary>
-		public GeoCoordinateCollection CurrentWayPoints;
+		public MapRoute Route;
 
 		/// <summary>
 		/// Date and time of session start.

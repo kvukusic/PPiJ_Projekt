@@ -59,7 +59,6 @@ namespace Hoover.Views
 		private double _kilometres;
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
-		private Motion _motion;
 
 		#endregion
 
@@ -177,8 +176,13 @@ namespace Hoover.Views
 			OverheadMap.Map.ZoomLevel = 20;
 			//OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
-			this.RouteInformationBox.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
+
+			// Set new description to Information box
+			this.description1.Text = "Time running: ";
+			this.description2.Text = "Average speed: ";
+			this.description3.Visibility = System.Windows.Visibility.Visible;
+			this.totalDistanceRun.Visibility = System.Windows.Visibility.Visible;
 
 			// Add heading indicator to map
 			UserPushpin pushpin = new Controls.UserPushpin();
@@ -280,7 +284,7 @@ namespace Hoover.Views
 		private void Timer_Tick(object sender, EventArgs e)
 		{
 			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
-			//TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
+			TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#endregion
