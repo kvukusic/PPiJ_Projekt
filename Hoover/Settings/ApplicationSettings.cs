@@ -59,6 +59,21 @@ namespace Hoover.Settings
             }
         }
 
+		private const string EnableMotionNavigationKeyName = "EnableMotionNavigation";
+		private const bool EnableMotionNavigationDefault = true;
+		public bool EnableMotionNavigation
+		{
+			get { return LoadSettingLocal(EnableMotionNavigationKeyName, EnableMotionNavigationDefault); }
+			set
+			{
+				if (StoreSettingLocal(EnableMotionNavigationKeyName, value))
+				{
+					StoreSettings();
+					OnPropertyChanged("EnableMotionNavigation");
+				}
+			}
+		}
+
         private const string UseMetricSystemKeyName = "UseMetricSystem";
         private const bool UseMetricSystemDefault = true;
         public bool UseMetricSystem

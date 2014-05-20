@@ -207,16 +207,39 @@ namespace Hoover.Views
 			StartRoute();
 			_watcher.Start();
 
-			_motion = new Motion();
-			_motion.CurrentValueChanged += _motion_CurrentValueChanged;
-			_motion.Start();
+			if (ApplicationSettings.EnableMotionNavigation && Motion.IsSupported)
+			{
+				_motion = new Motion();
+				_motion.CurrentValueChanged += Motion_CurrentValueChanged;
+				_motion.Start();
+			}
+
 		}
 
-		void _motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
+		void Motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
 		{
 			Dispatcher.BeginInvoke(delegate
 			{
-				this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw).ToString("0");
+				double pitchValue = Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch));
+				if (pitchValue > 135)
+				{
+					ShowWeatherTooltip();
+					this.yaw.Text = "WEATHER";
+					// Pokaži tooltip, na 10 s
+				}
+				else if(pitchValue < 5)
+				{
+					this.yaw.Text = "MAP";
+					// Show map
+					// 
+				}
+				else
+				{
+					this.yaw.Text = String.Empty;
+					// Show do nothing
+				}
+
+				//this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch).ToString("0");
 			});
 		}
 
@@ -519,6 +542,11 @@ namespace Hoover.Views
 		{
 			AddRouteToHistory();
 			// Show Tooltip
+		}
+
+		private void ShowWeatherTooltip()
+		{
+
 		}
 
 		#endregion
