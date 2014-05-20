@@ -59,6 +59,7 @@ namespace Hoover.Views
 		private double _distance;
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
+		private Model.HistoryItem _currentRoute;
 
 		#endregion
 
@@ -201,6 +202,18 @@ namespace Hoover.Views
 
 			StartRoute();
 			_watcher.Start();
+
+			_currentRoute = new Model.HistoryItem() {
+				AverageSpeed = 25.5,
+				EndTime = DateTime.Now.AddMinutes(35),
+				StartTime = DateTime.Now,
+				RouteLength = _mapRoute.Route.LengthInMeters,
+				Route = _mapRoute,
+				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
+			};
+
+			App.DataAccess.AddHistoryItem(_currentRoute);
+
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -385,9 +398,9 @@ namespace Hoover.Views
 		{
 			_currentLocation = new MapLayer() {
 				new MapOverlay() {
-				Content = new UserLocationMarker(),
-				GeoCoordinate = ARDisplay.Location
-		}
+					Content = new UserLocationMarker(),
+					GeoCoordinate = ARDisplay.Location
+				}
 			};
 
 			OverheadMap.Map.Layers.Add(_currentLocation);
@@ -472,6 +485,11 @@ namespace Hoover.Views
 					}
 					break;
 			}
+		}
+
+		private void AddRouteToHistory()
+		{
+			
 		}
 
 		#endregion
