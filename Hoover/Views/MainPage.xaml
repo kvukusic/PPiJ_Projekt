@@ -26,7 +26,7 @@
 		<shell:ApplicationBar>
 			<shell:ApplicationBar.MenuItems>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="settings" Click="SettingsMenuItem_Click"/>
-				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about"/>
+				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about" Click="AboutMenuItem_Click"/>
 			</shell:ApplicationBar.MenuItems>
 			<shell:ApplicationBarIconButton x:Name="SpeechButton" IconUri="/Assets/AppBarIcons/appbar.microphone.png" IsEnabled="True" Text="speech" Click="SpeechButton_Click"/>
 

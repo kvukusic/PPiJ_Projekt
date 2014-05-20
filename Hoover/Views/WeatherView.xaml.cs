@@ -46,36 +46,16 @@ namespace Hoover.Views
                     var filteredTommorow = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.AddDays(1).Date);
 
                     var resultForecast = new ObservableCollection<WeatherItem>();
-                    resultForecast.Add(new WeatherItem()
-                    {
-                        IsHeader = true,
-                        Title = "TODAY"
-                    });
+                    resultForecast.Add(new WeatherItem("TODAY"));
                     foreach (var item in filteredToday)
                     {
-                        resultForecast.Add(new WeatherItem()
-                        {
-                            TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F"),
-                            TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
-                            IconUri = "http://openweathermap.org/img/w/" + item.Icon + ".png",
-                            Message = item.Message
-                        });
+                        resultForecast.Add(new WeatherItem(item));
                     }
 
-                    resultForecast.Add(new WeatherItem()
-                    {
-                        IsHeader = true,
-                        Title = "TOMMOROW"
-                    });
+                    resultForecast.Add(new WeatherItem("TOMORROW"));
                     foreach (var item in filteredTommorow)
                     {
-                        resultForecast.Add(new WeatherItem()
-                        {
-                            TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F"),
-                            TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
-                            IconUri = "http://openweathermap.org/img/w/" + item.Icon + ".png",
-                            Message = item.Message
-                        });
+                        resultForecast.Add(new WeatherItem(item));
                     }
 
                     Forecast = resultForecast;

@@ -13,6 +13,7 @@
         <ListBox
             ItemsSource="{Binding Forecast}"
             ItemTemplate="{StaticResource WeatherItemTemplateSelector}" 
-            Margin="0,0,0,5"/>
+            Margin="0,0,0,5"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
     </Grid>
 </UserControl>

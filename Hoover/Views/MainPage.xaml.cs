@@ -45,5 +45,9 @@ namespace Hoover.Views
             Services.NavigationService.Instance.Navigate(Services.PageNames.SettingsPageName);
         }
 
+	    private void AboutMenuItem_Click(object sender, EventArgs e)
+	    {
+	        Services.NavigationService.Instance.Navigate(Services.PageNames.AboutPageName);
+	    }
 	}
 }
