@@ -35,6 +35,6 @@ namespace Hoover.Views
 
             shareLinkTask.Show();
         }
-       
+
     }
 }
