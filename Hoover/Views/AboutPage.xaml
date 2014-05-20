@@ -6,16 +6,38 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PageBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="Header" Background="{StaticResource PageHeaderBackgroundBrush}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="100">
+                <Image Width="50" Height="50" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Margin="15,0,0,0" Text="ABOUT" VerticalAlignment="Center" Foreground="{StaticResource PageHeaderForegroundBrush}" FontSize="30" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Orientation="Vertical" Margin="20">
+                <TextBlock Text="CREDITS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Petar Ćurković" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Kristian-Stjepan Vukušić " Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Dominik Jularić" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Martin Sven Kovačić" Width="456" FontSize="22"/>
+                <TextBlock Text="INFO" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Hoover'n Recreate software © 2014 IceTea" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Project for Programske paradigme i jezici" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Version: 1.0.0" Width="456" FontSize="22"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 
 </phone:PhoneApplicationPage>
