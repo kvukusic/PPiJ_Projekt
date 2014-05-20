@@ -73,6 +73,8 @@ namespace Hoover.Views
 			Services.NavigationService.Instance.Navigate(Services.PageNames.TrackingPageName);
         }
 
+        #region Weather
+
         private CurrentWeather _CurrentWeather;
         /// <summary>
         /// The current weather.
@@ -120,6 +122,8 @@ namespace Hoover.Views
                 }
             }
         }
+
+        #endregion
 
         #region INPC
 

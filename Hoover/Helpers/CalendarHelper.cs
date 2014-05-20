@@ -69,6 +69,18 @@ namespace Hoover.Helpers
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return epoch.AddSeconds(unixTime);
         }
+
+        /// <summary>
+        /// This method converts the given DateTime to timestamp.
+        /// </summary>
+        /// <param name="date">A <see cref="DateTime"/> which will be converted to its timestamp (unix format).</param>
+        /// <returns>The timestamp (unix format) of the given <see cref="DateTime"/></returns>
+        public static long FromDateTimeToUnixTime(DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan diff = date.ToUniversalTime() - origin;
+            return (long) diff.TotalSeconds;
+        }
         
     }
 

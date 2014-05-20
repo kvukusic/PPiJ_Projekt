@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Phone.Maps.Services;
 
 #endregion
 
@@ -16,7 +17,7 @@ namespace Hoover.Model
         /// <summary>
         /// The ID of this history item.
         /// </summary>
-        public int ID { get; set; }
+        public long ID { get; set; }
 
 		/// <summary>
 		/// Route of session.
