@@ -60,7 +60,6 @@ namespace Hoover.Views
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
 		private Model.HistoryItem _currentRoute;
-		private List<GeoCoordinate> _temp = new List<GeoCoordinate>();
 
 		#endregion
 
@@ -169,6 +168,7 @@ namespace Hoover.Views
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
+			StopButton.Visibility = System.Windows.Visibility.Visible;
 
 			if (_checkpoints.Count > 0)
 			{
@@ -203,18 +203,12 @@ namespace Hoover.Views
 
 			StartRoute();
 			_watcher.Start();
+		}
 
-			_currentRoute = new Model.HistoryItem() {
-				AverageSpeed = 25.5,
-				EndTime = DateTime.Now.AddMinutes(35),
-				StartTime = DateTime.Now,
-				RouteLength = _mapRoute.Route.LengthInMeters,
-				Checkpoints = _temp.ToList(),
-				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
-			};
-
-			App.DataAccess.AddHistoryItem(_currentRoute);
-
+		private void StopButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			FinishRoute();
+			// Show Tooltip
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -269,26 +263,20 @@ namespace Hoover.Views
 		{
 			var coord = new GeoCoordinate(e.Position.Location.Latitude, e.Position.Location.Longitude);
 
-			_temp.Add(coord);
-
 			if (_line.Path.Count > 0)
 			{
 				var previousPoint = _line.Path.Last();
 				var distance = coord.GetDistanceTo(previousPoint);
 				_distance += distance;
 				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
-				
 				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
 
-				//var millisPerKilometer = (1000.0 / distance) * (System.Environment.TickCount - _previousPositionChangeTick);
+				if (coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 10)
+				{
+					SetNewCheckpoint();
+				}
 
-				//paceLabel.Text = TimeSpan.FromMilliseconds(millisPerKilometer).ToString(@"mm\:ss");
-				//distanceLabel.Text = string.Format("{0:f2} km", _kilometres);
-				//caloriesLabel.Text = string.Format("{0:f0}", _kilometres * 65);
-
-				//PositionHandler handler = new PositionHandler();
-				//var heading = handler.CalculateBearing(new Position(previousPoint), new Position(coord));
-				//Map.SetView(coord, OverheadMap.Map.ZoomLevel, heading, MapAnimationKind.Parabolic);
+				//OverheadMap.Map.SetView(coord, OverheadMap.Map.ZoomLevel, heading, MapAnimationKind.Parabolic);
 
 				//ShellTile.ActiveTiles.First().Update(new IconicTileData()
 				//{
@@ -297,10 +285,7 @@ namespace Hoover.Views
 				//	WideContent2 = string.Format("{0:f0} calories", _kilometres * 65),
 				//});
 			}
-			else
-			{
-				//OverheadMap.Map.Center = coord;
-			}
+
 			_line.Path.Add(coord);
 			_previousPositionChangeTick = System.Environment.TickCount;
 		}
@@ -446,7 +431,7 @@ namespace Hoover.Views
 			{
 				item = _checkpoints[_activeCheckpoint-1] as CheckpointItem;
 				item.ImageSource = "/Assets/mapFlagMarker.png";
-				item.Description = _timer.Interval.ToString();
+				item.Description = (DateTime.Now - _startTime).ToString();
 				_checkpoints[_activeCheckpoint-1] = item;
 			}
 			
@@ -454,6 +439,13 @@ namespace Hoover.Views
 			item.ImageSource = "/Assets/mapMarkerGreen.png";
 			item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
 			_checkpoints[_activeCheckpoint] = item;
+
+			_activeCheckpoint++;
+
+			if (_activeCheckpoint == _waypoints.Count)
+			{
+				FinishRoute();
+			}
 
 			ARDisplay.ARItems = _checkpoints;
 		}
@@ -492,7 +484,23 @@ namespace Hoover.Views
 
 		private void AddRouteToHistory()
 		{
-			
+			_currentRoute = new Model.HistoryItem()
+			{
+				AverageSpeed = _distance / (DateTime.Now - _startTime).TotalSeconds,
+				EndTime = DateTime.Now,
+				StartTime = _startTime,
+				RouteLength = _mapRoute.Route.LengthInMeters,
+				Checkpoints = _waypoints.ToList(),
+				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
+			};
+
+			App.DataAccess.AddHistoryItem(_currentRoute);
+		}
+
+		private void FinishRoute()
+		{
+			AddRouteToHistory();
+			// Show Tooltip
 		}
 
 		#endregion
@@ -514,63 +522,3 @@ namespace Hoover.Views
 
 	}
 }
-
-
-
-/*
-public MainPage()
-{
-   InitializeComponent();
-
-   TouchPanel.EnabledGestures = GestureType.Flick;
-   myWebbrowser.ManipulationCompleted += myWebbrowser_ManipulationCompleted;
-}
-
-private void myWebbrowser_ManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
-{
-   if (TouchPanel.IsGestureAvailable)
-   {
-      GestureSample gesture = TouchPanel.ReadGesture();
-      switch (gesture.GestureType)
-      {
-        case GestureType.Flick:
-            if (e.FinalVelocities.LinearVelocity.X < 0)
-                        LoadNextPage();
-            if (e.FinalVelocities.LinearVelocity.X > 0)
-                        LoadPreviousPage();
-            break;
-        default:
-            break;
-      }
-  }
-}
- * 
- * 
- public MainPage()
-{
-   InitializeComponent();
-   TouchPanel.EnabledGestures = GestureType.Flick | GestureType.HorizontalDrag;
-   Touch.FrameReported += Touch_FrameReported;
-}
-
-TouchPoint firstPoint;
-private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
-{
-   TouchPoint mainTouch = e.GetPrimaryTouchPoint(ContentPanel);
-
-   if (mainTouch.Action == TouchAction.Down) firstPoint = mainTouch;
-   else if (mainTouch.Action == TouchAction.Up && TouchPanel.IsGestureAvailable)
-   {
-       double deltaX = mainTouch.Position.X - firstPoint.Position.X;
-       double deltaY = mainTouch.Position.Y - firstPoint.Position.Y;
-       if (Math.Abs(deltaX) > 2 * Math.Abs(deltaY))
-       {
-           if (deltaX < 0) MessageBox.Show("Right.");
-           if (deltaX > 0) MessageBox.Show("Left.");
-       }
-    }
-}
-
-
- 
-*/
