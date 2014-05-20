@@ -61,7 +61,7 @@ namespace Hoover.Views
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
 		private Model.HistoryItem _currentRoute;
-
+		private bool _firstInit = true;
 		private Motion _motion;
 
 		#endregion
@@ -83,7 +83,7 @@ namespace Hoover.Views
 			InitializeComponent();
 
 			this.DataContext = this;
-			this.ApplicationSettings = Settings.ApplicationSettings.Instance;
+			
 		}
 
 		#endregion
@@ -93,29 +93,34 @@ namespace Hoover.Views
 		protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+			this.ApplicationSettings = Settings.ApplicationSettings.Instance;
 
-			_isMapActive = !ApplicationSettings.ShowMapSystem;
-			_activeCheckpoint = 0;
-			_distance = 0;
+			if (_firstInit)
+			{
+				_isMapActive = !ApplicationSettings.ShowMapSystem;
+				_activeCheckpoint = 0;
+				_distance = 0;
 
-			_waypoints = new ObservableCollection<GeoCoordinate>();
-			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
-			_timer = new DispatcherTimer();
-			_timer.Interval = TimeSpan.FromSeconds(1);
-			_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+				_waypoints = new ObservableCollection<GeoCoordinate>();
+				_checkpoints = new ObservableCollection<GART.Data.ARItem>();
+				_timer = new DispatcherTimer();
+				_timer.Interval = TimeSpan.FromSeconds(1);
+				_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
 
-			_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
-			_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
+				_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
+				_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
 
-			InitARDisplay();
+				InitARDisplay();
 
-			// Line is used for tracking position
-			_line = new MapPolyline();
-			_line.StrokeColor = Colors.Red;
-			_line.StrokeThickness = 20;
+				// Line is used for tracking position
+				_line = new MapPolyline();
+				_line.StrokeColor = Colors.Red;
+				_line.StrokeThickness = 20;
 
-			OverheadMap.Loaded += OverheadMap_Loaded;
-			_watcher.PositionChanged += Watcher_PositionChanged;
+				OverheadMap.Loaded += OverheadMap_Loaded;
+				_watcher.PositionChanged += Watcher_PositionChanged;
+				_firstInit = false;
+			}
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -123,8 +128,6 @@ namespace Hoover.Views
 			//Exception where are no motion on WP
 			//ARDisplay.StopServices();
 			ApplicationSettings = null;
-			ClearARItems();
-            this.ApplicationSettings = null;
         }
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
@@ -134,7 +137,7 @@ namespace Hoover.Views
 			ChangeOrientation(e.Orientation);
 		}
 
-		void OverheadMap_Loaded(object sender, RoutedEventArgs e)
+		private void OverheadMap_Loaded(object sender, RoutedEventArgs e)
 		{
 			OverheadMap.Tap += OverheadMapRoute_Tap;
 			OverheadMap.Map.Layers.RemoveAt(1);
@@ -181,7 +184,7 @@ namespace Hoover.Views
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
-			OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
+			OverheadMap.Map.SetView(ARDisplay.Location, 20);
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
@@ -530,7 +533,7 @@ namespace Hoover.Views
 				AverageSpeed = _distance / (DateTime.Now - _startTime).TotalSeconds,
 				EndTime = DateTime.Now,
 				StartTime = _startTime,
-				RouteLength = _mapRoute.Route.LengthInMeters,
+				RouteLength = (_mapRoute != null) ? _mapRoute.Route.LengthInMeters : _distance,
 				Checkpoints = _waypoints.ToList(),
 				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
 			};
