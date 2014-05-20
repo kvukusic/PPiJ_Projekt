@@ -145,6 +145,7 @@ namespace Hoover.Views
 			_mapRoute.RouteViewKind = RouteViewKind.UserDefined;
 
 			mapControl.AddRoute(_mapRoute);
+			mapControl.SetView(_mapRoute.Route.BoundingBox);
 			//Map.AddRoute(_mapRoute);
 		}
     }
