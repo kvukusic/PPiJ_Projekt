@@ -3,17 +3,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:views="clr-namespace:Hoover.Views"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    d:DataContext="{d:DesignInstance views:WeatherView}">
     
     <Grid x:Name="LayoutRoot">
+        <telerikPrimitives:RadBusyIndicator 
+            Foreground="Black" 
+            IsRunning="{Binding IsLoaded, Converter={StaticResource BooleanNegationConverter}}"
+            Margin="0,20,0,0"
+            VerticalAlignment="Top"
+            AnimationStyle="AnimationStyle7"/>
         <ListBox
             ItemsSource="{Binding Forecast}"
             ItemTemplate="{StaticResource WeatherItemTemplateSelector}" 
             Margin="0,0,0,5"
-            ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibilityConverter}}"/>
     </Grid>
 </UserControl>
