@@ -427,7 +427,7 @@ namespace Hoover.Views
 			CheckpointItem item;
 
 			// Set previous checkpoint to default value
-			if (_activeCheckpoint > 0)
+			if (_activeCheckpoint > 0 && _activeCheckpoint <= _checkpoints.Count)
 			{
 				item = _checkpoints[_activeCheckpoint-1] as CheckpointItem;
 				item.ImageSource = "/Assets/mapFlagMarker.png";
