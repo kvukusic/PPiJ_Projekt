@@ -54,9 +54,9 @@ namespace Hoover.Views
 		private MapRoute _mapRoute;
 		private MapOverlay _userPushpin;
 		private MapLayer _currentLocation;
-		private long _startTime;
+		private DateTime _startTime;
 		private GeoCoordinateWatcher _watcher;
-		private double _kilometres;
+		private double _distance;
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
 
@@ -92,6 +92,7 @@ namespace Hoover.Views
 
 			_isMapActive = !ApplicationSettings.ShowMapSystem;
 			_activeCheckpoint = 0;
+			_distance = 0;
 
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
@@ -179,10 +180,12 @@ namespace Hoover.Views
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
 			// Set new description to Information box
-			this.description1.Text = "Time running: ";
-			this.description2.Text = "Average speed: ";
+			this.description1.Text = "Average speed: ";	//totatlDistance
+			this.totalDistance.Text = Helpers.Extensions.Speed(0);
+			this.description2.Text = "Time running: ";
 			this.description3.Visibility = System.Windows.Visibility.Visible;
 			this.totalDistanceRun.Visibility = System.Windows.Visibility.Visible;
+			this.totalDistanceRun.Text = Helpers.Extensions.Length(0);
 
 			// Add heading indicator to map
 			UserPushpin pushpin = new Controls.UserPushpin();
@@ -255,8 +258,12 @@ namespace Hoover.Views
 			{
 				var previousPoint = _line.Path.Last();
 				var distance = coord.GetDistanceTo(previousPoint);
-				var millisPerKilometer = (1000.0 / distance) * (System.Environment.TickCount - _previousPositionChangeTick);
-				_kilometres += distance / 1000.0;
+				_distance += distance;
+				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
+				
+				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
+
+				//var millisPerKilometer = (1000.0 / distance) * (System.Environment.TickCount - _previousPositionChangeTick);
 
 				//paceLabel.Text = TimeSpan.FromMilliseconds(millisPerKilometer).ToString(@"mm\:ss");
 				//distanceLabel.Text = string.Format("{0:f2} km", _kilometres);
@@ -283,8 +290,8 @@ namespace Hoover.Views
 
 		private void Timer_Tick(object sender, EventArgs e)
 		{
-			TimeSpan runTime = TimeSpan.FromMilliseconds(System.Environment.TickCount - _startTime);
-			TotalRunningTime.Text = runTime.ToString(@"hh\:mm\:ss");
+			TimeSpan runTime = DateTime.Now - _startTime;
+			durationTime.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#endregion
@@ -369,7 +376,7 @@ namespace Hoover.Views
 		{
 			_timer.Interval = TimeSpan.FromSeconds(1);
 			_timer.Tick += Timer_Tick;
-			_startTime = System.Environment.TickCount;
+			_startTime = DateTime.Now;
 
 			_timer.Start();
 		}

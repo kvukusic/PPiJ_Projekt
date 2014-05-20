@@ -40,6 +40,23 @@ namespace Hoover.Helpers
 		}
 
 		/// <summary>
+		/// Check what unit system is used and returns a route average speed in selected unit system.
+		/// </summary>
+		/// <param name="speedInMetersPerSecond"></param>
+		/// <returns></returns>
+		public static string Speed(this double speedInMetersPerSecond)
+		{
+			if (ApplicationSettings.Instance.UseMetricSystem)
+			{
+				return Math.Round(speedInMetersPerSecond * 3.6, 1) + " km/h";
+			}
+			else
+			{
+				return Math.Round(speedInMetersPerSecond * 2.237136, 1) + " mph";
+			}
+		}
+
+		/// <summary>
 		/// Converts walking duration time of route to runing duration.
 		/// Factor for time scaling is 0.4.
 		/// </summary>
