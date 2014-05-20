@@ -28,14 +28,14 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Orientation="Vertical" Margin="20">
                 <TextBlock Text="CREDITS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Petar Ćurković" Width="456" FontSize="22"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Kristian-Stjepan Vukušić " Width="456" FontSize="22"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Dominik Jularić" Width="456" FontSize="22"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Martin Sven Kovačić" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Petar Ćurković" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Kristian-Stjepan Vukušić " Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Dominik Jularić" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Martin Sven Kovačić" Width="456" FontSize="22"/>
                 <TextBlock Text="INFO" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Hoover'n Recreate software © 2014 IceTea" Width="456" FontSize="22"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Project for Programske paradigme i jezici" Width="456" FontSize="22"/>
-                <TextBox Height="64" TextAlignment="Center" TextWrapping="Wrap" Text="Version: 1.0.0" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Hoover'n Recreate software © 2014 IceTea" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Project for Programske paradigme i jezici" Width="456" FontSize="22"/>
+                <TextBox Height="68" TextAlignment="Center" TextWrapping="Wrap" Text="Version: 1.0.0" Width="456" FontSize="22"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
