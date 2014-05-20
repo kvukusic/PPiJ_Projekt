@@ -89,7 +89,7 @@ namespace Hoover.Database
         /// <returns></returns>
         public List<HistoryItem> GetAllHistoryItems()
         {
-            return (from item in _historyDatabase.Query<HistoryItem, int>() select item.LazyValue.Value).ToList();
+            return (from item in _historyDatabase.Query<HistoryItem, long>() select item.LazyValue.Value).ToList();
         } 
 
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Device.Location;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -33,7 +34,6 @@ namespace Hoover.Views
         {
             // Get the history items from the database
             var historyItems = App.DataAccess.GetAllHistoryItems();
-
         }
 
         private ObservableCollection<HistoryItems.HistoryViewItem> _HistoryItems;
