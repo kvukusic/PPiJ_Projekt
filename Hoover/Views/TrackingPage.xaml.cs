@@ -34,6 +34,7 @@ using Hoover.Common;
 using System.Windows.Threading;
 using Microsoft.Devices.Sensors;
 using Hoover.Services;
+using Microsoft.Xna.Framework;
 
 #endregion
 
@@ -60,6 +61,8 @@ namespace Hoover.Views
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
 		private Model.HistoryItem _currentRoute;
+
+		private Motion _motion;
 
 		#endregion
 
@@ -203,6 +206,18 @@ namespace Hoover.Views
 
 			StartRoute();
 			_watcher.Start();
+
+			_motion = new Motion();
+			_motion.CurrentValueChanged += _motion_CurrentValueChanged;
+			_motion.Start();
+		}
+
+		void _motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
+		{
+			Dispatcher.BeginInvoke(delegate
+			{
+				this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw).ToString("0");
+			});
 		}
 
 		private void StopButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -240,7 +255,7 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
-				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGreen.png");
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGray.png");
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
 				this.durationTime.Text = _mapRoute.Route.RuningTime();
@@ -271,7 +286,7 @@ namespace Hoover.Views
 				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
 				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
 
-				if (_waypoints.Count > _activeCheckpoint && coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 10)
+				if (_waypoints.Count > _activeCheckpoint && coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 30)
 				{
 					SetNewCheckpoint();
 				}
@@ -369,7 +384,7 @@ namespace Hoover.Views
 				new MapOverlay() {
 					Content = new Pushpin() { Content = content },
 					GeoCoordinate = location,
-					PositionOrigin = new Point(0,0)
+					PositionOrigin = new System.Windows.Point(0,0)
 				}
 			});
 		}
@@ -434,11 +449,14 @@ namespace Hoover.Views
 				item.Description = (DateTime.Now - _startTime).ToString();
 				_checkpoints[_activeCheckpoint-1] = item;
 			}
-			
-			item = _checkpoints[_activeCheckpoint] as CheckpointItem;
-			item.ImageSource = "/Assets/mapMarkerGreen.png";
-			item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
-			_checkpoints[_activeCheckpoint] = item;
+
+			if (_checkpoints.Count > 0)
+			{
+				item = _checkpoints[_activeCheckpoint] as CheckpointItem;
+				item.ImageSource = "/Assets/mapMarkerGreen.png";
+				item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
+				_checkpoints[_activeCheckpoint] = item;
+			}
 
 			_activeCheckpoint++;
 
