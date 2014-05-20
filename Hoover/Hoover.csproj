@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\mapItemDetail.png" />
     <Content Include="Assets\settingsImage.png" />
     <Content Include="Assets\timerStopImage.png" />
     <Content Include="Assets\AppBarIcons\appbar.microphone.png" />

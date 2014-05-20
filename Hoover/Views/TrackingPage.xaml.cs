@@ -181,7 +181,7 @@ namespace Hoover.Views
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
-			//OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
+			OverheadMap.Map.Heading = _checkpoints[1].GeoLocation.Course;
 			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
