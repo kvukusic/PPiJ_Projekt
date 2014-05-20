@@ -22,8 +22,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.7*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="TIME" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
                 <TextBlock Grid.Column="1" Text="AVG SPEED" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
@@ -38,8 +38,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{Binding StartTime}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>

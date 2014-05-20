@@ -10,6 +10,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using Hoover.Annotations;
 using Hoover.Database;
 using Hoover.Helpers;
@@ -17,6 +18,7 @@ using Hoover.Services;
 using Hoover.Views.HistoryItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Telerik.Windows.Controls;
 
 #endregion
 
@@ -24,12 +26,19 @@ namespace Hoover.Views
 {
     public partial class HistoryView : UserControl, INotifyPropertyChanged
     {
+        /// <summary>
+        /// Storyboard for showing the header.
+        /// </summary>
+        private Storyboard _headerVisibleStoryboard;
+
         public HistoryView()
         {
             InitializeComponent();
 
             this.DataContext = this;
             this.Loaded += OnLoaded;
+
+            _headerVisibleStoryboard = this.Resources["HeaderVisibleStoryboard"] as Storyboard;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -85,6 +94,20 @@ namespace Hoover.Views
             }
         }
 
+        private HistoryViewItem _HeaderItem;
+        public HistoryViewItem HeaderItem
+        {
+            get { return _HeaderItem; }
+            set
+            {
+                if (value != _HeaderItem)
+                {
+                    _HeaderItem = value;
+                    OnPropertyChanged("HeaderItem");
+                }
+            }
+        }
+
         #region INPC
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -97,5 +120,6 @@ namespace Hoover.Views
         }
 
         #endregion
+
     }
 }
