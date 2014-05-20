@@ -46,8 +46,16 @@
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
 				  Tap="PreviewBox_Tap"/>
 			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
-				<Button x:Name="StartButton" Content="Start" Tap="StartButton_Tap"/>
-				<Button x:Name="ClearPointsButton" Content="Clear" Tap="ClearPointsButton_Tap"/>
+				<Button x:Name="StartButton" Tap="StartButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
+					<ContentControl>
+						<Image Source="/Assets/timerStartImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</ContentControl>
+				</Button>
+				<Button x:Name="ClearPointsButton" Tap="ClearPointsButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
+					<ContentControl>
+						<Image Source="/Assets/removePinsImage.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</ContentControl>
+				</Button>
 			</StackPanel>
 			<Grid x:Name="RouteInformationBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
 				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="15,10,15,20">

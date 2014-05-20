@@ -10,6 +10,7 @@ namespace Hoover.Common
 	class CheckpointItem : ARItem
 	{
 		private string _description;
+		private string _imageSource;
 
 		public string Description
 		{
@@ -20,7 +21,20 @@ namespace Hoover.Common
 			set
 			{
 				_description = value;
-				NotifyPropertyChanged("_description");
+				NotifyPropertyChanged("Description");
+			}
+		}
+
+		public string ImageSource
+		{
+			get
+			{
+				return _imageSource;
+			}
+			set
+			{
+				_imageSource = value;
+				NotifyPropertyChanged("ImageSource");
 			}
 		}
 	}

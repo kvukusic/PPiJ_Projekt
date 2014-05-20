@@ -58,6 +58,7 @@ namespace Hoover.Views
 		private GeoCoordinateWatcher _watcher;
 		private double _kilometres;
 		private long _previousPositionChangeTick;
+		private int _activeCheckpoint;
 
 		#endregion
 
@@ -90,6 +91,7 @@ namespace Hoover.Views
             base.OnNavigatedTo(e);
 
 			_isMapActive = !ApplicationSettings.ShowMapSystem;
+			_activeCheckpoint = 1;
 
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
@@ -163,7 +165,14 @@ namespace Hoover.Views
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
+			CheckpointItem item = _checkpoints[_activeCheckpoint] as CheckpointItem;
+			item.ImageSource = "/Assets/pinImage.png";
+			_checkpoints[_activeCheckpoint].Content = item;
+
 			ARDisplay.ARItems = _checkpoints;
+
+			ARDisplay.ARItems.RemoveAt(0);
+
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
@@ -216,7 +225,7 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
-				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance");
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance", "/Assets/mapMarkerGreen.png");
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
 				this.durationTime.Text = _mapRoute.Route.RuningTime();
@@ -263,7 +272,7 @@ namespace Hoover.Views
 			}
 			else
 			{
-				OverheadMap.Map.Center = coord;
+				//OverheadMap.Map.Center = coord;
 			}
 			_line.Path.Add(coord);
 			_previousPositionChangeTick = System.Environment.TickCount;
@@ -374,13 +383,14 @@ namespace Hoover.Views
 			OverheadMap.Map.Layers.Add(_currentLocation);
 		}
 
-		private void AddItemToARItems(string content, GeoCoordinate location, string description)
+		private void AddItemToARItems(string content, GeoCoordinate location, string description, string imageSource)
 		{
 			_checkpoints.Add(new CheckpointItem()
 			{
 				Content = content,
 				GeoLocation = location,
-				Description = description
+				Description = description,
+				ImageSource = imageSource
 			});
 		}
 
@@ -452,3 +462,63 @@ namespace Hoover.Views
 
 	}
 }
+
+
+
+/*
+public MainPage()
+{
+   InitializeComponent();
+
+   TouchPanel.EnabledGestures = GestureType.Flick;
+   myWebbrowser.ManipulationCompleted += myWebbrowser_ManipulationCompleted;
+}
+
+private void myWebbrowser_ManipulationCompleted(object sender, System.Windows.Input.ManipulationCompletedEventArgs e)
+{
+   if (TouchPanel.IsGestureAvailable)
+   {
+      GestureSample gesture = TouchPanel.ReadGesture();
+      switch (gesture.GestureType)
+      {
+        case GestureType.Flick:
+            if (e.FinalVelocities.LinearVelocity.X < 0)
+                        LoadNextPage();
+            if (e.FinalVelocities.LinearVelocity.X > 0)
+                        LoadPreviousPage();
+            break;
+        default:
+            break;
+      }
+  }
+}
+ * 
+ * 
+ public MainPage()
+{
+   InitializeComponent();
+   TouchPanel.EnabledGestures = GestureType.Flick | GestureType.HorizontalDrag;
+   Touch.FrameReported += Touch_FrameReported;
+}
+
+TouchPoint firstPoint;
+private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
+{
+   TouchPoint mainTouch = e.GetPrimaryTouchPoint(ContentPanel);
+
+   if (mainTouch.Action == TouchAction.Down) firstPoint = mainTouch;
+   else if (mainTouch.Action == TouchAction.Up && TouchPanel.IsGestureAvailable)
+   {
+       double deltaX = mainTouch.Position.X - firstPoint.Position.X;
+       double deltaY = mainTouch.Position.Y - firstPoint.Position.Y;
+       if (Math.Abs(deltaX) > 2 * Math.Abs(deltaY))
+       {
+           if (deltaX < 0) MessageBox.Show("Right.");
+           if (deltaX > 0) MessageBox.Show("Left.");
+       }
+    }
+}
+
+
+ 
+*/

@@ -29,7 +29,7 @@
 	<DataTemplate x:Key="CheckpointItem">
 		<Border BorderBrush="Black" Width="320" Background="Black" Canvas.ZIndex="2">
 			<Grid>
-				<Image Source="/Assets/mapMarkerGreen.png" Width="100" Height="100" HorizontalAlignment="Left"/>
+				<Image Source="{Binding ImageSource}" Width="90" Height="90" HorizontalAlignment="Left"/>
 				<StackPanel Margin="4,0,0,0">
 					<TextBlock x:Name="NameBlock" TextWrapping="NoWrap" Text="{Binding Content}" FontSize="38" 
 							   VerticalAlignment="Center" Margin="104,0,4,0" d:LayoutOverrides="Width" TextTrimming="WordEllipsis" Foreground="White"/>
