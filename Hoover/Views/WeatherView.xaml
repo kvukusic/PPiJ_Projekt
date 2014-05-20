@@ -12,7 +12,7 @@
     <Grid x:Name="LayoutRoot">
         <ListBox
             ItemsSource="{Binding Forecast}"
-            ItemTemplate="{StaticResource WeatherItemTemplate}" 
+            ItemTemplate="{StaticResource WeatherItemTemplateSelector}" 
             Margin="0,0,0,5"/>
     </Grid>
 </UserControl>

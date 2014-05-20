@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,8 +9,6 @@ using System.Net;
 using Hoover.Helpers;
 using Hoover.Settings;
 
-#region
-
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using Hoover.Annotations;
 using Hoover.Model.Weather;
 using Hoover.Services;
+using Hoover.Views.WeatherItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -42,19 +43,48 @@ namespace Hoover.Views
                 if (forecast.ForecastItems != null)
                 {
                     var filteredToday = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.Date);
-                    Forecast = new ObservableCollection<object>(filteredToday.Select(item => new
+                    var filteredTommorow = forecast.ForecastItems.Where(item => CalendarHelper.FromUnixTimeToDateTime(item.Dt).Date == DateTime.Today.AddDays(1).Date);
+
+                    var resultForecast = new ObservableCollection<WeatherItem>();
+                    resultForecast.Add(new WeatherItem()
                     {
-                        TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F"),
-                        TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
-                        IconUrl = "http://openweathermap.org/img/w/" + item.Icon + ".png",
-                        item.Message
-                    }));
+                        IsHeader = true,
+                        Title = "TODAY"
+                    });
+                    foreach (var item in filteredToday)
+                    {
+                        resultForecast.Add(new WeatherItem()
+                        {
+                            TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F"),
+                            TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
+                            IconUri = "http://openweathermap.org/img/w/" + item.Icon + ".png",
+                            Message = item.Message
+                        });
+                    }
+
+                    resultForecast.Add(new WeatherItem()
+                    {
+                        IsHeader = true,
+                        Title = "TOMMOROW"
+                    });
+                    foreach (var item in filteredTommorow)
+                    {
+                        resultForecast.Add(new WeatherItem()
+                        {
+                            TemperatureString = Convert.ToInt32(Math.Round(item.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F"),
+                            TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(item.Dt)),
+                            IconUri = "http://openweathermap.org/img/w/" + item.Icon + ".png",
+                            Message = item.Message
+                        });
+                    }
+
+                    Forecast = resultForecast;
                 }
             }
         }
 
-        private ObservableCollection<object> _Forecast;
-        public ObservableCollection<object> Forecast
+        private ObservableCollection<WeatherItem> _Forecast;
+        public ObservableCollection<WeatherItem> Forecast
         {
             get { return _Forecast; }
             set
