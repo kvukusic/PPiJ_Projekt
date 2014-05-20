@@ -26,7 +26,9 @@ namespace Hoover.Views.HistoryItems
             this.StartDate = model.StartTime.ToString("d");
             this.StartTime = model.StartTime.ToString("t");
             this.AverageSpeed = model.AverageSpeed.Speed();
-            this.TotalTime = (model.EndTime - model.StartTime).ToString();
+            var totalTime = model.EndTime - model.StartTime;
+            var newTotalTime = new TimeSpan(totalTime.Hours, totalTime.Minutes, totalTime.Seconds);
+            this.TotalTime = newTotalTime.ToString();
             this.Distance = model.RouteLength.Length();
         }
 

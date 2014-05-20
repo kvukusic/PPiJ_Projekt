@@ -69,7 +69,7 @@ namespace Hoover.Services
                 _navigationData = null;
                 return data;
             }
-
+            
             throw new Exception();
         }
 
