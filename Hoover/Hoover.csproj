@@ -107,6 +107,7 @@
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="Helpers\CalendarHelper.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\MotionConstants.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\TemplateSelector.cs" />
     <Compile Include="LocalizedStrings.cs" />
@@ -229,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\settingsImage.png" />
     <Content Include="Assets\timerStopImage.png" />
     <Content Include="Assets\AppBarIcons\appbar.microphone.png" />
     <Content Include="Assets\ApplicationIcon.png">

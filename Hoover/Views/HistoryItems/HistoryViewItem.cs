@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace Hoover.Views.HistoryItems
             var newTotalTime = new TimeSpan(totalTime.Hours, totalTime.Minutes, totalTime.Seconds);
             this.TotalTime = newTotalTime.ToString();
             this.Distance = model.RouteLength.Length();
+
+            this.Waypoints = model.Checkpoints;
         }
 
         /// <summary>
@@ -50,5 +53,7 @@ namespace Hoover.Views.HistoryItems
 
         public bool IsHeader { get; set; }
         public string Title { get; set; }
+
+        public List<GeoCoordinate> Waypoints { get; set; }
     }
 }
