@@ -5,13 +5,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
-    mc:Ignorable="d">
+	xmlns:templateSelectors="clr-namespace:Hoover.TemplateSelectors"
+	xmlns:weatherItems="clr-namespace:Hoover.Views.WeatherItems"
+	mc:Ignorable="d">
 
     <!-- HYSTORY PAGE -->
     
     <!-- WEATHER PAGE -->
+    <DataTemplate x:Key="WeatherItemHeaderTemplate">
+        <Grid Width="470" Height="60" d:DataContext="{d:DesignInstance weatherItems:WeatherItem}">
+            <TextBlock Margin="12,0,0,0" Text="{Binding Title}" FontSize="28" FontWeight="SemiBold" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" VerticalAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+    
     <DataTemplate x:Key="WeatherItemTemplate">
-        <Grid Width="470" Height="60" Margin="0,5,0,0" Background="{StaticResource ForecastItemBackgroundBrush}" telerik:InteractionEffectManager.IsInteractionEnabled="True">
+        <Grid Width="470" Height="60" Margin="0,5,0,0" Background="{StaticResource ForecastItemBackgroundBrush}" d:DataContext="{d:DesignInstance weatherItems:WeatherItem}" telerik:InteractionEffectManager.IsInteractionEnabled="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -19,10 +27,17 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{Binding TimeString}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Left" VerticalAlignment="Center"/>
-            <Image Grid.Column="1" Source="{Binding IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
+            <Image Grid.Column="1" Source="{Binding IconUri}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="60" Height="60"/>
             <TextBlock Grid.Column="2" Text="{Binding TemperatureString}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBlock Grid.Column="3" Text="{Binding Message}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Grid>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="WeatherItemTemplateSelector">
+        <templateSelectors:WeatherItemTemplateSelector 
+            Content="{Binding}" 
+            ForeastHeaderTemplate="{StaticResource WeatherItemHeaderTemplate}"
+            ForecastItemTemplate="{StaticResource WeatherItemTemplate}"/>
     </DataTemplate>
 
     <!-- TRACKING PAGE -->
