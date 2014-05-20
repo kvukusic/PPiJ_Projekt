@@ -207,7 +207,7 @@ namespace Hoover.Views
 			StartRoute();
 			_watcher.Start();
 
-			if (ApplicationSettings.EnableMotionNavigation)
+			if (ApplicationSettings.EnableMotionNavigation && Motion.IsSupported)
 			{
 				_motion = new Motion();
 				_motion.CurrentValueChanged += Motion_CurrentValueChanged;
