@@ -168,6 +168,7 @@ namespace Hoover.Views
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
+			StopButton.Visibility = System.Windows.Visibility.Visible;
 
 			if (_checkpoints.Count > 0)
 			{
@@ -202,6 +203,12 @@ namespace Hoover.Views
 
 			StartRoute();
 			_watcher.Start();
+		}
+
+		private void StopButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			FinishRoute();
+			// Show Tooltip
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -269,15 +276,7 @@ namespace Hoover.Views
 					SetNewCheckpoint();
 				}
 
-				//var millisPerKilometer = (1000.0 / distance) * (System.Environment.TickCount - _previousPositionChangeTick);
-
-				//paceLabel.Text = TimeSpan.FromMilliseconds(millisPerKilometer).ToString(@"mm\:ss");
-				//distanceLabel.Text = string.Format("{0:f2} km", _kilometres);
-				//caloriesLabel.Text = string.Format("{0:f0}", _kilometres * 65);
-
-				//PositionHandler handler = new PositionHandler();
-				//var heading = handler.CalculateBearing(new Position(previousPoint), new Position(coord));
-				//Map.SetView(coord, OverheadMap.Map.ZoomLevel, heading, MapAnimationKind.Parabolic);
+				//OverheadMap.Map.SetView(coord, OverheadMap.Map.ZoomLevel, heading, MapAnimationKind.Parabolic);
 
 				//ShellTile.ActiveTiles.First().Update(new IconicTileData()
 				//{
@@ -286,10 +285,7 @@ namespace Hoover.Views
 				//	WideContent2 = string.Format("{0:f0} calories", _kilometres * 65),
 				//});
 			}
-			else
-			{
-				//OverheadMap.Map.Center = coord;
-			}
+
 			_line.Path.Add(coord);
 			_previousPositionChangeTick = System.Environment.TickCount;
 		}
@@ -435,7 +431,7 @@ namespace Hoover.Views
 			{
 				item = _checkpoints[_activeCheckpoint-1] as CheckpointItem;
 				item.ImageSource = "/Assets/mapFlagMarker.png";
-				item.Description = _timer.Interval.ToString();
+				item.Description = (DateTime.Now - _startTime).ToString();
 				_checkpoints[_activeCheckpoint-1] = item;
 			}
 			
@@ -503,7 +499,8 @@ namespace Hoover.Views
 
 		private void FinishRoute()
 		{
-			throw new NotImplementedException();
+			AddRouteToHistory();
+			// Show Tooltip
 		}
 
 		#endregion

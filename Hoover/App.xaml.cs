@@ -66,7 +66,7 @@ namespace Hoover
             if (Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-				Application.Current.Host.Settings.EnableFrameRateCounter = true;
+				//Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
