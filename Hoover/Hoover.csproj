@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Converters\BoolNegationConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToNegateVisibilityConverter.cs" />
     <Compile Include="Converters\RotationConverter.cs" />
     <Compile Include="Database\DataAccess.cs" />
     <Compile Include="Database\HistoryDatabaseInstance.cs" />

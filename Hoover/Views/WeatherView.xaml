@@ -16,7 +16,9 @@
         <telerikPrimitives:RadBusyIndicator 
             Foreground="Black" 
             IsRunning="{Binding IsLoaded, Converter={StaticResource BooleanNegationConverter}}"
-            Margin="0,40,0,0"/>
+            Margin="0,20,0,0"
+            VerticalAlignment="Top"
+            AnimationStyle="AnimationStyle7"/>
         <ListBox
             ItemsSource="{Binding Forecast}"
             ItemTemplate="{StaticResource WeatherItemTemplateSelector}" 
