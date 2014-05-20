@@ -10,19 +10,58 @@ using System.Windows.Navigation;
 using Hoover.Views.HistoryItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Hoover.Helpers;
 
 #endregion
 
 namespace Hoover.Views
 {
     public partial class HistoryDetailsPage : PhoneApplicationPage
-    {
-        /// <summary>
+	{
+
+		#region Fields and Properties
+
+		/// <summary>
         /// The item for this details view.
         /// </summary>
         private HistoryViewItem _historyItem;
 
-        /// <summary>
+		public string DateOfRoute
+		{
+			get
+			{
+				return _historyItem.StartDate;
+			}
+		}
+
+		public string AverageSpeed
+		{
+			get
+			{
+				return _historyItem.AverageSpeed;
+			}
+		}
+
+		public string RouteLength
+		{
+			get
+			{
+				return _historyItem.Distance;
+			}
+		}
+
+		public string RuningTime
+		{
+			get
+			{
+				return _historyItem.TotalTime;
+			}
+		}
+
+		#endregion
+
+
+		/// <summary>
         /// Constructor.
         /// </summary>
         public HistoryDetailsPage()
