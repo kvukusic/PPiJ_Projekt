@@ -107,6 +107,7 @@
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="Helpers\CalendarHelper.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\MotionConstants.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\TemplateSelector.cs" />
     <Compile Include="LocalizedStrings.cs" />
