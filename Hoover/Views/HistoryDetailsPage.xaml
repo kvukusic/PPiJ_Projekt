@@ -28,7 +28,7 @@
 		</Grid>
 		<ScrollViewer Grid.Row="1">
 			<StackPanel Orientation="Vertical" Margin="20">
-				<TextBlock Text="DETAILS OF ROUTE" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+				<TextBlock Text="ROUTE DETAILS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12,0,12,12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
@@ -40,19 +40,19 @@
 						<RowDefinition/>
 						<RowDefinition/>
 					</Grid.RowDefinitions>
-					<TextBlock Grid.Row="0" Grid.Column="0" Text="date of route" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
-					<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DateOfRoute}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="Date" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6"/>
+					<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DateOfRoute}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0"/>
 
-					<TextBlock Grid.Row="1" Grid.Column="0" Text="route length" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
-					<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RouteLength}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Route length" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RouteLength}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0"/>
 
-					<TextBlock Grid.Row="2" Grid.Column="0" Text="average speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
-					<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Average speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0"/>
 
-					<TextBlock Grid.Row="3" Grid.Column="0" Text="running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
-					<TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding RuningTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding RuningTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0"/>
 				</Grid>
-				<TextBlock Text="MAP OF ROUTE" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Visibility="{Binding ShowMap}"/>
+				<TextBlock Text="ROUTE MAP" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Visibility="{Binding ShowMap}"/>
 				<Grid Visibility="{Binding ShowMap}">
 					<maps:Map x:Name="mapControl" Margin="0,0,0,-380" IsHitTestVisible="False"/>
 				</Grid>

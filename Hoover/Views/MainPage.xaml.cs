@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
