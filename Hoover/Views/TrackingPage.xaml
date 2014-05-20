@@ -83,6 +83,7 @@
 				<TextBlock Grid.Row="2" Grid.Column="0" x:Name="description3" Text="Distance run so far" Padding="5" FontSize="25" Visibility="Collapsed"/>
 				<TextBlock Grid.Row="2" Grid.Column="1" x:Name="totalDistanceRun" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold" Visibility="Collapsed"/>
 			</Grid>
+			<TextBlock x:Name="yaw" HorizontalAlignment="Left" Margin="172,84,0,0" FontSize="50" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="88" Width="258"/>
 		</Grid>
 	</Grid>
 
