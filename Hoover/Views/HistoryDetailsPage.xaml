@@ -54,7 +54,7 @@
 				</Grid>
 				<TextBlock Text="MAP OF ROUTE" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Visibility="{Binding ShowMap}"/>
 				<Grid Visibility="{Binding ShowMap}">
-					<maps:Map x:Name="mapControl" Margin="0,0,0,-380"/>
+					<maps:Map x:Name="mapControl" Margin="0,0,0,-380" IsHitTestVisible="False"/>
 				</Grid>
 			</StackPanel>
 		</ScrollViewer>

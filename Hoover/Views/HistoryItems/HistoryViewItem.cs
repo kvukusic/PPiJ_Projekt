@@ -55,5 +55,7 @@ namespace Hoover.Views.HistoryItems
         public string Title { get; set; }
 
         public List<GeoCoordinate> Waypoints { get; set; }
+
+        public Model.HistoryItem HistoryItem { get { return _model; } }
     }
 }

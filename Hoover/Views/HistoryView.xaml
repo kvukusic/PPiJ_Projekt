@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Hoover.Views"
     xmlns:behaviors="clr-namespace:Hoover.Behaviors"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -12,8 +13,19 @@
     d:DesignHeight="480" d:DesignWidth="480"
     d:DataContext="{d:DesignInstance views:HistoryView}">
     
+    <UserControl.Resources>
+        <Storyboard x:Key="HeaderVisibleStoryboard">
+            <DoubleAnimation Duration="0:0:0.250" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DateHeader">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+    
     <Grid x:Name="LayoutRoot">
-        <ListBox
+        <telerikPrimitives:RadDataBoundListBox
+            x:Name="HistoryListBox"
             ItemsSource="{Binding HistoryItems}"
             ItemTemplate="{StaticResource HistoryItemTemplateSelector}" 
             Margin="0,0,0,5"

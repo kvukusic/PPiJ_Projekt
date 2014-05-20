@@ -2,11 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Hoover.Annotations;
 using Hoover.Views.HistoryItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -19,7 +22,7 @@ using System.Windows.Media;
 
 namespace Hoover.Views
 {
-    public partial class HistoryDetailsPage : PhoneApplicationPage
+    public partial class HistoryDetailsPage : PhoneApplicationPage, INotifyPropertyChanged
 	{
 
 		#region Fields and Properties
@@ -116,6 +119,7 @@ namespace Hoover.Views
 			{
 				GenerateMapRoute();
 				_mapVisibility = System.Windows.Visibility.Visible;
+                OnPropertyChanged("ShowMap");
 			}
         }
 
@@ -148,5 +152,18 @@ namespace Hoover.Views
 			mapControl.SetView(_mapRoute.Route.BoundingBox);
 			//Map.AddRoute(_mapRoute);
 		}
-    }
+
+        #region INPC
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        } 
+
+        #endregion
+	}
 }
