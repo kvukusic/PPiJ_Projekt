@@ -27,6 +27,18 @@ namespace Hoover.Helpers
 			}
 		}
 
+		public static string Length(this double lengthInMeters)
+		{
+			if (ApplicationSettings.Instance.UseMetricSystem)
+			{
+				return Math.Round(lengthInMeters).ToString() + " m";
+			}
+			else
+			{
+				return Convert.ToInt32(lengthInMeters * 0.9144) + " yd";
+			}
+		}
+
 		/// <summary>
 		/// Converts walking duration time of route to runing duration.
 		/// Factor for time scaling is 0.4.

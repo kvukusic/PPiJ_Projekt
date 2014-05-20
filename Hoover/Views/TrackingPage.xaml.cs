@@ -59,6 +59,7 @@ namespace Hoover.Views
 		private double _kilometres;
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
+		private Motion _motion;
 
 		#endregion
 
@@ -91,7 +92,7 @@ namespace Hoover.Views
             base.OnNavigatedTo(e);
 
 			_isMapActive = !ApplicationSettings.ShowMapSystem;
-			_activeCheckpoint = 1;
+			_activeCheckpoint = 0;
 
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
@@ -165,13 +166,11 @@ namespace Hoover.Views
 		private void StartButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			OverheadMap.Tap -= OverheadMapRoute_Tap;
-			CheckpointItem item = _checkpoints[_activeCheckpoint] as CheckpointItem;
-			item.ImageSource = "/Assets/pinImage.png";
-			_checkpoints[_activeCheckpoint].Content = item;
 
-			ARDisplay.ARItems = _checkpoints;
-
-			ARDisplay.ARItems.RemoveAt(0);
+			if (_checkpoints.Count > 0)
+			{
+				SetNewCheckpoint();
+			}
 
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
@@ -225,7 +224,7 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
-				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), "distance", "/Assets/mapMarkerGreen.png");
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGreen.png");
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
 				this.durationTime.Text = _mapRoute.Route.RuningTime();
@@ -409,6 +408,27 @@ namespace Hoover.Views
 			}
 
 			UpdateCurrentLocationPushpin();
+		}
+
+		private void SetNewCheckpoint()
+		{
+			CheckpointItem item;
+
+			// Set previous checkpoint to default value
+			if (_activeCheckpoint > 0)
+			{
+				item = _checkpoints[_activeCheckpoint-1] as CheckpointItem;
+				item.ImageSource = "/Assets/mapFlagMarker.png";
+				item.Description = _timer.Interval.ToString();
+				_checkpoints[_activeCheckpoint-1] = item;
+			}
+			
+			item = _checkpoints[_activeCheckpoint] as CheckpointItem;
+			item.ImageSource = "/Assets/mapMarkerGreen.png";
+			item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
+			_checkpoints[_activeCheckpoint] = item;
+
+			ARDisplay.ARItems = _checkpoints;
 		}
 
 		private void ChangeOrientation(PageOrientation orientation)
