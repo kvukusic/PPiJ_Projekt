@@ -271,7 +271,7 @@ namespace Hoover.Views
 				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
 				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
 
-				if (coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 10)
+				if (_waypoints.Count > _activeCheckpoint && coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 10)
 				{
 					SetNewCheckpoint();
 				}
