@@ -208,7 +208,7 @@ namespace Hoover.Views
 				EndTime = DateTime.Now.AddMinutes(35),
 				StartTime = DateTime.Now,
 				RouteLength = _mapRoute.Route.LengthInMeters,
-				Route = _mapRoute,
+				Checkpoints = _waypoints.ToList(),
 				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
 			};
 

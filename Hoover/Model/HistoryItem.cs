@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Phone.Maps.Services;
+using System.Device.Location;
 
 #endregion
 
@@ -20,9 +21,9 @@ namespace Hoover.Model
         public long ID { get; set; }
 
 		/// <summary>
-		/// Route of session.
+		/// Collections of all checkpoints on route.
 		/// </summary>
-		public MapRoute Route;
+		public List<GeoCoordinate> Checkpoints;
 
 		/// <summary>
 		/// Date and time of session start.
