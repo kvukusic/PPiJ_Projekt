@@ -34,7 +34,21 @@ namespace Hoover.Views
 			InitializeComponent();
 		}
 
-        private async void SpeechButton_Click(object sender, EventArgs e)
+	    /// <summary>
+	    /// Called when a page becomes the active page in a frame.
+	    /// </summary>
+	    /// <param name="e">An object that contains the event data.</param>
+	    protected override void OnNavigatedTo(NavigationEventArgs e)
+	    {
+	        if (!DeviceNetworkInformation.IsNetworkAvailable)
+	        {
+	            MessageBox.Show("This application will not work without an active internet connection. " +
+	                            "The application will now terminate.", "No internet", MessageBoxButton.OK);
+                Application.Current.Terminate();
+	        }
+	    }
+
+	    private async void SpeechButton_Click(object sender, EventArgs e)
         {
            string s=await App.SpeechRecognitionService.RecognizeSpeech();
            

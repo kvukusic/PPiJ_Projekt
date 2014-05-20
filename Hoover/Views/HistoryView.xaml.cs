@@ -35,7 +35,7 @@ namespace Hoover.Views
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             // Get the history items from the database
-            var historyItems = App.DataAccess.GetAllHistoryItems();
+            var historyItems = App.DataAccess.GetAllHistoryItems().OrderBy(item => item.StartTime);
             var resultList = new ObservableCollection<HistoryViewItem>();
             DateTime? currentDate = null;
             foreach (var historyItem in historyItems)

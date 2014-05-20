@@ -61,6 +61,22 @@ namespace Hoover.Views
                     Forecast = resultForecast;
                 }
             }
+
+            IsLoaded = true;
+        }
+
+        private bool _IsLoaded;
+        public bool IsLoaded
+        {
+            get { return _IsLoaded; }
+            set
+            {
+                if (value != _IsLoaded)
+                {
+                    _IsLoaded = value;
+                    OnPropertyChanged("IsLoaded");
+                }
+            }
         }
 
         private ObservableCollection<WeatherItem> _Forecast;
