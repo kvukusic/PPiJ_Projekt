@@ -12,23 +12,39 @@
 
     <!-- HYSTORY PAGE -->
     <DataTemplate x:Key="HistoryItemHeaderTemplate">
-        <Grid Width="470" Height="60" d:DataContext="{d:DesignInstance historyItems:HistoryViewItem}">
-            <TextBlock Margin="12,0,0,0" Text="{Binding Title}" FontSize="28" FontWeight="SemiBold" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" VerticalAlignment="Center"/>
+        <Grid Width="440" d:DataContext="{d:DesignInstance historyItems:HistoryViewItem}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Margin="12,0,0,0" Text="{Binding Title}" FontSize="28" FontWeight="SemiBold" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" VerticalAlignment="Center"/>
+            <Grid Grid.Row="1" Background="{StaticResource ForecastItemBackgroundBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="TIME" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Grid.Column="1" Text="AVG SPEED" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Grid.Column="2" Text="DURATION" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Grid.Column="3" Text="DISTANCE" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+            </Grid>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="HistoryItemTemplate">
-        <Grid Width="470" Height="60" Margin="0,5,0,0" Background="{StaticResource ForecastItemBackgroundBrush}" d:DataContext="{d:DesignInstance historyItems:HistoryViewItem}" telerik:InteractionEffectManager.IsInteractionEnabled="True">
+        <Grid Width="440" Height="60" Margin="0,5,0,0" Background="{StaticResource ForecastItemBackgroundBrush}" d:DataContext="{d:DesignInstance historyItems:HistoryViewItem}" telerik:InteractionEffectManager.IsInteractionEnabled="True">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding StartTime}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="2" Text="{Binding TotalTime}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Grid.Column="3" Text="{Binding Distance}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Text="{Binding StartTime}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Text="{Binding TotalTime}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="3" Text="{Binding Distance}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </DataTemplate>
     

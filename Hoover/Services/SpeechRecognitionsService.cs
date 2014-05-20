@@ -20,6 +20,9 @@ namespace Hoover.Services
 		private SpeechRecognizer _recognizer;
 	    private SpeechRecognizerUI _speechRecognizerUI;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
 	    public SpeechRecognitionService()
 	    {
 	        _synthesizer = new SpeechSynthesizer();
@@ -27,6 +30,10 @@ namespace Hoover.Services
             _speechRecognizerUI = new SpeechRecognizerUI();
 	    }
 
+        /// <summary>
+        /// Plays the given string as audio.
+        /// </summary>
+        /// <param name="textToSpeech"></param>
 		public async void SpeakText(string textToSpeech)
 		{
 		    if (textToSpeech != null)
@@ -35,6 +42,10 @@ namespace Hoover.Services
 		    }
 		}
 
+        /// <summary>
+        /// Listens to the ambient sound and returns the recognized string.
+        /// </summary>
+        /// <returns></returns>
 		public async Task<string> RecognizeSpeech()
 		{
 		    if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())

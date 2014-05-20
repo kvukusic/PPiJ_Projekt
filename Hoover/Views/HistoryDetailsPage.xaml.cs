@@ -35,16 +35,23 @@ namespace Hoover.Views
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            var parameter = Services.NavigationService.Instance.GetLastNavigationParameter<HistoryViewItem>();
-
-            if (parameter != null)
+            try
             {
-                _historyItem = parameter;
+                var parameter = Services.NavigationService.Instance.GetLastNavigationParameter<HistoryViewItem>();
+
+                if (parameter != null)
+                {
+                    _historyItem = parameter;
+                }
+
+                if (_historyItem != null)
+                {
+
+                }
             }
-
-            if (_historyItem != null)
+            catch (Exception)
             {
-                
+                return;
             }
         }
     }

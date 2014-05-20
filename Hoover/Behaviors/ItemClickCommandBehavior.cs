@@ -54,13 +54,12 @@ namespace Hoover.Behaviors
 
         private static void OnTap(object sender, GestureEventArgs e)
         {
-            //if (e.Handled) return;
-
             object commandParameter;
             ICommand cmd;
             if (sender is ListBox)
             {
                 ListBox lb = sender as ListBox;
+                if(lb.SelectedItem == null) return;
                 cmd = lb.GetValue(CommandProperty) as ICommand;
                 commandParameter = lb.SelectedItem;
                 lb.SelectedItem = null;
@@ -68,6 +67,7 @@ namespace Hoover.Behaviors
             else if (sender is RadDataBoundListBox)
             {
                 RadDataBoundListBox lb = sender as RadDataBoundListBox;
+                if (lb.SelectedItem == null) return;
                 cmd = lb.GetValue(CommandProperty) as ICommand;
                 commandParameter = lb.SelectedItem;
                 lb.SelectedItem = null;

@@ -63,7 +63,10 @@ namespace Hoover.Views
             {
                 return new RelayCommand<HistoryViewItem>(new Action<HistoryViewItem>(item =>
                 {
-                    Services.NavigationService.Instance.Navigate(PageNames.HistoryDetailsPageName, item);
+                    if (!item.IsHeader)
+                    {
+                        Services.NavigationService.Instance.Navigate(PageNames.HistoryDetailsPageName, item);
+                    }
                 }));
             }
         }
