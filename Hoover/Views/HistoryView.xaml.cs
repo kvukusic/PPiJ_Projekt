@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Hoover.Annotations;
+using Hoover.Database;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -29,7 +31,23 @@ namespace Hoover.Views
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
+            // Get the history items from the database
+            var historyItems = App.DataAccess.GetAllHistoryItems();
 
+        }
+
+        private ObservableCollection<HistoryItems.HistoryViewItem> _HistoryItems;
+        public ObservableCollection<HistoryItems.HistoryViewItem> HistoryItems
+        {
+            get { return _HistoryItems; }
+            set
+            {
+                if (value != _HistoryItems)
+                {
+                    _HistoryItems = value;
+                    OnPropertyChanged("HistoryItems");
+                }
+            }
         }
 
         #region INPC

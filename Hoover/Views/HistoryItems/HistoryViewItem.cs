@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hoover.Views.HistoryItems
 {
-    public class HistoryItem
+    public class HistoryViewItem
     {
         private Model.HistoryItem _model;
 
@@ -18,7 +18,7 @@ namespace Hoover.Views.HistoryItems
         /// Constructor.
         /// </summary>
         /// <param name="model"></param>
-        public HistoryItem(Model.HistoryItem model)
+        public HistoryViewItem(Model.HistoryItem model)
         {
             this._model = model;
         }
@@ -27,12 +27,13 @@ namespace Hoover.Views.HistoryItems
         /// Constructor for header.
         /// </summary>
         /// <param name="title"></param>
-        public HistoryItem(string title)
+        public HistoryViewItem(string title)
         {
             this.IsHeader = true;
             this.Title = title;
         }
 
+        public string StartTime { get; set; }
         public string AverageSpeed { get; set; }
         public string TotalTime { get; set; }
         public string Distance { get; set; }

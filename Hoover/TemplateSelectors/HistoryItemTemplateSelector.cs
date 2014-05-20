@@ -37,9 +37,9 @@ namespace Hoover.TemplateSelectors
         /// <returns>A <see cref="DataTemplate"/> which will represent the <see cref="item"/> in the list control.</returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (!(item is HistoryItem)) return null;
+            if (!(item is HistoryViewItem)) return null;
 
-            var historyItem = item as HistoryItem;
+            var historyItem = item as HistoryViewItem;
             if (historyItem.IsHeader) return HistoryHeaderTemplate;
             else return HistoryItemTemplate;
         }

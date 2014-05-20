@@ -83,5 +83,14 @@ namespace Hoover.Database
             _historyDatabase.Delete(typeof(HistoryItem), id);
         }
 
+        /// <summary>
+        /// Retreives and returns all the stored history items from the database.
+        /// </summary>
+        /// <returns></returns>
+        public List<HistoryItem> GetAllHistoryItems()
+        {
+            return (from item in _historyDatabase.Query<HistoryItem, int>() select item.LazyValue.Value).ToList();
+        } 
+
     }
 }
