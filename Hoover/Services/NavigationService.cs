@@ -184,6 +184,7 @@ namespace Hoover.Services
 		public static string TrackingPageName { get { return "/Views/TrackingPage.xaml"; } }
         public static string SettingsPageName { get { return "/Views/SettingsPage.xaml"; } }
         public static string AboutPageName { get { return "/Views/AboutPage.xaml"; } }
+        public static string HistoryDetailsPageName { get { return "/Views/HistoryDetailsPage.xaml"; } }
 
         #endregion
     }

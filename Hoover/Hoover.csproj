@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Behaviors\ItemClickCommandBehavior.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\CheckpointItem.cs" />
     <Compile Include="Controls\UserPushpin.xaml.cs">
@@ -105,6 +106,7 @@
     <Compile Include="Database\HistoryDatabaseInstance.cs" />
     <Compile Include="Helpers\CalendarHelper.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\TemplateSelector.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Model\HistoryItem.cs" />
@@ -125,6 +127,9 @@
     <Compile Include="TemplateSelectors\WeatherItemTemplateSelector.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistoryDetailsPage.xaml.cs">
+      <DependentUpon>HistoryDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HistoryItems\HistoryViewItem.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
@@ -178,6 +183,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistoryDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

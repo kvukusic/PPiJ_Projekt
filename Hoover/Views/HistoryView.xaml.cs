@@ -10,9 +10,11 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using Hoover.Annotations;
 using Hoover.Database;
+using Hoover.Helpers;
+using Hoover.Services;
+using Hoover.Views.HistoryItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -34,10 +36,40 @@ namespace Hoover.Views
         {
             // Get the history items from the database
             var historyItems = App.DataAccess.GetAllHistoryItems();
+            var resultList = new ObservableCollection<HistoryViewItem>();
+            DateTime? currentDate = null;
+            foreach (var historyItem in historyItems)
+            {
+                if (!historyItem.StartTime.Date.Equals(currentDate))
+                {
+                    currentDate = historyItem.StartTime.Date;
+                    resultList.Add(new HistoryViewItem(historyItem.StartTime.ToString("D")));
+                }
+
+                resultList.Add(new HistoryViewItem(historyItem));
+            }
+
+            this.HistoryItems = resultList;
+        }
+        
+        /// <summary>
+        /// This command is executed when a history item is selected from the list,
+        /// and it navigates to the <see cref="HistoryDetailsPage"/> and passes the specified
+        /// item as the <see cref="System.Windows.Navigation.NavigationService"/> parameter.
+        /// </summary>
+        public RelayCommand<HistoryViewItem> NavigateToHistoryDetailsCommand
+        {
+            get
+            {
+                return new RelayCommand<HistoryViewItem>(new Action<HistoryViewItem>(item =>
+                {
+                    Services.NavigationService.Instance.Navigate(PageNames.HistoryDetailsPageName, item);
+                }));
+            }
         }
 
-        private ObservableCollection<HistoryItems.HistoryViewItem> _HistoryItems;
-        public ObservableCollection<HistoryItems.HistoryViewItem> HistoryItems
+        private ObservableCollection<HistoryViewItem> _HistoryItems;
+        public ObservableCollection<HistoryViewItem> HistoryItems
         {
             get { return _HistoryItems; }
             set
