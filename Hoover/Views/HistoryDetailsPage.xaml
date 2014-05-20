@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Hoover.Views"
+	xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,25 +22,40 @@
 		</Grid.RowDefinitions>
 		<Grid x:Name="Header" Background="{StaticResource PageHeaderBackgroundBrush}">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="100">
-				<Image Width="50" Height="50" Margin="15,0,0,0" VerticalAlignment="Center" Source="/Assets/settingsImage.png"/>
-				<TextBlock Margin="15,0,0,0" Text="SETTINGS" VerticalAlignment="Center" Foreground="{StaticResource PageHeaderForegroundBrush}" FontSize="30" FontWeight="Bold"/>
+				<Image Width="50" Height="50" Margin="15,0,0,0" VerticalAlignment="Center" Source="/Assets/mapItemDetail.png"/>
+				<TextBlock Margin="15,0,0,0" Text="HISTORY DETAIL" VerticalAlignment="Center" Foreground="{StaticResource PageHeaderForegroundBrush}" FontSize="30" FontWeight="Bold"/>
 			</StackPanel>
 		</Grid>
 		<ScrollViewer Grid.Row="1">
 			<StackPanel Orientation="Vertical" Margin="20">
-				<TextBlock Text="UNIT SYSTEM" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<telerikPrimitives:RadToggleSwitch x:Name="MetricToggleSwitch" Header="Use metric units" Margin="0,10,0,0" IsChecked="{Binding UseMetricSystem, Mode=TwoWay}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
-				<telerikPrimitives:RadToggleSwitch x:Name="ImperialToggleSwitch" Header="Use imperial units" Margin="0,10,0,0" IsChecked="{Binding UseMetricSystem, Mode=TwoWay, Converter={StaticResource BooleanNegationConverter}}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
+				<TextBlock Text="DETAILS OF ROUTE" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="date of route" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
+					<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DateOfRoute}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 
-				<TextBlock Text="VIDEO SETTINGS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12,36,12,12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<telerikPrimitives:RadToggleSwitch x:Name="PreviewBoxSwitch" Header="Show preview box" Margin="0,10,0,0" IsChecked="{Binding ShowPreviewBox, Mode=TwoWay}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
+					<TextBlock Grid.Row="1" Grid.Column="0" Text="route length" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
+					<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RouteLength}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 
-				<TextBlock Text="MOTION SETTINGS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12,36,12,12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<telerikPrimitives:RadToggleSwitch IsEnabled="{Binding Source={StaticResource MotionConstants}, Path=IsMotionEnabled}" x:Name="MotionNavigationSwitch" Header="Enable motion navigation" Margin="0,10,0,0" IsChecked="{Binding EnableMotionNavigation, Mode=TwoWay}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
+					<TextBlock Grid.Row="2" Grid.Column="0" Text="average speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
+					<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 
-				<TextBlock Text="ROUTE START SETTINGS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12,36,12,12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<telerikPrimitives:RadToggleSwitch x:Name="MapToggleSwitch" Header="Show map first" Margin="0,10,0,0" IsChecked="{Binding ShowMapSystem, Mode=TwoWay}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
-				<telerikPrimitives:RadToggleSwitch x:Name="VideoToggleSwitch" Header="Show video preview first" Margin="0,10,0,0" IsChecked="{Binding ShowMapSystem, Mode=TwoWay, Converter={StaticResource BooleanNegationConverter}}" Foreground="Black" HeaderStyle="{StaticResource ToggleSwitchHeaderStyle}" ButtonStyle="{StaticResource RadToggleSwitchButtonStyle}"/>
+					<TextBlock Grid.Row="3" Grid.Column="0" Text="running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Padding="5"/>
+					<TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding RuningTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+				</Grid>
+				<TextBlock Text="MAP OF ROUTE" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Visibility="{Binding ShowMap}"/>
+				<Grid Visibility="{Binding ShowMap}">
+					<maps:Map x:Name="mapControl" Margin="0,0,0,-380"/>
+				</Grid>
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

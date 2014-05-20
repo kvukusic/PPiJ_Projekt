@@ -11,6 +11,9 @@ using Hoover.Views.HistoryItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Hoover.Helpers;
+using Microsoft.Phone.Maps.Controls;
+using Microsoft.Phone.Maps.Services;
+using System.Windows.Media;
 
 #endregion
 
@@ -25,6 +28,8 @@ namespace Hoover.Views
         /// The item for this details view.
         /// </summary>
         private HistoryViewItem _historyItem;
+		private MapRoute _mapRoute;
+		private Visibility _mapVisibility;
 
 		public string DateOfRoute
 		{
@@ -58,8 +63,15 @@ namespace Hoover.Views
 			}
 		}
 
-		#endregion
+		public Visibility ShowMap
+		{
+			get
+			{
+				return _mapVisibility;
+			}
+		}
 
+		#endregion
 
 		/// <summary>
         /// Constructor.
@@ -70,28 +82,70 @@ namespace Hoover.Views
 
             this.Loaded += OnLoaded;
             this.DataContext = this;
+			_mapVisibility = System.Windows.Visibility.Collapsed;
         }
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
+			try
+			{
+				var parameter = Services.NavigationService.Instance.GetLastNavigationParameter<HistoryViewItem>();
+
+				if (parameter != null)
+				{
+					_historyItem = parameter;
+				}
+
+				if (_historyItem != null)
+				{
+
+				}
+			}
+			catch (Exception)
+			{
+				return;
+			}
+
+		}
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            try
-            {
-                var parameter = Services.NavigationService.Instance.GetLastNavigationParameter<HistoryViewItem>();
-
-                if (parameter != null)
-                {
-                    _historyItem = parameter;
-                }
-
-                if (_historyItem != null)
-                {
-
-                }
-            }
-            catch (Exception)
-            {
-                return;
-            }
+			if (_historyItem.Waypoints.Count > 1)
+			{
+				GenerateMapRoute();
+				_mapVisibility = System.Windows.Visibility.Visible;
+			}
         }
+
+		private void GenerateMapRoute()
+		{
+			if (_historyItem.Waypoints.Count < 2)
+			{
+				_mapRoute = null;
+			}
+			else
+			{
+				RouteQuery query = new RouteQuery()
+				{
+					TravelMode = TravelMode.Walking,
+					Waypoints = _historyItem.Waypoints
+				};
+
+				query.QueryCompleted += RouteQuery_QueryCompleted;
+				query.QueryAsync();
+			}
+		}
+
+		private void RouteQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Microsoft.Phone.Maps.Services.Route> e)
+		{
+			_mapRoute = new MapRoute(e.Result);
+			_mapRoute.Color = Colors.Gray;
+			_mapRoute.RouteViewKind = RouteViewKind.UserDefined;
+
+			mapControl.AddRoute(_mapRoute);
+			//Map.AddRoute(_mapRoute);
+		}
     }
 }
