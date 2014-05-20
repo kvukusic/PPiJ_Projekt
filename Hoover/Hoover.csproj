@@ -211,6 +211,7 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\mapFlagMarker.png" />
     <Content Include="Assets\mapMarkerGray.png" />
     <Content Include="Assets\mapMarkerGreen.png" />
     <Content Include="Assets\pinImage.png" />

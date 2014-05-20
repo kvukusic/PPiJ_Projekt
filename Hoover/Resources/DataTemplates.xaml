@@ -46,7 +46,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Image Source="/Assets/mapMarkerGreen.png" Margin="-24,-48,0,0"/>
+					<Image Source="/Assets/mapMarkerGreen.png" Margin="-32,-64,0,0"/>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
