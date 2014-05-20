@@ -97,6 +97,7 @@ namespace Hoover.Views
 			_waypoints = new ObservableCollection<GeoCoordinate>();
 			_checkpoints = new ObservableCollection<GART.Data.ARItem>();
 			_timer = new DispatcherTimer();
+			_timer.Interval = TimeSpan.FromSeconds(1);
 			_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
 
 			_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
@@ -374,7 +375,6 @@ namespace Hoover.Views
 
 		private void StartRoute()
 		{
-			_timer.Interval = TimeSpan.FromSeconds(1);
 			_timer.Tick += Timer_Tick;
 			_startTime = DateTime.Now;
 

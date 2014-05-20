@@ -34,9 +34,9 @@
 		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,0">
 			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
-				<gart:VideoPreview x:Name="VideoPreview" Margin="-60,0,-60,0"/>
-				<gart:WorldView x:Name="WorldView" ItemTemplate="{StaticResource CheckpointItem}" MinItemScale="0.01" MaxItemScale="1.0" FarClippingPlane="300.0" NearClippingPlane="1.0"/>
-				<gart:OverheadMap x:Name="OverheadMap"/>
+				<gart:VideoPreview x:Name="VideoPreview" Margin="-60,0,-60,0" CacheMode="BitmapCache"/>
+				<gart:WorldView x:Name="WorldView" ItemTemplate="{StaticResource CheckpointItem}" MinItemScale="0.1" MaxItemScale="1.0" FarClippingPlane="300.0" NearClippingPlane="1.0"/>
+				<gart:OverheadMap x:Name="OverheadMap" CacheMode="BitmapCache"/>
 			</gart:ARDisplay>
 			<Grid x:Name="PreviewBox" Canvas.ZIndex="3" 
 				  Width="{StaticResource PreviewBoxWidth}" 
