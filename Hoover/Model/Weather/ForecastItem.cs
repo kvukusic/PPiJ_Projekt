@@ -31,5 +31,11 @@ namespace Hoover.Model.Weather
         /// The icon id.
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// City name of the forecast.
+        /// </summary>
+        public string Name { get; set; }
+
     }
 }

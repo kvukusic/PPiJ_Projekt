@@ -1,0 +1,90 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Hoover.Views.TrackingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:gart="clr-namespace:GART.Controls;assembly=GART.WP8"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
+	xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+	xmlns:system="clr-namespace:System;assembly=mscorlib"
+	xmlns:views="clr-namespace:Hoover.Views"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+	<phone:PhoneApplicationPage.Resources>
+		<system:Double x:Key="PreviewBoxWidth">200.0</system:Double>
+		<system:Double x:Key="PreviewBoxHeight">150.0</system:Double>
+	</phone:PhoneApplicationPage.Resources>
+
+	<!--LayoutRoot is the root grid where all page content is placed-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<!--TitlePanel contains the name of the application and page title-->
+
+		<!--ContentPanel - place additional content here-->
+		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,0">
+			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
+				<gart:VideoPreview x:Name="VideoPreview" Margin="-60,0,-60,0" CacheMode="BitmapCache"/>
+				<gart:WorldView x:Name="WorldView" ItemTemplate="{StaticResource CheckpointItem}" MinItemScale="0.1" MaxItemScale="1.0" FarClippingPlane="300.0" NearClippingPlane="1.0"/>
+				<gart:OverheadMap x:Name="OverheadMap" CacheMode="BitmapCache"/>
+			</gart:ARDisplay>
+			<Grid x:Name="PreviewBox" Canvas.ZIndex="3" 
+				  Width="{StaticResource PreviewBoxWidth}" 
+				  Height="{StaticResource PreviewBoxHeight}"
+				  Opacity="0.01" Background="White" 
+				  Visibility="Collapsed"
+				  VerticalAlignment="Top" HorizontalAlignment="Right" 
+				  Tap="PreviewBox_Tap"/>
+			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
+				<Button x:Name="StartButton" Tap="StartButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
+					<ContentControl>
+						<Image Source="/Assets/timerStartImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</ContentControl>
+				</Button>
+				<Button x:Name="ClearPointsButton" Tap="ClearPointsButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
+					<ContentControl>
+						<Image Source="/Assets/removePinsImage.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</ContentControl>
+				</Button>
+			</StackPanel>
+			<Button x:Name="StopButton" Tap="StopButton_Tap" Style="{StaticResource RoundButtonStyle}" 
+					Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}" 
+					HorizontalAlignment="Left" VerticalAlignment="Top"
+					Visibility="Collapsed">
+				<ContentControl>
+					<Image Source="/Assets/timerStopImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</ContentControl>
+			</Button>
+			<Grid x:Name="RouteInformationBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
+				  Background="{StaticResource InformationBoxBackgroundBrush}" Margin="15,10,15,20">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="4*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.Row="0" Grid.Column="0" x:Name="description1"  Text="Total route length" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="1" Grid.Column="0" x:Name="description2" Text="Duration time" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="2" Grid.Column="0" x:Name="description3" Text="Distance run so far" Padding="5" FontSize="25" Visibility="Collapsed"/>
+				<TextBlock Grid.Row="2" Grid.Column="1" x:Name="totalDistanceRun" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold" Visibility="Collapsed"/>
+			</Grid>
+			<TextBlock x:Name="yaw" HorizontalAlignment="Left" Margin="172,84,0,0" FontSize="50" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="88" Width="258"/>
+		</Grid>
+	</Grid>
+
+</phone:PhoneApplicationPage>

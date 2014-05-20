@@ -59,20 +59,35 @@ namespace Hoover.Settings
             }
         }
 
-        private const string IsLoggedInKeyName = "IsLoggedIn";
-        private const bool IsLoggedInDefault = false;
-        public bool IsLoggedIn
+        private const string UseMetricSystemKeyName = "UseMetricSystem";
+        private const bool UseMetricSystemDefault = true;
+        public bool UseMetricSystem
         {
-            get { return LoadSettingLocal(IsLoggedInKeyName, IsLoggedInDefault); }
+            get { return LoadSettingLocal(UseMetricSystemKeyName, UseMetricSystemDefault); }
             set
             {
-                if (StoreSettingLocal(IsLoggedInKeyName, value))
+                if (StoreSettingLocal(UseMetricSystemKeyName, value))
                 {
                     StoreSettings();
-                    OnPropertyChanged("IsLoggedIn");
+                    OnPropertyChanged("UseMetricSystem");
                 }
             }
         }
+
+		private const string ShowMapSystemKeyName = "ShowMapSystem";
+		private const bool ShowMapSystemDefault = true;
+		public bool ShowMapSystem
+		{
+			get { return LoadSettingLocal(ShowMapSystemKeyName, ShowMapSystemDefault); }
+			set
+			{
+				if (StoreSettingLocal(ShowMapSystemKeyName, value))
+				{
+					StoreSettings();
+					OnPropertyChanged("ShowMapSystem");
+				}
+			}
+		}
 
         /// <summary>
         /// Stores the settings to the isolated storage.

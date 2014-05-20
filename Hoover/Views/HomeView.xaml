@@ -3,14 +3,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:Hoover.Views"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    d:DataContext="{d:DesignInstance views:HomeView}">
 
 	<Grid x:Name="LayoutRoot">
-		<Button x:Name="startButton" Content="Start Run!" HorizontalAlignment="Center" 
-				Margin="0,80,0,0" VerticalAlignment="Top" Width="270" Click="startButton_Click" Height="100"/>
+        <telerikPrimitives:RadBusyIndicator 
+            Foreground="Black" 
+            IsRunning="{Binding IsWeatherLoaded, Converter={StaticResource BooleanNegationConverter}}"
+            Margin="0,20,0,0"
+            VerticalAlignment="Top"
+            AnimationStyle="AnimationStyle7"/>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+                
+                <Grid Margin="12,0" Height="120" Background="{StaticResource ForecastItemBackgroundBrush}" Width="450" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="80" Height="80"/>
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="52"/>
+                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="20" Margin="10,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" FontSize="28" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                
+                <Button x:Name="StartButton"
+                Content="START"
+                HorizontalAlignment="Center"
+				Margin="0,80,0,0"
+                VerticalAlignment="Top"
+                Width="260"
+                Height="150"
+                Tap="StartButton_Tap"
+                Style="{StaticResource StartSessionButtonStyle}" FontSize="40"/>
+            </StackPanel>
+        </ScrollViewer>
 	</Grid>
 </UserControl>

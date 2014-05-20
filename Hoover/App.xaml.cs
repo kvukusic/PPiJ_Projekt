@@ -12,6 +12,7 @@ using Hoover.Services;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Hoover.Resources;
+using Telerik.Windows.Controls;
 
 #endregion
 
@@ -65,7 +66,7 @@ namespace Hoover
             if (Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
+				//Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
@@ -135,7 +136,8 @@ namespace Hoover
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
+            //RootFrame = new PhoneApplicationFrame();
+            RootFrame = new RadPhoneApplicationFrame() {Transition = new RadSlideTransition()};
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures

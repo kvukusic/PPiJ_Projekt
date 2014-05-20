@@ -64,7 +64,7 @@ namespace GART.Controls
     /// A base control that serves as the starting point for an augmented reality view.
     /// </summary>
     public abstract class ARView : Control, IARView
-    {
+	{
         #region Static Version
         #region Dependency Properties
         /// <summary>
