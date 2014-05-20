@@ -15,8 +15,6 @@
     d:DataContext="{d:DesignInstance settings:ApplicationSettings}">
 
     <Grid x:Name="LayoutRoot">
-        <controls:ToggleSwitch x:Name="FacebookToogleSwitch" Header="Enable facebook"  Margin="71,100,72,587" Checked="FacebookToogleSwitch_Checked" Unchecked="FacebookToogleSwitch_Unchecked"/>
-        <Button Name="FacebookLogin" Content="Login" HorizontalAlignment="Left" Margin="163,218,0,0" VerticalAlignment="Top" Height="111" Width="168" Click="LoginButton_Click" Visibility="Collapsed"/>
-        <controls:ToggleSwitch x:Name="RandomToggleSwitch" Header="Random toggle switch" Margin="71,393,72,296"/>
+        
     </Grid>
 </phone:PhoneApplicationPage>
