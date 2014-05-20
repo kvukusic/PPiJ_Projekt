@@ -240,7 +240,7 @@ namespace Hoover.Views
 				_waypoints[_waypoints.Count - 1] = _mapRoute.Route.Geometry.Last();
 
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
-				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGreen.png");
+				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGray.png");
 
 				this.totalDistance.Text = _mapRoute.Route.Length();
 				this.durationTime.Text = _mapRoute.Route.RuningTime();
@@ -434,11 +434,14 @@ namespace Hoover.Views
 				item.Description = (DateTime.Now - _startTime).ToString();
 				_checkpoints[_activeCheckpoint-1] = item;
 			}
-			
-			item = _checkpoints[_activeCheckpoint] as CheckpointItem;
-			item.ImageSource = "/Assets/mapMarkerGreen.png";
-			item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
-			_checkpoints[_activeCheckpoint] = item;
+
+			if (_checkpoints.Count > 0)
+			{
+				item = _checkpoints[_activeCheckpoint] as CheckpointItem;
+				item.ImageSource = "/Assets/mapMarkerGreen.png";
+				item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
+				_checkpoints[_activeCheckpoint] = item;
+			}
 
 			_activeCheckpoint++;
 
