@@ -60,6 +60,7 @@ namespace Hoover.Views
 		private long _previousPositionChangeTick;
 		private int _activeCheckpoint;
 		private Model.HistoryItem _currentRoute;
+		private List<GeoCoordinate> _temp = new List<GeoCoordinate>();
 
 		#endregion
 
@@ -208,7 +209,7 @@ namespace Hoover.Views
 				EndTime = DateTime.Now.AddMinutes(35),
 				StartTime = DateTime.Now,
 				RouteLength = _mapRoute.Route.LengthInMeters,
-				Checkpoints = _waypoints.ToList(),
+				Checkpoints = _temp.ToList(),
 				ID = Helpers.CalendarHelper.FromDateTimeToUnixTime(DateTime.Now)
 			};
 
@@ -267,6 +268,8 @@ namespace Hoover.Views
 		private void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
 		{
 			var coord = new GeoCoordinate(e.Position.Location.Latitude, e.Position.Location.Longitude);
+
+			_temp.Add(coord);
 
 			if (_line.Path.Count > 0)
 			{
