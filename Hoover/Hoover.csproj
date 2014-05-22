@@ -136,6 +136,12 @@
       <DependentUpon>HistoryDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HistoryItems\HistoryViewItem.cs" />
+    <Compile Include="Views\Popups\SessionCompletedView.xaml.cs">
+      <DependentUpon>SessionCompletedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Popups\ShowWeatherView.xaml.cs">
+      <DependentUpon>ShowWeatherView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -191,6 +197,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HistoryDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Popups\SessionCompletedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Popups\ShowWeatherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
