@@ -28,7 +28,8 @@
 		<ScrollViewer Grid.Row="1">
 			<StackPanel Orientation="Vertical" Margin="20">
 				<TextBlock Text="INFO" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<TextBlock Text="Hover'n Recreate © 2014" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold"/>
+				<Image Width="120" Height="120" Margin="15" HorizontalAlignment="Center" Source="/Assets/AboutIcon.png"/>
+				<TextBlock Text="Hover'n Recreate © 2014" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,15,0,6" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold"/>
 				<TextBlock Text="by team IceTea" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24" HorizontalAlignment="Center"/>
 				<TextBlock Text="Version 1.0.0" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24" TextAlignment="Center"/>
 				

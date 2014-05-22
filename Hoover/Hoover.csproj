@@ -230,13 +230,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.fw.png" />
+    <Content Include="Assets\AboutIcon.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\informationImage.png" />
     <Content Include="Assets\mapItemDetail.png" />
     <Content Include="Assets\settingsImage.png" />
-    <Content Include="Assets\Tiles\FlipCycleTileSmall.png" />
-    <Content Include="Assets\Tiles\FlipCycleTileMedium.png" />
-    <Content Include="Assets\Tiles\FlipCycleTileLarge.png" />
     <Content Include="Assets\timerStopImage.png" />
     <Content Include="Assets\AppBarIcons\appbar.microphone.png" />
     <Content Include="Assets\ApplicationIcon.png">
@@ -267,7 +265,9 @@
     <Content Include="Assets\WeatherIcons\13n.png" />
     <Content Include="Assets\WeatherIcons\50d.png" />
     <Content Include="Assets\WeatherIcons\50n.png" />
-    <Content Include="TileWide.fw.png" />
+    <Content Include="Assets\Tiles\TileMedium.png" />
+    <Content Include="Assets\Tiles\TileSmall.png" />
+    <Content Include="Assets\Tiles\TileWide.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
