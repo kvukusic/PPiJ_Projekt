@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Hoover.Helpers;
 using Hoover.Model;
+using Hoover.Views.Popups;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Telerik.Windows.Controls;
@@ -49,14 +50,26 @@ namespace Hoover.Services
 
         #endregion
 
+        private bool _isWeatherPopupOpen = false;
+
         /// <summary>
         /// Displays the weather popup. Returns a <see cref="Task"/> which will be completed after the popup is closed.
         /// </summary>
         public async Task ShowWeatherPopup()
         {
+            if (_isWeatherPopupOpen) return;
+
             Deployment.Current.Dispatcher.BeginInvoke(async () =>
             {
-                //await ShowPopup(new PlayerDetailsView(playerId));
+                var weatherView = new ShowWeatherView();
+                var closingSource = new TaskCompletionSource<bool>();
+                weatherView.NoData += (sender, args) =>
+                {
+                    closingSource.TrySetResult(true);
+                };
+                _isWeatherPopupOpen = true;
+                await ShowPopup(weatherView, closingSource);
+                _isWeatherPopupOpen = false;
             });
         }
 
@@ -67,7 +80,9 @@ namespace Hoover.Services
         {
             Deployment.Current.Dispatcher.BeginInvoke(async () =>
             {
-                //await ShowPopup(new PlayerDetailsView(playerId));
+                var sessionCompletedView = new SessionCompletedView(historyItem);
+                var closingSource = new TaskCompletionSource<bool>();
+                await ShowPopup(sessionCompletedView);
             });
         }
 

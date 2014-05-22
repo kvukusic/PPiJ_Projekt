@@ -50,7 +50,7 @@
 				<views:HomeView/>
 			</phone:PanoramaItem>
 
-            <phone:PanoramaItem x:Name="HistoryViewPanoramaItem" Header="HISTORY" Style="{StaticResource PanoramaItemStyle}">
+            <phone:PanoramaItem x:Name="HistoryViewPanoramaItem" Header="MY RUNS" Style="{StaticResource PanoramaItemStyle}">
 				<views:HistoryView/>
 			</phone:PanoramaItem>
 

@@ -236,7 +236,6 @@ namespace Hoover.Views
 						if (pitchValue > 125)
 						{
 							ShowWeatherTooltip();
-							MessageBox.Show("ovde bre");
 						}
 						else if (pitchValue < 25)
 						{
@@ -370,6 +369,11 @@ namespace Hoover.Views
 
 		private void ToggleView()
 		{
+		    if (VideoPreview == null || OverheadMap == null || PreviewBox == null || WorldView == null)
+		    {
+		        return;
+		    }
+
 			PreviewBox.Visibility = System.Windows.Visibility.Visible;
 			if (_isMapActive)
 			{
@@ -567,7 +571,11 @@ namespace Hoover.Views
 			}
 		}
 
-		private void AddRouteToHistory()
+        /// <summary>
+        /// Adds the current route to the history database.
+        /// </summary>
+        /// <returns></returns>
+		private Model.HistoryItem AddRouteToHistory()
 		{
 			_currentRoute = new Model.HistoryItem()
 			{
@@ -580,24 +588,29 @@ namespace Hoover.Views
 			};
 
 			App.DataAccess.AddHistoryItem(_currentRoute);
+
+            return _currentRoute;
 		}
 
         /// <summary>
         /// Executed when the user finishes a route.
         /// </summary>
-		private void FinishRoute()
+		private async void FinishRoute()
 		{
-			AddRouteToHistory();
-			// Show Tooltip
-
+			var item = AddRouteToHistory();
+			// Show session completed popup
+            if (item != null)
+		{
+                await PopupService.Instance.ShowSessionCompletedPopup(item);
+            }
 		}
 
         /// <summary>
         /// Executed when the mobile phone back is pointed at the sky.
         /// </summary>
-		private void ShowWeatherTooltip()
+		private async void ShowWeatherTooltip()
 		{
-
+            await PopupService.Instance.ShowWeatherPopup();
 		}
 
 		#endregion
