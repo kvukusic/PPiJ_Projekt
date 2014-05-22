@@ -231,7 +231,7 @@ namespace Hoover.Views
 		    {
                 Dispatcher.BeginInvoke(delegate
                 {
-					if (this.Orientation == PageOrientation.Portrait)
+					if (this.Orientation == PageOrientation.PortraitUp)
 					{
 						if (pitchValue > 125)
 						{
@@ -251,8 +251,10 @@ namespace Hoover.Views
 					}
 					else
 					{
-						Debug.WriteLine(pitchValue);
-						// CHECK PITCH VALUES
+						Debug.WriteLine("---------------");
+						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch)));
+						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw)));
+						Debug.WriteLine(e.SensorReading.Attitude.Roll);
 					}
 
                 });
