@@ -26,7 +26,7 @@ namespace Hoover.Views.WeatherItems
 
             TemperatureString = Convert.ToInt32(Math.Round(model.Temp)) + (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F");
             TimeString = CalendarHelper.FromDateTimeToTimeString(CalendarHelper.FromUnixTimeToDateTime(model.Dt));
-            IconUri = "http://openweathermap.org/img/w/" + model.Icon + ".png";
+            IconUri = "/Assets/WeatherIcons/" + model.Icon + ".png";
             Message = model.Message;
         }
 

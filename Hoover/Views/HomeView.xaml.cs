@@ -60,7 +60,7 @@ namespace Hoover.Views
             currentWeather.WeatherMessage = forecastItem.Message;
             currentWeather.Temperature = Convert.ToInt32(Math.Round(forecastItem.Temp)).ToString(CultureInfo.InvariantCulture);
             currentWeather.TemperatureUnit = "o" + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F");
-            currentWeather.IconUrl = "http://openweathermap.org/img/w/" + forecastItem.Icon + ".png";
+            currentWeather.IconUrl = "/Assets/WeatherIcons/" + forecastItem.Icon + ".png";
             CurrentWeather = currentWeather;
             IsWeatherLoaded = true;
         }

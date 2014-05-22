@@ -260,6 +260,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\timerStartImage.png" />
+    <Content Include="Assets\WeatherIcons\01d.png" />
+    <Content Include="Assets\WeatherIcons\01n.png" />
+    <Content Include="Assets\WeatherIcons\02d.png" />
+    <Content Include="Assets\WeatherIcons\02n.png" />
+    <Content Include="Assets\WeatherIcons\03d.png" />
+    <Content Include="Assets\WeatherIcons\03n.png" />
+    <Content Include="Assets\WeatherIcons\04d.png" />
+    <Content Include="Assets\WeatherIcons\04n.png" />
+    <Content Include="Assets\WeatherIcons\09d.png" />
+    <Content Include="Assets\WeatherIcons\09n.png" />
+    <Content Include="Assets\WeatherIcons\10d.png" />
+    <Content Include="Assets\WeatherIcons\10n.png" />
+    <Content Include="Assets\WeatherIcons\11d.png" />
+    <Content Include="Assets\WeatherIcons\11n.png" />
+    <Content Include="Assets\WeatherIcons\13d.png" />
+    <Content Include="Assets\WeatherIcons\13n.png" />
+    <Content Include="Assets\WeatherIcons\50d.png" />
+    <Content Include="Assets\WeatherIcons\50n.png" />
     <Content Include="VoiceCommandDefinition.xml" />
   </ItemGroup>
   <ItemGroup>

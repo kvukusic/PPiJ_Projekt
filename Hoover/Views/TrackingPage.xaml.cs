@@ -63,6 +63,7 @@ namespace Hoover.Views
 		private Model.HistoryItem _currentRoute;
 		private bool _firstInit = true;
 		private Motion _motion;
+		private bool _motionFlag = true;
 
 		#endregion
 
@@ -167,7 +168,7 @@ namespace Hoover.Views
 				Waypoints = _waypoints
 			};
 
-			query.QueryCompleted += routeQuery_QueryCompleted;
+			query.QueryCompleted += RouteQuery_QueryCompleted;
 			query.QueryAsync();
 		}
 
@@ -220,8 +221,7 @@ namespace Hoover.Views
 
 		}
 
-	    private bool _motionFlag = true;
-		void Motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
+		private void Motion_CurrentValueChanged(object sender, SensorReadingEventArgs<MotionReading> e)
 		{
             double pitchValue = Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch));
 
@@ -229,24 +229,30 @@ namespace Hoover.Views
 		    {
                 Dispatcher.BeginInvoke(delegate
                 {
-                    Debug.WriteLine(pitchValue);
-                    if (pitchValue > 125)
-                    {
-                        ShowWeatherTooltip();
-                        MessageBox.Show("ovde bre");
-                    }
-                    else if (pitchValue < 25)
-                    {
-                        this._isMapActive = false;
-                        this.ToggleView();
-                    }
-                    else
-                    {
-                        this._isMapActive = true;
-                        this.ToggleView();
-                    }
+					if (this.Orientation == PageOrientation.Portrait)
+					{
+						if (pitchValue > 125)
+						{
+							ShowWeatherTooltip();
+							MessageBox.Show("ovde bre");
+						}
+						else if (pitchValue < 25)
+						{
+							this._isMapActive = false;
+							this.ToggleView();
+						}
+						else
+						{
+							this._isMapActive = true;
+							this.ToggleView();
+						}
+					}
+					else
+					{
+						Debug.WriteLine(pitchValue);
+						// CHECK PITCH VALUES
+					}
 
-                    //this.yaw.Text = MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch).ToString("0");
                 });
 		    }
             else if (pitchValue > 135 || pitchValue < 5)
@@ -272,7 +278,7 @@ namespace Hoover.Views
 			this.ToggleView();
 		}
 
-		private void routeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
+		private void RouteQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
 		{
 			if (e.Error == null)
 			{
@@ -321,6 +327,8 @@ namespace Hoover.Views
 				_distance += distance;
 				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
 				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
+
+				UpdateCheckpointDistance();
 
 				if (_waypoints.Count > _activeCheckpoint && coord.GetDistanceTo(_waypoints[_activeCheckpoint]) < 30)
 				{
@@ -490,7 +498,11 @@ namespace Hoover.Views
 			{
 				item = _checkpoints[_activeCheckpoint] as CheckpointItem;
 				item.ImageSource = "/Assets/mapMarkerGreen.png";
-				item.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
+				string distanceToNextCheckpoint = Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
+				item.Description = "distance: " + distanceToNextCheckpoint;
+
+				// CALL SPEECH API
+
 				_checkpoints[_activeCheckpoint] = item;
 			}
 
@@ -502,6 +514,19 @@ namespace Hoover.Views
 			}
 
 			ARDisplay.ARItems = _checkpoints;
+		}
+
+		private void UpdateCheckpointDistance()
+		{
+			CheckpointItem checkpoint;
+
+			// Get current checkpoint
+			if (_activeCheckpoint > 0 && _activeCheckpoint <= _checkpoints.Count)
+			{
+				checkpoint = _checkpoints[_activeCheckpoint - 1] as CheckpointItem;
+				checkpoint.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(checkpoint.GeoLocation));
+				_checkpoints[_activeCheckpoint-1] = checkpoint;
+			}
 		}
 
 		private void ChangeOrientation(PageOrientation orientation)
