@@ -87,5 +87,15 @@ namespace Hoover.Helpers
 
             return retval;
         }
+
+        /// <summary>
+        /// Returns a timespan formatted string.
+        /// </summary>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+	    public static string TimeSpanFormatString(this TimeSpan ts)
+        {
+            return Convert.ToInt32(ts.TotalHours) + "h " + ts.Minutes + "m " + ts.Seconds + "s";
+        }
 	}
 }
