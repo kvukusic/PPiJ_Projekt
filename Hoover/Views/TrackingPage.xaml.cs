@@ -63,6 +63,7 @@ namespace Hoover.Views
 		private Model.HistoryItem _currentRoute;
 		private bool _firstInit = true;
 		private Motion _motion;
+		private Gyroscope _gyroscope;
 		private bool _motionFlag = true;
 		private SpeechRecognitionService _speech;
 
@@ -219,7 +220,22 @@ namespace Hoover.Views
 			    _motion.TimeBetweenUpdates = TimeSpan.FromSeconds(1);
 				_motion.CurrentValueChanged += Motion_CurrentValueChanged;
 				_motion.Start();
+
+				_gyroscope = new Gyroscope();
+				_gyroscope.TimeBetweenUpdates = TimeSpan.FromSeconds(1);
+				_gyroscope.CurrentValueChanged += Gyroscope_CurrentValueChanged;
+				_gyroscope.Start();
 			}
+
+		}
+
+		private void Gyroscope_CurrentValueChanged(object sender, SensorReadingEventArgs<GyroscopeReading> e)
+		{
+			var X = e.SensorReading.RotationRate.X;
+			var Y = e.SensorReading.RotationRate.Y;
+			var Z = e.SensorReading.RotationRate.Z;
+
+			Debug.WriteLine("X " + X + " Y " + Y + " Z " + Z);
 
 		}
 
@@ -248,14 +264,6 @@ namespace Hoover.Views
 							this.ToggleView();
 						}
 					}
-					else
-					{
-						Debug.WriteLine("---------------");
-						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch)));
-						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw)));
-						Debug.WriteLine(MathHelper.ToDegrees(e.SensorReading.Attitude.Roll+(float)Math.PI));
-					}
-
                 });
 		    }
             else if (pitchValue > 135 || pitchValue < 5)
