@@ -131,6 +131,7 @@ namespace Hoover.Views
         {
 			//Exception where are no motion on WP
 			//ARDisplay.StopServices();
+            _motion.CurrentValueChanged -= Motion_CurrentValueChanged;
 			ApplicationSettings = null;
         }
 
@@ -377,7 +378,8 @@ namespace Hoover.Views
 
 		private void ToggleView()
 		{
-		    if (VideoPreview == null || OverheadMap == null || PreviewBox == null || WorldView == null)
+		    if (VideoPreview == null || OverheadMap == null
+                || PreviewBox == null || WorldView == null || ApplicationSettings == null)
 		    {
 		        return;
 		    }
@@ -526,7 +528,7 @@ namespace Hoover.Views
 
 			_activeCheckpoint++;
 
-			if (_activeCheckpoint >= _waypoints.Count && _waypoints.Count > 0)
+			if (_activeCheckpoint >= _waypoints.Count && _waypoints.Count > 1)
 			{
 				FinishRoute();
 			}

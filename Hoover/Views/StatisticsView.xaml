@@ -46,12 +46,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Distance" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TotalDistance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Total runs" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TotalRuns}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Distance" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TotalDistance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TotalTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TotalTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
                 </Grid>
                 
             </StackPanel>

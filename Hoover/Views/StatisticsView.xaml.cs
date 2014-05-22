@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -53,6 +54,8 @@ namespace Hoover.Views
 
 	            this.TotalDistance = totalDistance.Length();
 	            this.TotalTime = TimeSpan.FromSeconds(totalTimeSecs).TimeSpanFormatString();
+
+	            this.TotalRuns = count.ToString(CultureInfo.InvariantCulture);
 	        }
 	        else
 	        {
@@ -62,6 +65,7 @@ namespace Hoover.Views
 	            this.AverageTime = new TimeSpan(0, 0, 0).TimeSpanFormatString();
 	            this.TotalDistance = 0.0.Length();
 	            this.TotalTime = new TimeSpan(0, 0, 0).TimeSpanFormatString();
+	            this.TotalRuns = 0.ToString(CultureInfo.InvariantCulture);
 	        }
 	    }
 
@@ -105,6 +109,20 @@ namespace Hoover.Views
                 {
                     _AverageTime = value;
                     OnPropertyChanged("AverageTime");
+                }
+            }
+        }
+
+        private string _TotalRuns;
+        public string TotalRuns
+        {
+            get { return _TotalRuns; }
+            set
+            {
+                if (value != _TotalRuns)
+                {
+                    _TotalRuns = value;
+                    OnPropertyChanged("TotalRuns");
                 }
             }
         }

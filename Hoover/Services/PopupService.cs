@@ -63,10 +63,14 @@ namespace Hoover.Services
             {
                 var weatherView = new ShowWeatherView();
                 var closingSource = new TaskCompletionSource<bool>();
-                weatherView.NoData += (sender, args) =>
+                EventHandler<EventArgs> weatherViewOnCloseRequested = delegate(object sender, EventArgs args)
                 {
                     closingSource.TrySetResult(true);
                 };
+
+                weatherView.NoData += weatherViewOnCloseRequested;
+                weatherView.CloseRequested += weatherViewOnCloseRequested;
+
                 _isWeatherPopupOpen = true;
                 await ShowPopup(weatherView, closingSource);
                 _isWeatherPopupOpen = false;
