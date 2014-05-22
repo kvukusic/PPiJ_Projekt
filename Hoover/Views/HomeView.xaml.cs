@@ -70,11 +70,16 @@ namespace Hoover.Views
             IsWeatherLoaded = true;
 
 			// Load Last Run data
-			_LastRun = App.DataAccess.GetAllHistoryItems().Last();
-			if (_LastRun != null)
+			var items = App.DataAccess.GetAllHistoryItems();
+			if (items.Count > 0)
 			{
+				_LastRun = items.Last();
 				_lastRun = "You ran " + _LastRun.RouteLength.Length() + " in " + (_LastRun.EndTime - _LastRun.StartTime).TimeSpanFormatString() +
 							" with average speed " + _LastRun.AverageSpeed.Speed() + "\nIt was " + Helpers.CalendarHelper.TimeAgo(_LastRun.EndTime) + "...";
+			}
+			else
+			{
+				_lastRun = "...you have not ran yet";
 			}
         }
 
