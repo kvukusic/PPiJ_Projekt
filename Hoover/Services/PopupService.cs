@@ -86,7 +86,11 @@ namespace Hoover.Services
             {
                 var sessionCompletedView = new SessionCompletedView(historyItem);
                 var closingSource = new TaskCompletionSource<bool>();
-                await ShowPopup(sessionCompletedView);
+                sessionCompletedView.CloseRequested += delegate(object sender, EventArgs args)
+                {
+                    closingSource.TrySetResult(true);
+                };
+                await ShowPopup(sessionCompletedView, closingSource);
             });
         }
 

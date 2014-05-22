@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -14,6 +15,7 @@ using Hoover.Helpers;
 using Hoover.Model;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
 #endregion
 
@@ -36,6 +38,28 @@ namespace Hoover.Views.Popups
             this.Distance = item.RouteLength.Length();
             this.Time = (item.EndTime - item.StartTime).TimeSpanFormatString();
         }
+
+        #region Commands
+
+        public RelayCommand ShareSessionCommand
+        {
+            get
+            {
+                return new RelayCommand(async () =>
+                {
+                    RaiseCloseRequested();
+                    await Task.Delay(TimeSpan.FromMilliseconds(200));
+
+                    ShareStatusTask task = new ShareStatusTask()
+                    {
+                        Status = "Just ran " + this.Distance + " in " + this.Time + " with average speed of " + this.AverageSpeed + ". It was great!"
+                    };
+                    task.Show();
+                });
+            }
+        }
+
+        #endregion
 
         #region Properties
 
@@ -78,6 +102,19 @@ namespace Hoover.Views.Popups
                     _Time = value;
                     OnPropertyChanged("Time");
                 }
+            }
+        }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<EventArgs> CloseRequested;
+        private void RaiseCloseRequested()
+        {
+            if (CloseRequested != null)
+            {
+                CloseRequested(this, new EventArgs());
             }
         }
 

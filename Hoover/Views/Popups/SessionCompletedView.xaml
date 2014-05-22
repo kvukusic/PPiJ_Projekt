@@ -27,7 +27,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource PageHeaderBackgroundBrush}">
-            <TextBlock Text="RUN COMPLETED" FontSize="40" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="RUN COMPLETED" FontSize="36" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Route length" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Distance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
@@ -37,7 +37,20 @@
 
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Time}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
-    
-        
+
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding ShareSessionCommand}" Margin="5,0,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="70" Background="{StaticResource PageHeaderBackgroundBrush}" Style="{StaticResource ShareButtonStyle}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" Width="340">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="/Assets/shareIcon.png" Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="SHARE" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
     </Grid>
 </UserControl>
