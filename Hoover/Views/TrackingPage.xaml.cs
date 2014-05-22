@@ -518,7 +518,7 @@ namespace Hoover.Views
 
 			_activeCheckpoint++;
 
-			if (_activeCheckpoint >= _waypoints.Count)
+			if (_activeCheckpoint >= _waypoints.Count && _waypoints.Count > 0)
 			{
 				FinishRoute();
 			}
