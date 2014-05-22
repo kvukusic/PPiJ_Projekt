@@ -251,12 +251,21 @@ namespace Hoover.Views
 					}
 					else
 					{
-						Debug.WriteLine("---------------");
-						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch)));
-						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw)));
-						Debug.WriteLine(MathHelper.ToDegrees(e.SensorReading.Attitude.Roll+(float)Math.PI));
+						if (pitchValue > 175)
+						{
+							ShowWeatherTooltip();
+						}
+						else if (pitchValue < 10)
+						{
+							this._isMapActive = false;
+							this.ToggleView();
+						}
+						else
+						{
+							this._isMapActive = true;
+							this.ToggleView();
+						}
 					}
-
                 });
 		    }
             else if (pitchValue > 135 || pitchValue < 5)
@@ -525,7 +534,10 @@ namespace Hoover.Views
 				FinishRoute();
 			}
 
-			ARDisplay.ARItems = _checkpoints;
+			if(Motion.IsSupported)
+			{
+				ARDisplay.ARItems = _checkpoints;
+			}
 		}
 
 		private void UpdateCheckpointDistance()

@@ -36,5 +36,10 @@ namespace Hoover.Views
             shareLinkTask.Show();
         }
 
+		private void clearHistoryButton_Tap(object sender, GestureEventArgs e)
+		{
+
+		}
+
     }
 }

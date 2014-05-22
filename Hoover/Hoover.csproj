@@ -248,6 +248,7 @@
     <Content Include="ApplicationIcon.fw.png" />
     <Content Include="Assets\AboutIcon.png" />
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\shareIcon.png" />
     <Content Include="Assets\informationImage.png" />
     <Content Include="Assets\mapItemDetail.png" />
     <Content Include="Assets\settingsImage.png" />
