@@ -59,6 +59,21 @@ namespace Hoover.Settings
             }
         }
 
+		private const string EnableSpeechHelperKeyName = "EnableSpeechHelper";
+		private const bool EnableSpeechHelperDefault = true;
+		public bool EnableSpeechHelper
+		{
+			get { return LoadSettingLocal(EnableSpeechHelperKeyName, EnableSpeechHelperDefault); }
+			set
+			{
+				if (StoreSettingLocal(EnableSpeechHelperKeyName, value))
+				{
+					StoreSettings();
+					OnPropertyChanged("EnableSpeechHelper");
+				}
+			}
+		}
+
 		private const string EnableMotionNavigationKeyName = "EnableMotionNavigation";
 		private const bool EnableMotionNavigationDefault = true;
 		public bool EnableMotionNavigation

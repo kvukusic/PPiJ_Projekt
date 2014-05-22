@@ -64,6 +64,7 @@ namespace Hoover.Views
 		private bool _firstInit = true;
 		private Motion _motion;
 		private bool _motionFlag = true;
+		private SpeechRecognitionService _speech;
 
 		#endregion
 
@@ -107,6 +108,7 @@ namespace Hoover.Views
 				_timer = new DispatcherTimer();
 				_timer.Interval = TimeSpan.FromSeconds(1);
 				_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+				_speech = new SpeechRecognitionService();
 
 				_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
 				_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
@@ -211,7 +213,7 @@ namespace Hoover.Views
 			StartRoute();
 			_watcher.Start();
 
-			if (ApplicationSettings.EnableMotionNavigation && Motion.IsSupported)
+			if (ApplicationSettings.EnableSpeechHelper && Motion.IsSupported)
 			{
 				_motion = new Motion();
 			    _motion.TimeBetweenUpdates = TimeSpan.FromSeconds(1);
@@ -498,10 +500,13 @@ namespace Hoover.Views
 			{
 				item = _checkpoints[_activeCheckpoint] as CheckpointItem;
 				item.ImageSource = "/Assets/mapMarkerGreen.png";
-				string distanceToNextCheckpoint = Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(item.GeoLocation));
-				item.Description = "distance: " + distanceToNextCheckpoint;
+				int distanceToNextCheckpoint = (int) ARDisplay.Location.GetDistanceTo(item.GeoLocation);
+				item.Description = "distance: " + Helpers.Extensions.Length(distanceToNextCheckpoint);
 
-				// CALL SPEECH API
+				if (ApplicationSettings.EnableSpeechHelper)
+				{
+					_speech.SpeakText("Distance to next checkpoint is " + distanceToNextCheckpoint + ((ApplicationSettings.UseMetricSystem) ? " meters" : " yards"));
+				}
 
 				_checkpoints[_activeCheckpoint] = item;
 			}

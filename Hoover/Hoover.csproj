@@ -278,7 +278,6 @@
     <Content Include="Assets\WeatherIcons\13n.png" />
     <Content Include="Assets\WeatherIcons\50d.png" />
     <Content Include="Assets\WeatherIcons\50n.png" />
-    <Content Include="VoiceCommandDefinition.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
