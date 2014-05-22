@@ -581,12 +581,19 @@ namespace Hoover.Views
 			App.DataAccess.AddHistoryItem(_currentRoute);
 		}
 
+        /// <summary>
+        /// Executed when the user finishes a route.
+        /// </summary>
 		private void FinishRoute()
 		{
 			AddRouteToHistory();
 			// Show Tooltip
+
 		}
 
+        /// <summary>
+        /// Executed when the mobile phone back is pointed at the sky.
+        /// </summary>
 		private void ShowWeatherTooltip()
 		{
 
