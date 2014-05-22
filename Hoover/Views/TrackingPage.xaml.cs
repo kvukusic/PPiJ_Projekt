@@ -250,8 +250,10 @@ namespace Hoover.Views
 					}
 					else
 					{
-						Debug.WriteLine(pitchValue);
-						// CHECK PITCH VALUES
+						Debug.WriteLine("---------------");
+						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch)));
+						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw)));
+						Debug.WriteLine(e.SensorReading.Attitude.Roll);
 					}
 
                 });
@@ -599,7 +601,7 @@ namespace Hoover.Views
 			var item = AddRouteToHistory();
 			// Show session completed popup
             if (item != null)
-            {
+		{
                 await PopupService.Instance.ShowSessionCompletedPopup(item);
             }
 		}
@@ -608,9 +610,9 @@ namespace Hoover.Views
         /// Executed when the mobile phone back is pointed at the sky.
         /// </summary>
 		private async void ShowWeatherTooltip()
-        {
+		{
             await PopupService.Instance.ShowWeatherPopup();
-        }
+		}
 
 		#endregion
 
