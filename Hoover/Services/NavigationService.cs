@@ -86,7 +86,7 @@ namespace Hoover.Services
         /// <summary>
         /// Access to the current frame of the application.
         /// </summary>
-        private static Frame Frame
+        public static Frame Frame
         {
             get { return Application.Current.RootVisual as Frame; }
         }

@@ -3,6 +3,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Hoover.Annotations;
 using Hoover.Settings;
@@ -609,17 +610,24 @@ namespace Hoover.Views
         /// <summary>
         /// Executed when the user finishes a route.
         /// </summary>
-		private async void FinishRoute()
-		{
-			var item = AddRouteToHistory();
-			// Show session completed popup
+        private async void FinishRoute()
+        {
+            var waitForNavigation = new TaskCompletionSource<bool>(false);
+            Services.NavigationService.Frame.Navigated += delegate(object sender, NavigationEventArgs args)
+            {
+                waitForNavigation.TrySetResult(true);
+            };
+            Services.NavigationService.Instance.GoBack();
+            var item = AddRouteToHistory();
+            // Show session completed popup
             if (item != null)
-		{
+            {
+                await waitForNavigation.Task;
                 await PopupService.Instance.ShowSessionCompletedPopup(item);
             }
-		}
+        }
 
-        /// <summary>
+	    /// <summary>
         /// Executed when the mobile phone back is pointed at the sky.
         /// </summary>
 		private async void ShowWeatherTooltip()
