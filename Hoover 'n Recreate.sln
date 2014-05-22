@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GART.WP8", "GART.WP8\GART.W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A8C806B4-5A1A-4D75-893C-042A472A249A}"
 	ProjectSection(SolutionItems) = preProject
+		Lib\Telerik.Windows.Controls.Chart.dll = Lib\Telerik.Windows.Controls.Chart.dll
 		Lib\Telerik.Windows.Controls.Primitives.dll = Lib\Telerik.Windows.Controls.Primitives.dll
 		Lib\Telerik.Windows.Core.dll = Lib\Telerik.Windows.Core.dll
 	EndProjectSection

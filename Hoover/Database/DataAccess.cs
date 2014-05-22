@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hoover.Helpers;
 using Hoover.Model;
 using Wintellect.Sterling;
 using Wintellect.Sterling.IsolatedStorage;
@@ -43,6 +45,27 @@ namespace Hoover.Database
             _engine.Dispose();
             _historyDatabase = null;
             _engine = null;
+        }
+
+        /// <summary>
+        /// Adds 20 fake items to the database.
+        /// </summary>
+        public void AddFakeData()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                var r = new Random();
+                var startTime = new DateTime(2014, 5, r.Next(4, 23));
+                App.DataAccess.AddHistoryItem(new HistoryItem()
+                {
+                    ID = CalendarHelper.FromDateTimeToUnixTime(DateTime.UtcNow) + r.Next(1, 100),
+                    Checkpoints = new List<GeoCoordinate>(),
+                    AverageSpeed = r.NextDouble(),
+                    StartTime = startTime,
+                    EndTime = startTime.AddMinutes(r.Next(5, 24)),
+                    RouteLength = r.Next(300, 756)
+                });
+            }
         }
 
         /// <summary>

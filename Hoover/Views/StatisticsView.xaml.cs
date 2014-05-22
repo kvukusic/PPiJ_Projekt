@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Device.Location;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -13,10 +14,13 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Hoover.Annotations;
 using Hoover.Helpers;
+using Hoover.Model;
 using Hoover.Model.Weather;
 using Hoover.Services;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Telerik.Charting;
+using Telerik.Windows.Controls;
 
 #endregion
 
@@ -34,15 +38,21 @@ namespace Hoover.Views
 
 	    private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
 	    {
-	        var historyItems = App.DataAccess.GetAllHistoryItems();
-	        if (historyItems != null && historyItems.Count > 0)
+	        var historyItems = App.DataAccess.GetAllHistoryItems().OrderBy(item => item.StartTime).ToList();
+	        if (historyItems.Count > 0)
 	        {
+                List<double> averageSpeedChartValues = new List<double>();
+                List<double> averageDistanceChartValues = new List<double>();
+
 	            int count = historyItems.Count;
 	            double totalSpeed = 0.0;
 	            double totalDistance = 0.0;
 	            double totalTimeSecs = 0;
 	            foreach (var item in historyItems)
 	            {
+                    averageSpeedChartValues.Add(item.AverageSpeed);
+                    averageDistanceChartValues.Add(item.RouteLength);
+
                     totalSpeed += item.AverageSpeed;
 	                totalDistance += item.RouteLength;
 	                totalTimeSecs += (item.EndTime - item.StartTime).TotalSeconds;
@@ -56,6 +66,30 @@ namespace Hoover.Views
 	            this.TotalTime = TimeSpan.FromSeconds(totalTimeSecs).TimeSpanFormatString();
 
 	            this.TotalRuns = count.ToString(CultureInfo.InvariantCulture);
+
+                // Init graphs
+	            DateTime date = DateTime.Today;
+                for (int i = 0; i < this.AverageSpeedChart.Series.Count; i++)
+                {
+                    LineSeries series = this.AverageSpeedChart.Series[i] as LineSeries;
+
+                    for (int j = 0; j < averageSpeedChartValues.Count; j++)
+                    {
+                        series.DataPoints.Add(new CategoricalDataPoint() { Value = averageSpeedChartValues[j], Category = date.AddMonths(j) });
+                    }
+                }
+
+                for (int i = 0; i < this.AverageDistanceChart.Series.Count; i++)
+                {
+                    LineSeries series = this.AverageDistanceChart.Series[i] as LineSeries;
+
+                    for (int j = 0; j < averageDistanceChartValues.Count; j++)
+                    {
+                        series.DataPoints.Add(new CategoricalDataPoint() { Value = averageDistanceChartValues[j], Category = date.AddMonths(j) });
+                    }
+                }
+
+	            this.ShowGraphs = historyItems.Count >= 3;
 	        }
 	        else
 	        {
@@ -70,6 +104,20 @@ namespace Hoover.Views
 	    }
 
         #region Properties
+
+        private bool _ShowGraphs;
+        public bool ShowGraphs
+        {
+            get { return _ShowGraphs; }
+            set
+            {
+                if (value != _ShowGraphs)
+                {
+                    _ShowGraphs = value;
+                    OnPropertyChanged("ShowGraphs");
+                }
+            }
+        }
 
         private string _AverageSpeed;
         public string AverageSpeed
