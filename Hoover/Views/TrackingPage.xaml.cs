@@ -534,7 +534,10 @@ namespace Hoover.Views
 				FinishRoute();
 			}
 
-			ARDisplay.ARItems = _checkpoints;
+			if(Motion.IsSupported)
+			{
+				ARDisplay.ARItems = _checkpoints;
+			}
 		}
 
 		private void UpdateCheckpointDistance()
