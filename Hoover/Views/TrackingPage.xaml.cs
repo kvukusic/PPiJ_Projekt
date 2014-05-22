@@ -130,7 +130,7 @@ namespace Hoover.Views
         {
 			//Exception where are no motion on WP
 			//ARDisplay.StopServices();
-            _motion.CurrentValueChanged -= Motion_CurrentValueChanged;
+            if(_motion != null) _motion.CurrentValueChanged -= Motion_CurrentValueChanged;
 			ApplicationSettings = null;
         }
 

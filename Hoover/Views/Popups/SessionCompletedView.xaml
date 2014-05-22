@@ -3,13 +3,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:popups="clr-namespace:Hoover.Views.Popups"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    Width="350"
+    Height="320"
+    d:DataContext="{d:DesignInstance popups:SessionCompletedView}">
     
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource PageHeaderBackgroundBrush}">
+            <TextBlock Text="RUN COMPLETED" FontSize="40" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Route length" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Distance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
 
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Average speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Time}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

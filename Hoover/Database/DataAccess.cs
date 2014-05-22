@@ -90,7 +90,15 @@ namespace Hoover.Database
         public List<HistoryItem> GetAllHistoryItems()
         {
             return (from item in _historyDatabase.Query<HistoryItem, long>() select item.LazyValue.Value).ToList();
-        } 
+        }
+
+        /// <summary>
+        /// Clears all the history items.
+        /// </summary>
+        public void ClearAllHistoryItems()
+        {
+            _historyDatabase.Purge();
+        }
 
     }
 }
