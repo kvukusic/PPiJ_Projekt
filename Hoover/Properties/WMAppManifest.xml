@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{eab5fc60-9fcd-4221-8ff8-4c01c1d910c6}" Title="Hoover" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hoover author" Description="Sample description" Publisher="Hoover" PublisherID="{208e8025-7dd5-42ef-a5c6-6ee0acc76a94}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{eab5fc60-9fcd-4221-8ff8-4c01c1d910c6}" Title="Hover'n Recreate" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hoover author" Description="Augmented Reality application for recreating. The application stores information about runned routes and displays statistics. Weather information is supported too." Publisher="Hoover" PublisherID="{208e8025-7dd5-42ef-a5c6-6ee0acc76a94}">
+    <IconPath IsRelative="true" IsResource="false">ApplicationIcon.fw.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -25,17 +25,20 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>Hoover</Title>
+          <Title>Hover'n Recreate</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">TileWide.fw.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
