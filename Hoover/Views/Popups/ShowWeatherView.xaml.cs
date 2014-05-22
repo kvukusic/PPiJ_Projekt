@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Hoover.Annotations;
 using Hoover.Services;
+using Hoover.Views.WeatherItems;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -40,6 +41,23 @@ namespace Hoover.Views.Popups
             }
             var forecastWeather = await service.GetForecastWeatherAsync();
 
+            // Add current weather data
+            var currentWeatherItem = new WeatherItem(currentWeather);
+            CurrentTemperature = currentWeatherItem.TemperatureString;
+            CurrentMessage = currentWeatherItem.Message;
+            ImageUrl = currentWeatherItem.IconUri;
+            CurrentCity = await LocationService.Instance.GetCurrentCityName();
+
+            if (forecastWeather != null)
+            {
+                if (forecastWeather.ForecastItems != null && forecastWeather.ForecastItems.Count > 1)
+                {
+                    var forecastWeatherItem = new WeatherItem(forecastWeather.ForecastItems.ElementAt(1));
+                    NextMessage = forecastWeatherItem.Message;
+                    NextTemperature = forecastWeatherItem.TemperatureString;
+                    NextTime = forecastWeatherItem.TimeString;
+                }
+            }
 
             // Autoclose after 15 seconds
             await Task.Delay(TimeSpan.FromSeconds(10));
@@ -84,6 +102,62 @@ namespace Hoover.Views.Popups
                 {
                     _CurrentMessage = value;
                     OnPropertyChanged("CurrentMessage");
+                }
+            }
+        }
+
+        private string _ImageUrl;
+        public string ImageUrl
+        {
+            get { return _ImageUrl; }
+            set
+            {
+                if (value != _ImageUrl)
+                {
+                    _ImageUrl = value;
+                    OnPropertyChanged("ImageUrl");
+                }
+            }
+        }
+
+        private string _NextTime;
+        public string NextTime
+        {
+            get { return _NextTime; }
+            set
+            {
+                if (value != _NextTime)
+                {
+                    _NextTime = value;
+                    OnPropertyChanged("NextTime");
+                }
+            }
+        }
+
+        private string _NextTemperature;
+        public string NextTemperature
+        {
+            get { return _NextTemperature; }
+            set
+            {
+                if (value != _NextTemperature)
+                {
+                    _NextTemperature = value;
+                    OnPropertyChanged("NextTemperature");
+                }
+            }
+        }
+
+        private string _NextMessage;
+        public string NextMessage
+        {
+            get { return _NextMessage; }
+            set
+            {
+                if (value != _NextMessage)
+                {
+                    _NextMessage = value;
+                    OnPropertyChanged("NextMessage");
                 }
             }
         }

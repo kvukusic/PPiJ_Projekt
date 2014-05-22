@@ -130,6 +130,7 @@ namespace Hoover.Views
         {
 			//Exception where are no motion on WP
 			//ARDisplay.StopServices();
+            _motion.CurrentValueChanged -= Motion_CurrentValueChanged;
 			ApplicationSettings = null;
         }
 
@@ -369,7 +370,8 @@ namespace Hoover.Views
 
 		private void ToggleView()
 		{
-		    if (VideoPreview == null || OverheadMap == null || PreviewBox == null || WorldView == null)
+		    if (VideoPreview == null || OverheadMap == null
+                || PreviewBox == null || WorldView == null || ApplicationSettings == null)
 		    {
 		        return;
 		    }

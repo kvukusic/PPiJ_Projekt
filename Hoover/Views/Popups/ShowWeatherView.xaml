@@ -3,15 +3,40 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:popups="clr-namespace:Hoover.Views.Popups"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480"
-    Width="350"
-    Height="420">
+    Width="400"
+    d:DataContext="{d:DesignInstance popups:ShowWeatherView}">
     
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot" Background="Transparent" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <TextBlock Text="{Binding CurrentTemperature}" Foreground="White" FontSize="82"/>
+            <TextBlock Text="{Binding CurrentCity}" Foreground="White" FontSize="38"/>
+            <TextBlock Text="{Binding CurrentMessage}" Foreground="White" FontSize="30"/>
+        </StackPanel>
+        <Image Grid.Row="0" Grid.Column="1" Source="{Binding ImageUrl}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,12,0,0"/>
         
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{Binding NextTime}" Foreground="White" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="1" Text="{Binding NextTemperature}" Foreground="White" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2" Text="{Binding NextMessage}" Foreground="White" HorizontalAlignment="Left"/>
+        </Grid>
     </Grid>
 </UserControl>
