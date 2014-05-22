@@ -10,7 +10,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480"
     Width="350"
-    Height="320"
+    Height="300"
     d:DataContext="{d:DesignInstance popups:SessionCompletedView}">
     
     <Grid x:Name="LayoutRoot" Background="White">
@@ -20,6 +20,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -36,5 +37,7 @@
 
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Running time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Time}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+    
+        
     </Grid>
 </UserControl>
