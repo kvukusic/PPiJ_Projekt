@@ -30,6 +30,14 @@
             ItemTemplate="{StaticResource HistoryItemTemplateSelector}" 
             Margin="0,0,0,5"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            behaviors:ItemClickCommandBehavior.Command="{Binding NavigateToHistoryDetailsCommand}"/>
+            behaviors:ItemClickCommandBehavior.Command="{Binding NavigateToHistoryDetailsCommand}"
+            EmptyContentDisplayMode="DataSourceEmpty"
+            EmptyContent="No previous sessions available">
+            <telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0"/>
+                </DataTemplate>
+            </telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+        </telerikPrimitives:RadDataBoundListBox>
     </Grid>
 </UserControl>

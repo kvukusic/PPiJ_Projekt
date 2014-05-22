@@ -39,6 +39,7 @@ namespace Hoover.Views
 		private void clearHistoryButton_Tap(object sender, GestureEventArgs e)
 		{
 			App.DataAccess.ClearAllHistoryItems();
+		    MessageBox.Show("Your data has been cleared!");
 		}
 
     }

@@ -59,8 +59,9 @@ namespace Hoover.Views
             }
 
             this.HistoryItems = resultList;
+            this.HasItems = resultList.Count > 0;
         }
-        
+
         /// <summary>
         /// This command is executed when a history item is selected from the list,
         /// and it navigates to the <see cref="HistoryDetailsPage"/> and passes the specified
@@ -80,6 +81,20 @@ namespace Hoover.Views
             }
         }
 
+        private bool _HasItems;
+        public bool HasItems
+        {
+            get { return _HasItems; }
+            set
+            {
+                if (value != _HasItems)
+                {
+                    _HasItems = value;
+                    OnPropertyChanged("HasItems");
+                }
+            }
+        }
+        
         private ObservableCollection<HistoryViewItem> _HistoryItems;
         public ObservableCollection<HistoryViewItem> HistoryItems
         {
