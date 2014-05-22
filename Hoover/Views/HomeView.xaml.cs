@@ -54,12 +54,14 @@ namespace Hoover.Views
                 _isCityNameKnown = true;
             }
 
+			_CurrentTime = DateTime.Now.ToString("dd.MMM.yyyy | hh:mm");
+
             // Load Current Weather
             var forecastItem = await new WeatherService().GetCurrentWeatherAsync();
             var currentWeather = new CurrentWeather();
             currentWeather.WeatherMessage = forecastItem.Message;
             currentWeather.Temperature = Convert.ToInt32(Math.Round(forecastItem.Temp)).ToString(CultureInfo.InvariantCulture);
-            currentWeather.TemperatureUnit = "o" + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F");
+            currentWeather.TemperatureUnit = (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F");
             currentWeather.IconUrl = "/Assets/WeatherIcons/" + forecastItem.Icon + ".png";
             CurrentWeather = currentWeather;
             IsWeatherLoaded = true;
@@ -122,6 +124,23 @@ namespace Hoover.Views
                 }
             }
         }
+
+		private string _CurrentTime;
+		/// <summary>
+		/// The city name used for displaying along the weather.
+		/// </summary>
+		public string DateAndTime
+		{
+			get { return _CurrentTime; }
+			set
+			{
+				if (value != _CurrentTime)
+				{
+					_CurrentTime = value;
+					OnPropertyChanged("DateAndTime");
+				}
+			}
+		}
 
         #endregion
 

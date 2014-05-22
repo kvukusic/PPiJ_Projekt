@@ -13,52 +13,57 @@
     d:DataContext="{d:DesignInstance views:HomeView}">
 
 	<Grid x:Name="LayoutRoot">
-        <telerikPrimitives:RadBusyIndicator 
+		<telerikPrimitives:RadBusyIndicator 
             Foreground="Black" 
             IsRunning="{Binding IsWeatherLoaded, Converter={StaticResource BooleanNegationConverter}}"
             Margin="0,20,0,0"
             VerticalAlignment="Top"
             AnimationStyle="AnimationStyle7"/>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Grid Width="400" VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Row="0" Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+		<ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+			<Grid Width="400" VerticalAlignment="Stretch">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
 
-                    <Grid Grid.Row="1" Margin="12,0" Height="120" Width="376" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20"/>
-                        <!--<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock Grid.Row="0" Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
+
+				<Grid Grid.Row="1" Margin="12,0" Height="120" Width="376" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20"/>
+					<!--<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="52"/>
                                 <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="20" Margin="10,0,0,0"/>
                             </StackPanel>
                             <TextBlock Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" FontSize="28" VerticalAlignment="Center"/>
                         </StackPanel>-->
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="80" FontWeight="Light"/>
-                            <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="36"/>
-                        </StackPanel>
-                    </Grid>
+					<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+						<TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="80" FontWeight="Light"/>
+						<TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="80" FontWeight="Light"/>
+					</StackPanel>
+				</Grid>
 
-                    <Button x:Name="StartButton"
-                            Height="100"
-                            Grid.Row="2"
-                            Content="START"
-                            HorizontalAlignment="Stretch"
-				            Margin="20"
-                            VerticalAlignment="Bottom"
-                            Tap="StartButton_Tap"
-                            Style="{StaticResource StartSessionButtonStyle}" 
-                            FontSize="40"/>
-            </Grid>
-        </ScrollViewer>
+				<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CityName}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>
+				<TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding DateAndTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>
+
+				<Button x:Name="StartButton"
+							Height="100"
+							Grid.Row="4"
+							Content="START"
+							HorizontalAlignment="Stretch"
+							Margin="20"
+							VerticalAlignment="Bottom"
+							Tap="StartButton_Tap"
+							Style="{StaticResource StartSessionButtonStyle}" 
+							FontSize="40"/>
+			</Grid>
+		</ScrollViewer>
 	</Grid>
 </UserControl>
