@@ -254,7 +254,7 @@ namespace Hoover.Views
 						Debug.WriteLine("---------------");
 						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Pitch)));
 						//Debug.WriteLine(Math.Abs(MathHelper.ToDegrees(e.SensorReading.Attitude.Yaw)));
-						Debug.WriteLine(e.SensorReading.Attitude.Roll);
+						Debug.WriteLine(MathHelper.ToDegrees(e.SensorReading.Attitude.Roll+(float)Math.PI));
 					}
 
                 });
@@ -268,7 +268,6 @@ namespace Hoover.Views
 		private void StopButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			FinishRoute();
-			// Show Tooltip
 		}
 
 		private void ClearPointsButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
