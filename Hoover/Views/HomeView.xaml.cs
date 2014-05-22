@@ -18,6 +18,7 @@ using Hoover.Settings;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
+using Hoover.Model;
 
 #endregion
 
@@ -29,6 +30,8 @@ namespace Hoover.Views
         /// Used to disable loading the city name more than once.
         /// </summary>
         private bool _isCityNameKnown = false;
+
+		private HistoryItem _LastRun;
 
         /// <summary>
         /// Constructor.
@@ -54,15 +57,25 @@ namespace Hoover.Views
                 _isCityNameKnown = true;
             }
 
+			_CurrentTime = DateTime.Now.ToString("dddd dd.MM.yyyy") + " | " + DateTime.Now.ToString("t");
+
             // Load Current Weather
             var forecastItem = await new WeatherService().GetCurrentWeatherAsync();
             var currentWeather = new CurrentWeather();
             currentWeather.WeatherMessage = forecastItem.Message;
             currentWeather.Temperature = Convert.ToInt32(Math.Round(forecastItem.Temp)).ToString(CultureInfo.InvariantCulture);
-            currentWeather.TemperatureUnit = "o" + (ApplicationSettings.Instance.UseMetricSystem ? " C" : " F");
+            currentWeather.TemperatureUnit = (ApplicationSettings.Instance.UseMetricSystem ? " °C" : " °F");
             currentWeather.IconUrl = "/Assets/WeatherIcons/" + forecastItem.Icon + ".png";
             CurrentWeather = currentWeather;
             IsWeatherLoaded = true;
+
+			// Load Last Run data
+			_LastRun = App.DataAccess.GetAllHistoryItems().Last();
+			if (_LastRun != null)
+			{
+				_lastRun = "You ran " + _LastRun.RouteLength.Length() + " in " + (_LastRun.EndTime - _LastRun.StartTime).TimeSpanFormatString() +
+							" with average speed " + _LastRun.AverageSpeed.Speed() + "\nIt was " + Helpers.CalendarHelper.TimeAgo(_LastRun.EndTime) + "...";
+			}
         }
 
         /// <summary>
@@ -122,6 +135,44 @@ namespace Hoover.Views
                 }
             }
         }
+
+		private string _CurrentTime;
+		/// <summary>
+		/// The city name used for displaying along the weather.
+		/// </summary>
+		public string DateAndTime
+		{
+			get { return _CurrentTime; }
+			set
+			{
+				if (value != _CurrentTime)
+				{
+					_CurrentTime = value;
+					OnPropertyChanged("DateAndTime");
+				}
+			}
+		}
+
+		private string _lastRun;
+
+		/// <summary>
+		/// The city name used for displaying along the weather.
+		/// </summary>
+		public string LastRun
+		{
+			get
+			{
+				return _lastRun;
+			}
+			set
+			{
+				if (value != _lastRun)
+				{
+					_lastRun = value;
+					OnPropertyChanged("LastRun");
+				}
+			}
+		}
 
         #endregion
 
