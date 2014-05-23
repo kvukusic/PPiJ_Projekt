@@ -33,7 +33,7 @@
 
 				<TextBlock Grid.Row="0" Text="CURRENT WEATHER" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 
-				<Grid Grid.Row="1" Margin="12,0,5,0" Height="120" Width="376" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+				<Grid Grid.Row="1" Margin="12,0,24,0" Height="120" Width="358" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="*"/>
@@ -52,7 +52,7 @@
 					</StackPanel>
 				</Grid>
 
-				<TextBlock Margin="12,0,0,0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CityName}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>
+				<TextBlock Margin="12,0,24,0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CityName}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>
 				<!--<TextBlock Margin="12,0,0,0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding DateAndTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>-->
 
 				<Button x:Name="StartButton"

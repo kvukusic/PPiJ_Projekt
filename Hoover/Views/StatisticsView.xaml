@@ -179,39 +179,59 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
-                    <telerikChart:RadCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageSpeedChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
-                        <telerikChart:RadCartesianChart.HorizontalAxis>
-                            <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
-                        </telerikChart:RadCartesianChart.HorizontalAxis>
-                        <telerikChart:RadCartesianChart.VerticalAxis>
-                            <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
-                        </telerikChart:RadCartesianChart.VerticalAxis>
-                        <telerikChart:RadCartesianChart.Grid>
-                            <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
-                        </telerikChart:RadCartesianChart.Grid>
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource ForecastItemBackgroundBrush}" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Speed" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+                        <telerikChart:RadCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageSpeedChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
+                            <telerikChart:RadCartesianChart.HorizontalAxis>
+                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
+                            </telerikChart:RadCartesianChart.HorizontalAxis>
+                            <telerikChart:RadCartesianChart.VerticalAxis>
+                                <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
+                            </telerikChart:RadCartesianChart.VerticalAxis>
+                            <telerikChart:RadCartesianChart.Grid>
+                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
+                            </telerikChart:RadCartesianChart.Grid>
 
-                        <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplate}" Stroke="{StaticResource ChartBlueBrush}" ClipToPlotArea="False"/>
-                    </telerikChart:RadCartesianChart>
-                    
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Distance" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding AverageDistance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
-                    <telerikChart:RadCartesianChart Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageDistanceChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
-                        <telerikChart:RadCartesianChart.HorizontalAxis>
-                            <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
-                        </telerikChart:RadCartesianChart.HorizontalAxis>
-                        <telerikChart:RadCartesianChart.VerticalAxis>
-                            <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
-                        </telerikChart:RadCartesianChart.VerticalAxis>
-                        <telerikChart:RadCartesianChart.Grid>
-                            <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
-                        </telerikChart:RadCartesianChart.Grid>
+                            <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplate}" Stroke="{StaticResource ChartBlueBrush}" ClipToPlotArea="False"/>
+                        </telerikChart:RadCartesianChart>
+                    </Grid>
 
-                        <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplateRed}" Stroke="{StaticResource ChartRedBrush}" ClipToPlotArea="False"/>
-                    </telerikChart:RadCartesianChart>
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource ForecastItemBackgroundBrush}" Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Distance" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AverageDistance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
+                        <telerikChart:RadCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageDistanceChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
+                            <telerikChart:RadCartesianChart.HorizontalAxis>
+                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
+                            </telerikChart:RadCartesianChart.HorizontalAxis>
+                            <telerikChart:RadCartesianChart.VerticalAxis>
+                                <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
+                            </telerikChart:RadCartesianChart.VerticalAxis>
+                            <telerikChart:RadCartesianChart.Grid>
+                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
+                            </telerikChart:RadCartesianChart.Grid>
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,6,0,6" VerticalAlignment="Center"/>
+                            <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplateRed}" Stroke="{StaticResource ChartRedBrush}" ClipToPlotArea="False"/>
+                        </telerikChart:RadCartesianChart>
+                    </Grid>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Time" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" Margin="24,18,0,6" VerticalAlignment="Center"/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding AverageTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
                 </Grid>
 
