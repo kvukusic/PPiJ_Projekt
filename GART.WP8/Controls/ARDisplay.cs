@@ -598,9 +598,13 @@ namespace GART.Controls
         private void StopMotion()
         {
             #if WINDOWS_PHONE
-            motion.CurrentValueChanged -= motion_CurrentValueChanged;
-            motion.Stop();
-            motion.Dispose();
+            if (motion != null)
+            {
+                motion.CurrentValueChanged -= motion_CurrentValueChanged;
+                motion.Stop();
+                motion.Dispose();
+            }
+           
             #else // WIN_RT
             // Ricky: Changed event name for switch to Orientation Sensor
             if (motion != null)

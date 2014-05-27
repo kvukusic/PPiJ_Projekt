@@ -4,7 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Hoover.Views"
-    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -13,13 +12,16 @@
     d:DataContext="{d:DesignInstance views:HomeView}">
 
 	<Grid x:Name="LayoutRoot">
-		<telerikPrimitives:RadBusyIndicator 
-            Foreground="Black" 
-            IsRunning="{Binding IsWeatherLoaded, Converter={StaticResource BooleanNegationConverter}}"
-            Margin="0,20,0,0"
+        <ProgressBar 
+            x:Name="ProgressBar"
+            Foreground="Black"
             VerticalAlignment="Top"
-            AnimationStyle="AnimationStyle7"/>
-		<ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+            Margin="0,60,0,0"
+            IsIndeterminate="{Binding IsWeatherLoaded, Converter={StaticResource BooleanNegationConverter}}" 
+            Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToNegateVisibilityConverter}}"/>
+        <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Margin="0,80,0,0" Visibility="{Binding ElementName=ProgressBar, Path=Visibility}"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Visibility="{Binding IsWeatherLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
 			<Grid Width="400" VerticalAlignment="Stretch">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
@@ -39,13 +41,7 @@
 						<ColumnDefinition Width="1.1*"/>
 					</Grid.ColumnDefinitions>
 					<Image Grid.Column="0" Source="{Binding CurrentWeather.IconUrl}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20"/>
-					<!--<StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="52"/>
-                                <TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="20" Margin="10,0,0,0"/>
-                            </StackPanel>
-                            <TextBlock Text="{Binding CurrentWeather.WeatherMessage}" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" FontSize="28" VerticalAlignment="Center"/>
-                        </StackPanel>-->
+					
 					<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
 						<TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding CurrentWeather.Temperature}" FontSize="80" FontWeight="Light"/>
 						<TextBlock Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding CurrentWeather.TemperatureUnit}" FontSize="80" FontWeight="Light"/>
@@ -53,7 +49,6 @@
 				</Grid>
 
 				<TextBlock Margin="12,0,24,0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding CityName}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>
-				<!--<TextBlock Margin="12,0,0,0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding DateAndTime}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Light" FontSize="30"/>-->
 
 				<Button x:Name="StartButton"
 							Height="120"
@@ -67,7 +62,7 @@
 							FontSize="40"/>
 
 				<TextBlock Grid.Row="4" Text="LAST RUN" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
-				<TextBlock Grid.Row="5" Margin="12,0,0,0" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" Text="{Binding LastRun}" FontSize="30" FontWeight="Light" TextWrapping="Wrap"/>
+				<TextBlock Grid.Row="5" Margin="12,0,0,12" Foreground="{StaticResource ForecastItemForegroundBrush}" HorizontalAlignment="Left" Text="{Binding LastRun}" FontSize="30" FontWeight="Light" TextWrapping="Wrap"/>
 			</Grid>
 		</ScrollViewer>
 	</Grid>

@@ -7,10 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:gart="clr-namespace:GART.Controls;assembly=GART.WP8"
-	xmlns:toolkit="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
-	xmlns:map="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
 	xmlns:system="clr-namespace:System;assembly=mscorlib"
-	xmlns:views="clr-namespace:Hoover.Views"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,7 +30,7 @@
 
 		<!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,0">
-			<gart:ARDisplay x:Name="ARDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
+			<gart:ARDisplay x:Name="ArDisplay" AttitudeRefreshRate="50" MovementThreshold="10" LocationChanged="ARDisplay_LocationChanged">
 				<gart:VideoPreview x:Name="VideoPreview" Margin="-60,0,-60,0" CacheMode="BitmapCache"/>
 				<gart:WorldView x:Name="WorldView" ItemTemplate="{StaticResource CheckpointItem}" MinItemScale="0.1" MaxItemScale="1.0" FarClippingPlane="300.0" NearClippingPlane="1.0"/>
                 <gart:OverheadMap x:Name="OverheadMap" CacheMode="BitmapCache"/>
@@ -45,7 +42,7 @@
 				  Visibility="Collapsed"
 				  VerticalAlignment="Top" HorizontalAlignment="Right" 
 				  Tap="PreviewBox_Tap"/>
-			<StackPanel x:Name="routeMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<StackPanel x:Name="RouteMapControls" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Button x:Name="StartButton" Tap="StartButton_Tap" Style="{StaticResource RoundButtonStyle}" Height="100" Width="100" Background="{StaticResource InformationBoxBackgroundBrush}">
 					<ContentControl>
 						<Image Source="/Assets/timerStartImage.png" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -76,12 +73,12 @@
 					<RowDefinition/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<TextBlock Grid.Row="0" Grid.Column="0" x:Name="description1"  Text="Total route length" Padding="5" FontSize="25"/>
-				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="totalDistance" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
-				<TextBlock Grid.Row="1" Grid.Column="0" x:Name="description2" Text="Duration time" Padding="5" FontSize="25"/>
-				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="durationTime" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
-				<TextBlock Grid.Row="2" Grid.Column="0" x:Name="description3" Text="Distance run so far" Padding="5" FontSize="25" Visibility="Collapsed"/>
-				<TextBlock Grid.Row="2" Grid.Column="1" x:Name="totalDistanceRun" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold" Visibility="Collapsed"/>
+				<TextBlock Grid.Row="0" Grid.Column="0" x:Name="Description1"  Text="Total route length" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" x:Name="TotalDistance" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="1" Grid.Column="0" x:Name="Description2" Text="Duration time" Padding="5" FontSize="25"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" x:Name="DurationTime" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold"/>
+				<TextBlock Grid.Row="2" Grid.Column="0" x:Name="Description3" Text="Distance run so far" Padding="5" FontSize="25" Visibility="Collapsed"/>
+				<TextBlock Grid.Row="2" Grid.Column="1" x:Name="TotalDistanceRun" Padding="5" FontSize="25" TextAlignment="Right" FontWeight="Bold" Visibility="Collapsed"/>
 			</Grid>
 		</Grid>
 	</Grid>

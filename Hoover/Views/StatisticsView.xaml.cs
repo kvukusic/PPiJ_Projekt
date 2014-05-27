@@ -36,8 +36,6 @@ namespace Hoover.Views
             this.Loaded += OnLoaded;
 		}
 
-	    private bool _areGraphsLoaded = false;
-
 	    private async void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
 	    {
 	        var historyItems = App.DataAccess.GetAllHistoryItems().OrderBy(item => item.StartTime).ToList();
@@ -69,13 +67,16 @@ namespace Hoover.Views
 
 	            this.TotalRuns = count.ToString(CultureInfo.InvariantCulture);
 
-	            if (_areGraphsLoaded) return;
-
                 // Init graphs
 	            DateTime date = DateTime.Today;
                 for (int i = 0; i < this.AverageSpeedChart.Series.Count; i++)
                 {
                     LineSeries series = this.AverageSpeedChart.Series[i] as LineSeries;
+
+                    if (series != null)
+                    {
+                        series.DataPoints.Clear();
+                    }
 
                     for (int j = 0; j < averageSpeedChartValues.Count; j++)
                     {
@@ -87,13 +88,16 @@ namespace Hoover.Views
                 {
                     LineSeries series = this.AverageDistanceChart.Series[i] as LineSeries;
 
+                    if (series != null)
+                    {
+                        series.DataPoints.Clear();
+                    }
+
                     for (int j = 0; j < averageDistanceChartValues.Count; j++)
                     {
                         series.DataPoints.Add(new CategoricalDataPoint() { Value = averageDistanceChartValues[j], Category = date.AddMonths(j) });
                     }
                 }
-
-	            _areGraphsLoaded = true;
 
 	            this.ShowGraphs = historyItems.Count >= 3;
 	        }

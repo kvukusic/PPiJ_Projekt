@@ -4,7 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Hoover.Views"
-    xmlns:templateSelectors="clr-namespace:Hoover.TemplateSelectors"
     xmlns:telerikChart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -22,13 +21,11 @@
 
         <!-- Region Styles -->
 
-        <Style x:Key="textBlockStyle" TargetType="TextBlock">
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
         </Style>
-        <Style x:Key="textBlockStyleGray" TargetType="TextBlock" BasedOn="{StaticResource textBlockStyle}">
-            <Setter Property="Foreground" Value="{StaticResource GrayedBrush}"/>
-        </Style>
-        <Style x:Key="baseAxisStyle" TargetType="telerikChart:Axis">
+        
+        <Style x:Key="BaseAxisStyle" TargetType="telerikChart:Axis">
             <Setter Property="Foreground" Value="{StaticResource GrayedBrush}"/>
             <Setter Property="MajorTickStyle">
                 <Setter.Value>
@@ -38,21 +35,13 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="LineStroke" Value="{StaticResource GrayedBrush}"/>
-            <Setter Property="LabelStyle" Value="{StaticResource textBlockStyle}"/>
+            <Setter Property="LabelStyle" Value="{StaticResource TextBlockStyle}"/>
         </Style>
 
-        <Style TargetType="Rectangle" x:Key="transparentTick">
-            <Setter Property="Fill" Value="Transparent"/>
-        </Style>
-
-        <Style TargetType="Rectangle" x:Key="visibleTick">
-            <Setter Property="Fill" Value="{StaticResource PhoneForegroundBrush}"/>
-        </Style>
-
-        <Style x:Key="linearAxisStyle" TargetType="telerikChart:LinearAxis" BasedOn="{StaticResource baseAxisStyle}">
+        <Style x:Key="LinearAxisStyle" TargetType="telerikChart:LinearAxis" BasedOn="{StaticResource BaseAxisStyle}">
             <Setter Property="LabelStyle">
                 <Setter.Value>
-                    <Style TargetType="TextBlock"  BasedOn="{StaticResource textBlockStyle}">
+                    <Style TargetType="TextBlock"  BasedOn="{StaticResource TextBlockStyle}">
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Margin" Value="0,2,10,3"/>
                     </Style>
@@ -60,32 +49,10 @@
             </Setter>
         </Style>
 
-        <Style x:Key="linearAxisStyleNoLine" TargetType="telerikChart:LinearAxis" BasedOn="{StaticResource linearAxisStyle}">
-            <Setter Property="LineStroke" Value="Transparent"/>
-        </Style>
-
-        <Style x:Key="linearAxisStyleWithTicks" TargetType="telerikChart:LinearAxis" BasedOn="{StaticResource linearAxisStyle}">
+        <Style x:Key="DateAxisStyle" TargetType="telerikChart:DateTimeCategoricalAxis" BasedOn="{StaticResource BaseAxisStyle}">
             <Setter Property="LabelStyle">
                 <Setter.Value>
-                    <Style TargetType="TextBlock"  BasedOn="{StaticResource textBlockStyle}">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Margin" Value="0,2,10,3"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="MajorTickStyle">
-                <Setter.Value>
-                    <Style TargetType="Rectangle">
-                        <Setter Property="Fill" Value="{StaticResource GrayedBrush}"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="dateAxisStyle" TargetType="telerikChart:DateTimeCategoricalAxis" BasedOn="{StaticResource baseAxisStyle}">
-            <Setter Property="LabelStyle">
-                <Setter.Value>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource textBlockStyle}">
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
                         <Setter Property="Foreground" Value="{StaticResource GrayedBrush}"/>
                         <Setter Property="Width" Value="30"/>
                         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -95,51 +62,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="timeLineAxisStyle" TargetType="telerikChart:DateTimeContinuousAxis" BasedOn="{StaticResource baseAxisStyle}">
-        </Style>
-
-        <Style x:Key="dateTimeCategoricalAxisStyle" TargetType="telerikChart:DateTimeCategoricalAxis" BasedOn="{StaticResource baseAxisStyle}">
-            <Setter Property="MajorTickStyle">
-                <Setter.Value>
-                    <Style TargetType="Rectangle">
-                        <Setter Property="Fill" Value="{StaticResource GrayedBrush}"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="polarAxisStyle" TargetType="telerikChart:PolarAxis" BasedOn="{StaticResource baseAxisStyle}">
-            <Setter Property="MajorTickStyle">
-                <Setter.Value>
-                    <Style TargetType="Rectangle">
-                        <Setter Property="Fill" Value="{StaticResource GrayedBrush}"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="radialAxisStyle" TargetType="telerikChart:NumericRadialAxis" BasedOn="{StaticResource baseAxisStyle}">
-        </Style>
-
-        <Style x:Key="categoriacalRadialAxisStyle" TargetType="telerikChart:CategoricalRadialAxis" BasedOn="{StaticResource baseAxisStyle}">
-        </Style>
-
-        <Style x:Key="timeLineAxisStyleWithTicks" TargetType="telerikChart:DateTimeContinuousAxis" BasedOn="{StaticResource baseAxisStyle}">
-            <Setter Property="MajorTickStyle">
-                <Setter.Value>
-                    <Style TargetType="Rectangle">
-                        <Setter Property="Fill" Value="{StaticResource GrayedBrush}"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="gridStyleDashed" TargetType="telerikChart:CartesianChartGrid">
-            <Setter Property="Foreground" Value="{StaticResource GrayedBrush}"/>
-            <Setter Property="MajorYLineDashArray" Value="2,4"/>
-        </Style>
-
-        <Style x:Key="gridStyleDashedAll" TargetType="telerikChart:CartesianChartGrid">
+        <Style x:Key="GridStyleDashedAll" TargetType="telerikChart:CartesianChartGrid">
             <Setter Property="Foreground" Value="{StaticResource GrayedBrush}"/>
             <Setter Property="MajorXLineDashArray" Value="2,4"/>
             <Setter Property="MajorYLineDashArray" Value="2,4"/>
@@ -156,8 +79,6 @@
         <DataTemplate x:Key="LinePointTemplateRed">
             <Ellipse Width="8" Height="8" Fill="{StaticResource ChartRedBrush}"/>
         </DataTemplate>
-
-        <templateSelectors:LinePointTemplateSelector x:Key="LinePointTemplateSelector" FilledTemplate="{StaticResource LinePointTemplate}"/>
 
         <!-- End Region -->
         
@@ -192,13 +113,13 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AverageSpeed}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
                         <telerikChart:RadCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageSpeedChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
                             <telerikChart:RadCartesianChart.HorizontalAxis>
-                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
+                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource DateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
                             </telerikChart:RadCartesianChart.HorizontalAxis>
                             <telerikChart:RadCartesianChart.VerticalAxis>
-                                <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
+                                <telerikChart:LinearAxis Style="{StaticResource LinearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
                             </telerikChart:RadCartesianChart.VerticalAxis>
                             <telerikChart:RadCartesianChart.Grid>
-                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
+                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource GridStyleDashedAll}"/>
                             </telerikChart:RadCartesianChart.Grid>
 
                             <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplate}" Stroke="{StaticResource ChartBlueBrush}" ClipToPlotArea="False"/>
@@ -218,13 +139,13 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AverageDistance}" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}" HorizontalAlignment="Right" Margin="0,0,24,0" VerticalAlignment="Center"/>
                         <telerikChart:RadCartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="AverageDistanceChart" EmptyContent="" HorizontalAlignment="Stretch" Visibility="{Binding ShowGraphs, Converter={StaticResource BoolToVisibilityConverter}}" Margin="0,12">
                             <telerikChart:RadCartesianChart.HorizontalAxis>
-                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource dateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
+                                <telerikChart:DateTimeCategoricalAxis Style="{StaticResource DateAxisStyle}" LineStroke="Transparent" Foreground="Transparent" DateTimeComponent="Month" ShowLabels="False" PlotMode="BetweenTicks"/>
                             </telerikChart:RadCartesianChart.HorizontalAxis>
                             <telerikChart:RadCartesianChart.VerticalAxis>
-                                <telerikChart:LinearAxis Style="{StaticResource linearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
+                                <telerikChart:LinearAxis Style="{StaticResource LinearAxisStyle}" LineStroke="Transparent" Foreground="Transparent" ShowLabels="False"/>
                             </telerikChart:RadCartesianChart.VerticalAxis>
                             <telerikChart:RadCartesianChart.Grid>
-                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource gridStyleDashedAll}"/>
+                                <telerikChart:CartesianChartGrid Foreground="Black" Style="{StaticResource GridStyleDashedAll}"/>
                             </telerikChart:RadCartesianChart.Grid>
 
                             <telerikChart:LineSeries PointTemplate="{StaticResource LinePointTemplateRed}" Stroke="{StaticResource ChartRedBrush}" ClipToPlotArea="False"/>

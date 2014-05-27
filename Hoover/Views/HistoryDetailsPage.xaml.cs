@@ -148,8 +148,8 @@ namespace Hoover.Views
 			_mapRoute.Color = Colors.Gray;
 			_mapRoute.RouteViewKind = RouteViewKind.UserDefined;
 
-			mapControl.AddRoute(_mapRoute);
-			mapControl.SetView(_mapRoute.Route.BoundingBox);
+			MapControl.AddRoute(_mapRoute);
+			MapControl.SetView(_mapRoute.Route.BoundingBox);
 			//Map.AddRoute(_mapRoute);
 		}
 

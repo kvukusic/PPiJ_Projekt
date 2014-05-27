@@ -96,49 +96,54 @@ namespace Hoover.Views
 		protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-			this.ApplicationSettings = Settings.ApplicationSettings.Instance;
+            this.ApplicationSettings = Settings.ApplicationSettings.Instance;
 
-			if (_firstInit)
-			{
-				_isMapActive = !ApplicationSettings.ShowMapSystem;
-				_activeCheckpoint = 0;
-				_distance = 0;
+		    if (_firstInit)
+		    {
+		        _isMapActive = !ApplicationSettings.ShowMapSystem;
+		        _activeCheckpoint = 0;
+		        _distance = 0;
 
-				_waypoints = new ObservableCollection<GeoCoordinate>();
-				_checkpoints = new ObservableCollection<GART.Data.ARItem>();
-				_timer = new DispatcherTimer();
-				_timer.Interval = TimeSpan.FromSeconds(1);
-				_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-				_speech = new SpeechRecognitionService();
+		        _waypoints = new ObservableCollection<GeoCoordinate>();
+		        _checkpoints = new ObservableCollection<GART.Data.ARItem>();
+		        _timer = new DispatcherTimer();
+		        _timer.Interval = TimeSpan.FromSeconds(1);
+		        _watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+		        _speech = new SpeechRecognitionService();
 
-				_previewBoxWidth = (double)this.Resources["PreviewBoxWidth"];
-				_previewBoxHeight = (double)this.Resources["PreviewBoxHeight"];
+		        _previewBoxWidth = (double) this.Resources["PreviewBoxWidth"];
+		        _previewBoxHeight = (double) this.Resources["PreviewBoxHeight"];
 
-				InitARDisplay();
+		        InitARDisplay();
 
-				// Line is used for tracking position
-				_line = new MapPolyline();
-				_line.StrokeColor = Colors.Red;
-				_line.StrokeThickness = 20;
+		        // Line is used for tracking position
+		        _line = new MapPolyline();
+		        _line.StrokeColor = Colors.Red;
+		        _line.StrokeThickness = 20;
 
-				OverheadMap.Loaded += OverheadMap_Loaded;
-				_watcher.PositionChanged += Watcher_PositionChanged;
-				_firstInit = false;
-			}
+		        OverheadMap.Loaded += OverheadMap_Loaded;
+		        _watcher.PositionChanged += Watcher_PositionChanged;
+		        _firstInit = false;
+		    }
+		    else
+		    {
+		        ArDisplay.StartServices();
+		    }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
 			//Exception where are no motion on WP
-			//ARDisplay.StopServices();
+            if(ArDisplay != null) ArDisplay.StopServices();
             if(_motion != null) _motion.CurrentValueChanged -= Motion_CurrentValueChanged;
 			ApplicationSettings = null;
         }
 
 		protected override void OnOrientationChanged(OrientationChangedEventArgs e)
 		{
-			VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
-			base.OnOrientationChanged(e);
+            base.OnOrientationChanged(e);
+
+            VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
 			ChangeOrientation(e.Orientation);
 		}
 
@@ -149,8 +154,8 @@ namespace Hoover.Views
 
 			_currentLocation = new MapLayer() {
 				new MapOverlay() {
-				Content = new UserLocationMarker(),
-				GeoCoordinate = ARDisplay.Location
+				    Content = new UserLocationMarker(),
+				    GeoCoordinate = ArDisplay.Location
 				}
 			};
 
@@ -189,25 +194,25 @@ namespace Hoover.Views
 			this.ToggleView();
 			OverheadMap.Map.Pitch = 75;
 			OverheadMap.Map.ZoomLevel = 20;
-			OverheadMap.Map.SetView(ARDisplay.Location, 20);
-			this.routeMapControls.Visibility = System.Windows.Visibility.Collapsed;
+			OverheadMap.Map.SetView(ArDisplay.Location, 20);
+			this.RouteMapControls.Visibility = System.Windows.Visibility.Collapsed;
 			OverheadMap.Map.Layers.Remove(_currentLocation);
 
 			// Set new description to Information box
-			this.description1.Text = "Average speed: ";	//totatlDistance
-			this.totalDistance.Text = Helpers.Extensions.Speed(0);
-			this.description2.Text = "Time running: ";
-			this.description3.Visibility = System.Windows.Visibility.Visible;
-			this.totalDistanceRun.Visibility = System.Windows.Visibility.Visible;
-			this.totalDistanceRun.Text = Helpers.Extensions.Length(0);
+			this.Description1.Text = "Average speed: ";	//totatlDistance
+			this.TotalDistance.Text = Helpers.Extensions.Speed(0);
+			this.Description2.Text = "Time running: ";
+			this.Description3.Visibility = System.Windows.Visibility.Visible;
+			this.TotalDistanceRun.Visibility = System.Windows.Visibility.Visible;
+			this.TotalDistanceRun.Text = Helpers.Extensions.Length(0);
 
 			// Add heading indicator to map
 			UserPushpin pushpin = new Controls.UserPushpin();
-			pushpin.DataContext = ARDisplay;
+			pushpin.DataContext = ArDisplay;
 			_userPushpin = new MapOverlay()
 			{
 				Content = pushpin,
-				GeoCoordinate = ARDisplay.Location
+				GeoCoordinate = ArDisplay.Location
 			};
 
 			OverheadMap.Map.Layers.Add(new MapLayer() { _userPushpin });
@@ -312,8 +317,8 @@ namespace Hoover.Views
 				AddPushpinToMap(_waypoints.Last(), (_waypoints.Count - 1).ToString());
 				AddItemToARItems("checkpoint " + (_waypoints.Count - 1), _waypoints.Last(), String.Empty, "/Assets/mapMarkerGray.png");
 
-				this.totalDistance.Text = _mapRoute.Route.Length();
-				this.durationTime.Text = _mapRoute.Route.RuningTime();
+				this.TotalDistance.Text = _mapRoute.Route.Length();
+				this.DurationTime.Text = _mapRoute.Route.RuningTime();
 			}
 			else
 			{
@@ -325,7 +330,7 @@ namespace Hoover.Views
 		{
 			if (_userPushpin != null)
 			{
-				_userPushpin.GeoCoordinate = ARDisplay.Location;
+				_userPushpin.GeoCoordinate = ArDisplay.Location;
 			}
 		}
 
@@ -338,8 +343,8 @@ namespace Hoover.Views
 				var previousPoint = _line.Path.Last();
 				var distance = coord.GetDistanceTo(previousPoint);
 				_distance += distance;
-				this.totalDistanceRun.Text = Helpers.Extensions.Length(_distance);
-				this.totalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
+				this.TotalDistanceRun.Text = Helpers.Extensions.Length(_distance);
+				this.TotalDistance.Text = Helpers.Extensions.Speed(_distance / (DateTime.Now - _startTime).TotalSeconds);
 
 				UpdateCheckpointDistance();
 
@@ -365,7 +370,7 @@ namespace Hoover.Views
 		private void Timer_Tick(object sender, EventArgs e)
 		{
 			TimeSpan runTime = DateTime.Now - _startTime;
-			durationTime.Text = runTime.ToString(@"hh\:mm\:ss");
+			DurationTime.Text = runTime.ToString(@"hh\:mm\:ss");
 		}
 
 		#endregion
@@ -374,8 +379,8 @@ namespace Hoover.Views
 
 		private void InitARDisplay()
 		{
-			ARDisplay.StartServices();
-			_waypoints.Add(ARDisplay.Location);
+			ArDisplay.StartServices();
+			_waypoints.Add(ArDisplay.Location);
 		}
 
 		private void ToggleView()
@@ -465,7 +470,7 @@ namespace Hoover.Views
 			_currentLocation = new MapLayer() {
 				new MapOverlay() {
 					Content = new UserLocationMarker(),
-					GeoCoordinate = ARDisplay.Location
+					GeoCoordinate = ArDisplay.Location
 				}
 			};
 
@@ -485,12 +490,12 @@ namespace Hoover.Views
 
 		private void ClearARItems()
 		{
-			ARDisplay.ARItems.Clear();
+			ArDisplay.ARItems.Clear();
 			WorldView.ARItems.Clear();
 			OverheadMap.ARItems.Clear();
 			OverheadMap.Map.Layers.Clear();
 			_waypoints.Clear();
-			_waypoints.Add(ARDisplay.Location);
+			_waypoints.Add(ArDisplay.Location);
 			_checkpoints.Clear();
 			if (_mapRoute != null)
 			{
@@ -517,7 +522,7 @@ namespace Hoover.Views
 			{
 				item = _checkpoints[_activeCheckpoint] as CheckpointItem;
 				item.ImageSource = "/Assets/mapMarkerGreen.png";
-				int distanceToNextCheckpoint = (int) ARDisplay.Location.GetDistanceTo(item.GeoLocation);
+				int distanceToNextCheckpoint = (int) ArDisplay.Location.GetDistanceTo(item.GeoLocation);
 				item.Description = "distance: " + Helpers.Extensions.Length(distanceToNextCheckpoint);
 
 				if (ApplicationSettings.EnableSpeechHelper)
@@ -537,7 +542,7 @@ namespace Hoover.Views
 
 			if(Motion.IsSupported)
 			{
-				ARDisplay.ARItems = _checkpoints;
+				ArDisplay.ARItems = _checkpoints;
 			}
 		}
 
@@ -549,41 +554,48 @@ namespace Hoover.Views
 			if (_activeCheckpoint > 0 && _activeCheckpoint <= _checkpoints.Count)
 			{
 				checkpoint = _checkpoints[_activeCheckpoint - 1] as CheckpointItem;
-				checkpoint.Description = "distance: " + Helpers.Extensions.Length(ARDisplay.Location.GetDistanceTo(checkpoint.GeoLocation));
+				checkpoint.Description = "distance: " + Helpers.Extensions.Length(ArDisplay.Location.GetDistanceTo(checkpoint.GeoLocation));
 				_checkpoints[_activeCheckpoint-1] = checkpoint;
 			}
 		}
 
 		private void ChangeOrientation(PageOrientation orientation)
 		{
-			VideoPreview.Margin = new Thickness(0, 0, 0, 0);
-			VideoPreview.Height = (_isMapActive) ? _previewBoxHeight : Double.NaN;
+            try
+            {
+                VideoPreview.Margin = new Thickness(0, 0, 0, 0);
+                VideoPreview.Height = (_isMapActive) ? _previewBoxHeight : Double.NaN;
 
-			switch (orientation)
-			{
-				case PageOrientation.Landscape:
-				case PageOrientation.LandscapeLeft:
-					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise270Degrees;
-					if (!_isMapActive)
-						VideoPreview.Margin = new Thickness(0, -60, 0, -60);
-					break;
-				case PageOrientation.LandscapeRight:
-					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise90Degrees;
-					if (!_isMapActive)
-						VideoPreview.Margin = new Thickness(0, -60, 0, -60);
-					break;
-				case PageOrientation.Portrait:
-				case PageOrientation.PortraitUp:
-					ARDisplay.Orientation = GART.BaseControls.ControlOrientation.Default;
-					if (!_isMapActive)
-						VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
-					else
-					{
-						VideoPreview.Height = _previewBoxWidth * 4 / 3;
-						VideoPreview.Margin = new Thickness(0, -(VideoPreview.Height - _previewBoxHeight), 0, 0);
-					}
-					break;
-			}
+                switch (orientation)
+                {
+                    case PageOrientation.Landscape:
+                    case PageOrientation.LandscapeLeft:
+                        ArDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise270Degrees;
+                        if (!_isMapActive)
+                            VideoPreview.Margin = new Thickness(0, -60, 0, -60);
+                        break;
+                    case PageOrientation.LandscapeRight:
+                        ArDisplay.Orientation = GART.BaseControls.ControlOrientation.Clockwise90Degrees;
+                        if (!_isMapActive)
+                            VideoPreview.Margin = new Thickness(0, -60, 0, -60);
+                        break;
+                    case PageOrientation.Portrait:
+                    case PageOrientation.PortraitUp:
+                        ArDisplay.Orientation = GART.BaseControls.ControlOrientation.Default;
+                        if (!_isMapActive)
+                            VideoPreview.Margin = new Thickness(-60, 0, -60, 0);
+                        else
+                        {
+                            VideoPreview.Height = _previewBoxWidth * 4 / 3;
+                            VideoPreview.Margin = new Thickness(0, -(VideoPreview.Height - _previewBoxHeight), 0, 0);
+                        }
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
 		}
 
         /// <summary>

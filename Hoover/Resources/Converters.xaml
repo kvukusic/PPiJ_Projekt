@@ -8,5 +8,6 @@
     
     <converters:BoolNegationConverter x:Key="BooleanNegationConverter"/>
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <converters:BoolToNegateVisibilityConverter x:Key="BoolToNegateVisibilityConverter"/>
 
 </ResourceDictionary>

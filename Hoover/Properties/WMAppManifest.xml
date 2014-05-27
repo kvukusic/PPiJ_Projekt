@@ -1,20 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{eab5fc60-9fcd-4221-8ff8-4c01c1d910c6}" Title="Hover'n Recreate" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Hoover author" Description="Augmented Reality application for recreating. The application stores information about runned routes and displays statistics. Weather information is supported too." Publisher="Hoover" PublisherID="{208e8025-7dd5-42ef-a5c6-6ee0acc76a94}">
+  <App xmlns="" ProductID="{eab5fc60-9fcd-4221-8ff8-4c01c1d910c6}" Title="Hover'n Recreate" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Hoover author" Description="Augmented Reality application for recreating. The application stores information about runned routes and displays statistics. Weather information is supported too." Publisher="Hoover" PublisherID="{208e8025-7dd5-42ef-a5c6-6ee0acc76a94}">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.fw.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
-      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
-      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
       <Capability Name="ID_CAP_SENSORS" />
-      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_ISV_CAMERA" />
       <Capability Name="ID_CAP_LOCATION" />
       <Capability Name="ID_CAP_MAP" />
-      <Capability Name="ID_CAP_MICROPHONE" />
       <Capability Name="ID_CAP_SPEECH_RECOGNITION" />
-      <Capability Name="ID_CAP_REMOVABLE_STORAGE" />
+      <Capability Name="ID_CAP_MICROPHONE" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="Views/MainPage.xaml" />

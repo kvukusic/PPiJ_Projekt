@@ -12,7 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Windows.Devices.Geolocation;
 using GART.Controls;
+using Hoover.Services;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Maps.Services;
@@ -41,19 +43,30 @@ namespace Hoover.Views
 	    /// <param name="e">An object that contains the event data.</param>
 	    protected override void OnNavigatedTo(NavigationEventArgs e)
 	    {
+            // Check if internet is turned on
 	        if (!DeviceNetworkInformation.IsNetworkAvailable)
 	        {
 	            MessageBox.Show("This application will not work without an active internet connection. " +
 	                            "The application will now terminate.", "No internet", MessageBoxButton.OK);
                 Application.Current.Terminate();
 	        }
-	    }
+            // Check if location is turned on
+            Geolocator locator = new Geolocator();
+	        if (locator.LocationStatus == PositionStatus.Disabled)
+	        {
+	            var res = MessageBox.Show("Location services are turned off on your phone. App functionality will be limited.\n" +
+	                                      "Do you want to turn on location services?", 
+                    "Location", 
+                    MessageBoxButton.OKCancel);
 
-	    private async void SpeechButton_Click(object sender, EventArgs e)
-        {
-           string s=await App.SpeechRecognitionService.RecognizeSpeech();
-           
-        }
+	            if (res == MessageBoxResult.OK)
+	            {
+	                Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-location:"));
+	            }
+	        }
+
+            AnalyticsService.Instance.TrackPageView("MainPage");
+	    }
 
         private void SettingsMenuItem_Click(object sender, EventArgs e)
         {

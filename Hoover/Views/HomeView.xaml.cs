@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Windows.Devices.Geolocation;
 using Hoover.Annotations;
 using Hoover.Helpers;
 using Hoover.Model.Weather;
@@ -74,12 +75,12 @@ namespace Hoover.Views
 			if (items.Count > 0)
 			{
 				_LastRun = items.Last();
-				_lastRun = "You ran " + _LastRun.RouteLength.Length() + " in " + (_LastRun.EndTime - _LastRun.StartTime).TimeSpanFormatString() +
+				LastRun = "You ran " + _LastRun.RouteLength.Length() + " in " + (_LastRun.EndTime - _LastRun.StartTime).TimeSpanFormatString() +
 							" with average speed " + _LastRun.AverageSpeed.Speed() + "\nIt was " + Helpers.CalendarHelper.TimeAgo(_LastRun.EndTime) + "...";
 			}
 			else
 			{
-				_lastRun = "...you have not ran yet";
+				LastRun = "...you have not ran yet";
 			}
         }
 
@@ -88,6 +89,24 @@ namespace Hoover.Views
         /// </summary>
         private void StartButton_Tap(object sender, RoutedEventArgs e)
 		{
+            Geolocator locator = new Geolocator();
+            if (locator.LocationStatus == PositionStatus.Disabled)
+            {
+                var res = MessageBox.Show("Location services are turned off on your phone. To use this feature, location must be turned on.\n" +
+	                                      "Do you want to turn on location services?",
+                    "Location",
+                    MessageBoxButton.OKCancel);
+
+                if (res == MessageBoxResult.OK)
+                {
+                    Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-location:"));
+                }
+                else
+                {
+                    return;
+                }
+            }
+
 			Services.NavigationService.Instance.Navigate(Services.PageNames.TrackingPageName);
         }
 

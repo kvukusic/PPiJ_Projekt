@@ -6,7 +6,6 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -31,7 +30,7 @@
 				<Image Width="120" Height="120" Margin="15" HorizontalAlignment="Center" Source="/Assets/AboutIcon.png"/>
 				<TextBlock Text="Hover'n Recreate © 2014" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,15,0,6" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold"/>
 				<TextBlock Text="by team IceTea" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24" HorizontalAlignment="Center"/>
-				<TextBlock Text="Version 1.0.0" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24" TextAlignment="Center"/>
+				<TextBlock Text="Version 1.1.0.0" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24" TextAlignment="Center"/>
 				
 				<TextBlock Text="DEVELOPERS" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="12,24,12,12" Foreground="{StaticResource MainPageItemHeaderForegroundBrush}"/>
 				<TextBlock Text="Dominik Jularić" Foreground="{StaticResource ForecastItemForegroundBrush}" Margin="24,6,0,6" FontSize="24"/>

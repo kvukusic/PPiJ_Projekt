@@ -63,12 +63,23 @@ namespace Hoover.Services
             query.QueryCompleted += (sender, e) =>
             {
                 if (e.Error != null)
+                {
                     waitForCompletion.TrySetResult(null);
+                }
 
-                MapAddress address = e.Result[0].Information.Address;
-                string city = address.City;
-                waitForCompletion.TrySetResult(city);
+                if (e.Result.Count > 0)
+                {
+
+                    MapAddress address = e.Result[0].Information.Address;
+                    string city = address.City;
+                    waitForCompletion.TrySetResult(city);
+                }
+                else
+                {
+                    waitForCompletion.TrySetResult(null);
+                }
             };
+
             query.QueryAsync();
 
             return await waitForCompletion.Task;
